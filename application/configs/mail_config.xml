@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<send>
+	<default>
+		<domain>/dp\.regions\.ru$/</domain>
+		<type>debug</type>
+		<address>abaranov@jv.ru</address>
+	</default>
+	<developers extends="default">
+		<domain>/.*\.([^.]+)\.(d|dev)$/</domain>
+		<type>debug</type>
+		<address>${1}@jv.ru</address>
+	</developers>
+	<regions-ru extends="default">
+		<type>work</type>
+		<domain>/^(farmtest\.|new\.|alfa\.|www\.)?regions.ru$/</domain>
+	</regions-ru>
+</send>

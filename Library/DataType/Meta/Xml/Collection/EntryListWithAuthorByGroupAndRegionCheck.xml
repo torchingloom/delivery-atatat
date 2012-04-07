@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="EntryListByGroup">
+    <dataSource>
+        <method>EntryListByGroupWithRegionCheck</method>
+        <methodTotalCount>EntryListByGroupWithRegionCheckTotalCount</methodTotalCount>
+    </dataSource>
+
+    <children>
+        <entry method="EntryAuthorList" appendMethod="appendAuthor" parent="id" child="entry_id">
+            <resources method="ResourceByUser" parent="id" child="user_id">
+                <user_comment count="1" />
+                <user_vinos count="1" />
+            </resources>
+        </entry>
+        <story method="EntryThreadList" appendMethod="appendThread" parent="id" child="entry_id" />
+    </children>
+
+    <resources method="ResourceByEntry" parent="id" child="entry_id">
+        <entry_main_anons count="1" />
+        <entry_list_anons count="1" />
+    </resources>
+</type>

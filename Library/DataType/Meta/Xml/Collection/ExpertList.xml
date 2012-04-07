@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="ExpertList">
+    <dataSource>
+        <method>ExpertList</method>
+        <methodTotalCount>ExpertListTotalCount</methodTotalCount>
+    </dataSource>
+
+    <resources method="ResourceByUser" parent="id" child="user_id">
+        <user_body count="1" />
+        <user_vinos count="1" />
+        <user_comment count="1" />
+    </resources>
+</type>

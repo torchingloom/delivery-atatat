@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route>
+
+    <initdata type="" rule="initdata" controller="index" action="initdata" />
+    <initdata1 type="" rule="initdata1" controller="index" action="initdata1" />
+    <csvfill type="" rule="csvfill" controller="index" action="csvfill" />
+    <updlinkto type="" rule="updlinkto" controller="index" action="updlinkto" />
+
+
+    <index controller="index" action="index">
+        <defaults>
+            <path>main</path>
+        </defaults>
+    </index>
+
+    <index-with-region rule="(center|fareast|volga|northwest|siberia|ural|kavkaz|sevkavkaz)" type="regex" controller="index" action="index">
+        <defaults>
+            <path>main</path>
+        </defaults>
+        <names>
+            <region>1</region>
+        </names>
+    </index-with-region>
+
+
+    <group-section rule="section\/(.*)" type="regex" controller="index" action="index">
+        <names>
+            <path>1</path>
+        </names>
+    </group-section>
+
+    <group-section-with-region rule="(center|fareast|volga|northwest|siberia|ural|kavkaz|sevkavkaz)\/section\/(.*)" type="regex" controller="index" action="index">
+        <names>
+            <region>1</region>
+            <path>2</path>
+        </names>
+    </group-section-with-region>
+
+
+    <group-section-newslist rule="section\/(.*)\/newslist" type="regex" controller="index" action="index">
+        <names>
+            <path>1</path>
+        </names>
+        <defaults>
+            <newslist>newslist</newslist>
+        </defaults>
+    </group-section-newslist>
+
+    <group-section-newslist-region rule="(center|fareast|volga|northwest|siberia|ural|kavkaz|sevkavkaz)\/section\/(.*)\/newslist" type="regex" controller="index" action="index">
+        <names>
+            <region>1</region>
+            <path>2</path>
+        </names>
+        <defaults>
+            <newslist>newslist</newslist>
+        </defaults>
+    </group-section-newslist-region>
+
+
+    <entry type="" rule="entry/:entryid" controller="index" action="entry" />
+
+    <entry-with-region rule="(center|fareast|volga|northwest|siberia|ural|kavkaz|sevkavkaz)\/entry\/(.*)" type="regex" controller="index" action="entry">
+        <names>
+            <region>1</region>
+            <entryid>2</entryid>
+        </names>
+    </entry-with-region>
+
+
+    <stories type="" rule="stories" controller="index" action="stories" />
+
+    <expert type="" rule="expert/:expertid" controller="index" action="expert" />
+
+    <experts-comments type="" rule="experts-comments" controller="index" action="experts-comments" />
+
+    <search type="" rule="search" controller="index" action="search" />
+
+</route>

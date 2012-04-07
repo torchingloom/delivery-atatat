@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="ExpertList">
+    <dataSource>
+        <method>ExpertList</method>
+        <methodTotalCount>ExpertListTotalCount</methodTotalCount>
+    </dataSource>
+
+    <resources method="ResourceByUser" parent="id" child="user_id">
+        <user_body count="1" />
+        <user_vinos count="1" />
+        <user_comment count="1" />
+    </resources>
+
+    <children>
+        <entry
+            method="EntryListByAuthor"
+            appendMethod="appendEntry"
+            parent="id"
+            child="public_user_id"
+            methodTotalCount="EntryListByAuthorTotalCount"
+            appendTotalCountMethod="setEntriesTotalCount"
+            appendTotalCountValueField="count"
+        >
+            <paramsFromParent>
+                <region_id />
+                <page />
+                <limit />
+            </paramsFromParent>
+
+            <fetch>
+                <key>group_id</key>
+                <key>id</key>
+                <class>\Domain\Entity\Entry</class>
+                <factory>\Domain\Entity\Entry::factory</factory>
+            </fetch>
+
+            <resources method="ResourceByEntry" parent="id" child="entry_id">
+                <entry_list_anons count="1" />
+            </resources>
+        </entry>
+    </children>
+</type>
