@@ -18,6 +18,11 @@ defined('LOGIT') || define('LOGIT', false);
 
 class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
 {
+    protected function _initTrasgalacticUtils()
+    {
+        require_once 'Service/Utils.php';
+    }
+
     protected function _initAutoload()
     {
         require_once '../Library/Autoloader.php';
@@ -58,18 +63,6 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
         return $request;
     }
 
-    public function _initAuth()
-    {
-        $auth = Auth::getInstance();
-        return $auth;
-    }
-
-    public function _initAcl()
-    {
-        $acl = new Roles();
-        return $acl;
-    }
-
     public function _initRoute()
     {
         $front = $this->getResource('FrontController');
@@ -77,6 +70,8 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
 
         $auth = $this->getResource('Auth');
         $acl = $this->getResource('Acl');
+
+//        $routerAdvanced = new Controller\Router($router, $auth, $acl);
 
         $front->setRouter( Router::create($router, $auth, $acl) );
     }

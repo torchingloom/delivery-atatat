@@ -210,12 +210,7 @@ body {
     background: #fff;
 }
 
-body.main
-{
-    background-color: #606060;
-}
-
-.ie7 body {
+s.ie7 body {
     height:auto;
 
 }
@@ -354,3 +349,9 @@ body.main
 
 
 
+
+/* styles? */
+.header
+{
+    padding: 10px;
+}

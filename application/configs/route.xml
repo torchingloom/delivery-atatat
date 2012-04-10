@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route>
+
+    <initdata type="" rule="initdata" controller="index" action="initdata" />
+    <initdata1 type="" rule="initdata1" controller="index" action="initdata1" />
+    <csvfill type="" rule="csvfill" controller="index" action="csvfill" />
+    <updlinkto type="" rule="updlinkto" controller="index" action="updlinkto" />
+
+
+</route>
