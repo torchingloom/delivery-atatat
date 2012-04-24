@@ -20,7 +20,6 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initTrasgalacticUtils()
     {
-        require_once 'Service/Utils.php';
     }
 
     protected function _initAutoload()
@@ -44,8 +43,8 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
     public function _initFrontcontroller()
     {
         $controller = \Zend_Controller_Front::getInstance();
-        $controller->throwExceptions(false);
-        $controller->setControllerDirectory( '../application/controllers' );
+        $controller->throwExceptions('resources.frontController.params.displayExceptions');
+        $controller->setControllerDirectory( \Service\Config::get('resources.frontController.controllerDirectory') );
         return $controller;
     }
 
@@ -111,7 +110,6 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
         );
 
         \Service\Registry::set('db', $db);
-
     }
 }
 

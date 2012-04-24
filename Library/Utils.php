@@ -1,7 +1,5 @@
 <?php
 
-namespace Service;
-
 class Utils
 {
     static function printr($array = array())

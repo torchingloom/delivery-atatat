@@ -1,20 +1,26 @@
 <?php
 
-class Zend_View_Helper_Menu extends Zend_View_Helper_Navigation
+class Zend_View_Helper_MainMenu extends \Zend_View_Helper_Abstract
 {
-    public function Menu()
+    public function MainMenu()
     {
-        return $this;
+        static $s;
+        if (!$s)
+        {
+            $this->view->items = $this->items();
+            $s = $this->view->render('helpers/MainMenu.phtml');
+        }
+        return $s;
     }
 
-    public function init($pagename)
+    protected function items()
     {
-        Zend_Registry::set('Zend_Navigation', $container = new Zend_Navigation(static::pages($pagename)));
-        $this->setContainer($container);
-    }
-
-    protected static function pages($pagename)
-    {
-        \Service\Utils::printr(\Service\Config::get('menu')); exit();
+        return array
+        (
+            '/task/create' => 'Поставить задачу',
+            '/user/list' => 'Пользователи и группы',
+            '/tpl/list' => 'Шаблоны',
+            '/task/list' => 'История задач',
+        );
     }
 }

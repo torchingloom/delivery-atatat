@@ -2,7 +2,7 @@
 
 namespace Domain\Collection;
 
-class Experts extends Collection
+class Template extends Collection
 {
 
 }

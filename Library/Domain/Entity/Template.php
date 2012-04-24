@@ -2,6 +2,6 @@
 
 namespace Domain\Entity;
 
-class EntryComment extends Entry
+class Template extends Entity
 {
 }

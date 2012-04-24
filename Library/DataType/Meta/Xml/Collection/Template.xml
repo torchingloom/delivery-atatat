@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<type name="EntryListByGroup">
+<type name="Template">
     <dataSource>
-        <method>EntryListByGroup</method>
+        <method>TemplateGetter</method>
     </dataSource>
-
-    <resources method="ResourceByEntry" parent="id" child="entry_id">
-        <entry_main_anons count="1" />
-        <entry_list_anons count="1" />
-    </resources>
 </type>
 
 <!-- EX -->
