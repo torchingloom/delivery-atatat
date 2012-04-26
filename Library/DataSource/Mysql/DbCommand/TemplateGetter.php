@@ -6,24 +6,22 @@ class TemplateGetter extends DbCommand
 {
 	public function TemplateGetter($params = array())
 	{
-           $params = $this->ParamsAndFieldsPrepareByMethod
-           (
-               $params,
-               array
-               (
-                   'limit' => 25,
-                   'id' => null,
-                   '__FETCH__' => array('class' => '\Domain\Entity\Template')
-               )
-           );
-
-           $sql = $this->sql($params);
-           /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
-           $oDBStatatement = $this->_connection->query($sql);
-           $oDBStatatement->setFetch($params['__FETCH__']);
-           $result = $oDBStatatement->fetchAll();
+        $params = $this->ParamsAndFieldsPrepareByMethod
+        (
+            $params,
+            array
+            (
+                'limit' => 25,
+                'id' => null,
+                '__FETCH__' => array('class' => '\Domain\Entity\Template')
+            )
+        );
+        $sql = $this->sql($params);
+        /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
+        $oDBStatatement = $this->_connection->query($sql);
+        $oDBStatatement->setFetch($params['__FETCH__']);
+        $result = $oDBStatatement->fetchAll();
         return $result;
-
     }
 
    private function sql($params)
@@ -37,6 +35,9 @@ class TemplateGetter extends DbCommand
        `delivery_template`
    WHERE
        true
+<? if ($params['id']): ?>
+       AND `delivery_template`.`id` IN (<? echo join(',', (array) $params['id']) ?>)
+<? endif; ?>
 
 <?
            $sql = ob_get_contents();

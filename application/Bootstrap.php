@@ -64,7 +64,9 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
 
     public function _initRoute()
     {
+        /* @var $front \Zend_Controller_Front  */
         $front = $this->getResource('FrontController');
+        /* @var $router \Zend_Controller_Router_Rewrite */
         $router = $front->getRouter();
 
         $auth = $this->getResource('Auth');

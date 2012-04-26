@@ -3,11 +3,24 @@
 class ErrorController extends Zend_Controller_Action
 {
 
+    public function indexAction()
+    {
+        $m = 'Ошибка. Обратитесь к Cоболеву Сергею.';
+        switch ($this->_getParam('what'))
+        {
+            case 'tplnotfound':
+                $m = 'Такого шаблона не существует';
+        	break;
+        }
+        $this->view->message = $m;
+    }
+    
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
-        
-        if (!$errors || !$errors instanceof ArrayObject) {
+
+        if (!$errors || !$errors instanceof ArrayObject)
+        {
             $this->view->message = 'You have reached the error page';
             return;
         }
@@ -50,29 +63,7 @@ class ErrorController extends Zend_Controller_Action
             break;
         }
         
-        // Log exception, if logger available
-        if ($log = $this->getLog())
-        {
-            $log->log($this->view->message, $priority, $errors->exception);
-            $log->log('Request Parameters', $priority, $errors->request->getParams());
-        }
-        
-        // conditionally display exceptions
-        if ($this->getInvokeArg('displayExceptions') == true) {
-            $this->view->exception = $errors->exception;
-        }
-        
         $this->view->request   = $errors->request;
-    }
-
-    public function getLog()
-    {
-        $bootstrap = $this->getInvokeArg('bootstrap');
-        if (!$bootstrap->hasResource('Log')) {
-            return false;
-        }
-        $log = $bootstrap->getResource('Log');
-        return $log;
     }
 }
 

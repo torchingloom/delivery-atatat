@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <route>
 
+    <error rule="error/:what" controller="error" action="index" />
+
+    <tpl rule="tpl/(\d+)" type="regex" controller="tpl" action="view">
+        <names>
+            <id>1</id>
+        </names>
+    </tpl>
 
 </route>

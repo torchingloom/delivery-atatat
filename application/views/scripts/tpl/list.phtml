@@ -1,0 +1,23 @@
+
+<? /* @var $oModel Domain\Model\Template */ ?>
+<? $oModel = $this->oModel; ?>
+
+<? /* @var $oModel Domain\Collection\Template */ ?>
+<? $oList = $oModel->getCollection('list'); ?>
+
+<div class="list-wrapper">
+    <table class="list" cellspacing="0" border="0">
+
+<? $index = 0 ?>
+<? /* @var $oTpl Domain\Entity\Template */ ?>
+<? foreach ($oList AS $oTpl): ?>
+
+        <tr class="<? echo $index++ % 2 ? 'odd' : 'even' ?>">
+            <td><? echo $oTpl->id ?></td>
+            <td><a href="/tpl/<? echo $oTpl->id ?>"><? echo $oTpl->name ?></a></td>
+        </tr>
+
+<? endforeach; ?>
+
+    </table>
+</div>

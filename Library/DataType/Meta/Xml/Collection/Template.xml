@@ -4,6 +4,49 @@
     <dataSource>
         <method>TemplateGetter</method>
     </dataSource>
+    <form>
+        <id type="hidden" />
+        <name type="text">
+            <options>
+                <required>1</required>
+                <validators>
+                    <strlen>
+                        <options>
+                            <min>6</min>
+                            <max>200</max>
+                        </options>
+                    </strlen>
+                </validators>
+            </options>
+        </name>
+        <subject type="text">
+            <options>
+                <validators>
+                    <strlen>
+                        <options>
+                            <min>6</min>
+                            <max>500</max>
+                        </options>
+                    </strlen>
+                </validators>
+            </options>
+        </subject>
+        <from type="text">
+            <options>
+                <validators>
+                    <strlen>
+                        <options>
+                            <min>6</min>
+                            <max>500</max>
+                        </options>
+                    </strlen>
+                    <EmailAddress>
+
+                    </EmailAddress>
+                </validators>
+            </options>
+        </from>
+    </form>
 </type>
 
 <!-- EX -->

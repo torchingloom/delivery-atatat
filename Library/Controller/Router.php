@@ -4,6 +4,13 @@ namespace Controller;
 
 class Router
 {
+    /**
+     * @static
+     * @param $router \Zend_Controller_Router_Rewrite
+     * @param $auth
+     * @param $acl
+     * @return mixed
+     */
 	public static function create($router, $auth, $acl)
 	{
 		$routeData = new \Service\XML_Query(\Service\Config::get('route.path'));
@@ -43,7 +50,8 @@ class Router
 						$names[$nameItem->getTagName()] = $nameItem->getNodeValue();
 					}
 					
-					$router->addRoute(
+					$router->addRoute
+                    (
 						$item->getTagName(),
 						new \Zend_Controller_Router_Route_Regex
 						(
