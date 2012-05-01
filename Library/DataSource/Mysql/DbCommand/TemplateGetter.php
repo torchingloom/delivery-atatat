@@ -36,7 +36,7 @@ class TemplateGetter extends DbCommand
    WHERE
        true
 <? if ($params['id']): ?>
-       AND `delivery_template`.`id` IN (<? echo join(',', (array) $params['id']) ?>)
+       AND `delivery_template`.`id` IN ("<? echo join('", "', (array) $params['id']) ?>")
 <? endif; ?>
 
 <?

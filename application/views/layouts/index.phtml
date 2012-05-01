@@ -9,20 +9,17 @@
     <title>Regions.ru</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <? $this->headScript()->appendFile("/js/libs/modernizr-2.0.6.min.js", 'text/javascript')->appendFile("/js/script.js", 'text/javascript'); ?>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+
     <? $this->headLink()->prependStylesheet("/css/style.css"); ?>
     <? echo $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8'); ?>
     <? echo $this->headTitle(); ?>
     <? echo $this->headLink(); ?>
     <? echo $this->headStyle(); ?>
     <? echo $this->headScript(); ?>
-
-    <script defer src="/js/paginator3000.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/paginator3000.css" media="all">
-    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-
+    <? $this->headScript()->appendFile("/js/script.js", 'text/javascript'); ?>
 </head>
 <body>
 

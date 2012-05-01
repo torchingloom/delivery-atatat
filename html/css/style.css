@@ -22,7 +22,7 @@ html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-
 
 body { margin: 0; font-size: 16px; font-family: Arial, Helvetica;}
 
-button, input, select, textarea { font-family: sans-serif; color: #222; }
+button, input, select, textarea { font-family: sans-serif; /*color: #222;*/ }
 
 /*
  * Remove text-shadow in selection highlight: h5bp.com/i
@@ -354,4 +354,30 @@ s.ie7 body {
 .header
 {
     padding: 10px;
+}
+
+
+
+
+
+.form-wrapper textarea
+{
+    height: 200px;
+    width: 700px;
+}
+
+.form-wrapper .tinymce
+{
+    height: 600px;
+}
+
+.form-wrapper .description
+{
+    font-size: 90%;
+}
+
+.form-wrapper .errors
+{
+    font-size: 90%;
+    color: red;
 }

@@ -4,21 +4,121 @@
     <dataSource>
         <method>TemplateGetter</method>
     </dataSource>
+    <dataStore>
+        <method>TemplateSetter</method>
+    </dataStore>
+    <dataRemove>
+        <method>TemplateRemover</method>
+    </dataRemove>
+
     <form>
-        <id type="hidden" />
-        <name type="text">
-            <options>
+        <elements>
+            <id>
+                <type>Hidden</type>
+                <name>id</name>
+            </id>
+            <name>
+                <type>Text</type>
+                <options>
+                    <label>Название шаблона</label>
+                    <required>1</required>
+                    <validators>
+                        <strlen>
+                            <validator>StringLength</validator>
+                            <options>
+                                <min>6</min>
+                                <max>200</max>
+                            </options>
+                        </strlen>
+                    </validators>
+                </options>
+            </name>
+            <subject>
+                <type>Text</type>
+                <options>
+                    <label>Тема письма</label>
+                    <required>1</required>
+                    <validators>
+                        <strlen>
+                            <validator>StringLength</validator>
+                            <options>
+                                <min>6</min>
+                                <max>500</max>
+                            </options>
+                        </strlen>
+                    </validators>
+                </options>
+            </subject>
+            <from>
+                <type>Select</type>
+                <options>
+                    <label>От</label>
+                    <required>1</required>
+                    <multioptions>
+                        <noreply>noreply@snob.ru</noreply>
+                        <snob>snob@snob.ru</snob>
+                        <info>info@snob.ru</info>
+                    </multioptions>
+                    <description>От какого ящика будет отравленно послание</description>
+                </options>
+            </from>
+            <body_html>
+                <type>TinyMCE</type>
+                <options>
+                    <label>HTML</label>
+                    <required>1</required>
+                    <validators>
+                        <strlen>
+                            <validator>StringLength</validator>
+                            <options>
+                                <min>10</min>
+                                <max>500</max>
+                            </options>
+                        </strlen>
+                    </validators>
+                </options>
+            </body_html>
+            <body_plain>
+                <type>Textarea</type>
                 <required>1</required>
-                <validators>
-                    <strlen>
-                        <options>
-                            <min>6</min>
-                            <max>200</max>
-                        </options>
-                    </strlen>
-                </validators>
-            </options>
-        </name>
+                <options>
+                    <label>Текст</label>
+                    <description>на случай, если не письмо будут смотреть в plain text</description>
+                    <validators>
+                        <strlen>
+                            <validator>StringLength</validator>
+                            <options>
+                                <min>10</min>
+                                <max>500</max>
+                            </options>
+                        </strlen>
+                    </validators>
+                </options>
+            </body_plain>
+            <submit>
+                <type>submit</type>
+                <options>
+                    <value>save</value>
+                    <label>Сохранить</label>
+                    <attribs>
+                        <!--<onclick>ClickOnButton(this)</onclick>-->
+                        <name></name>
+                    </attribs>
+                </options>
+            </submit>
+            <reset>
+                <type>reset</type>
+                <options>
+                    <value>reset</value>
+                    <label>Отменить</label>
+                    <attribs>
+                        <!--<onclick>ClickOnButton(this)</onclick>-->
+                        <name></name>
+                    </attribs>
+                </options>
+            </reset>
+        </elements>
+<!--
         <subject type="text">
             <options>
                 <validators>
@@ -46,8 +146,11 @@
                 </validators>
             </options>
         </from>
+-->
     </form>
+
 </type>
+
 
 <!-- EX -->
 <!--

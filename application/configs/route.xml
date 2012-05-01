@@ -8,5 +8,12 @@
             <id>1</id>
         </names>
     </tpl>
+    <tpl-new rule="tpl/new" controller="tpl" action="view">
+        <defaults>
+            <id>new</id>
+            <new>new</new>
+        </defaults>
+    </tpl-new>
+    <tpl-rm rule="tpl/rm/:id" controller="tpl" action="rm" />
 
 </route>
