@@ -33,18 +33,58 @@ class Collection extends \Domain\Collection
         $this->prepareChildrenDeclaretion();
     }
 
+    /**
+     * Store collection items to DB
+     *
+     * @param array $data
+     * @return mixed
+     * @throws CollectionException
+     */
+    public function store(array $data)
+    {
+        if (!empty($this->dataSourceCall['methodStore']))
+        {
+            $db = \Service\Registry::get('db');
+            $result = call_user_func_array(array($db, $this->dataSourceCall['methodStore']), array($data));
+            $this->fill();
+            return $result;
+        }
+        else
+        {
+            throw new CollectionException("\n\nНе ясно как пытаться сохранить данные для коллекции : ".__NAMESPACE__."/".__CLASS__." \n\nТакие дела");
+        }
+    }
+
+    public function remove(array $data)
+    {
+        if (!empty($this->dataSourceCall['dataRemove']))
+        {
+            $db = \Service\Registry::get('db');
+            $result = call_user_func_array(array($db, $this->dataSourceCall['dataRemove']), array($data));
+            $this->fill();
+            return $result;
+        }
+        else
+        {
+            throw new CollectionException("\n\nНе ясно как пытаться удалять данные для коллекции : ".__NAMESPACE__."/".__CLASS__." \n\nТакие дела");
+        }
+    }
+
     protected function fill()
     {
         if (!empty($this->dataSourceCall['method']))
         {
-            $db = \Service\Registry::get('db');
-            $this->content = call_user_func_array(array($db, $this->dataSourceCall['method']), !empty($this->dataSourceCall['params']) ? array($this->dataSourceCall['params']) : array());
-            if (!empty($this->dataSourceCall['methodTotalCount']))
+            if (empty($this->dataSourceCall['params']['empty']))
             {
-                $this->contentTotalCount = call_user_func_array(array($db, $this->dataSourceCall['methodTotalCount']), !empty($this->dataSourceCall['params']) ? array($this->dataSourceCall['params']) : array());
+                $db = \Service\Registry::get('db');
+                $this->content = call_user_func_array(array($db, $this->dataSourceCall['method']), !empty($this->dataSourceCall['params']) ? array($this->dataSourceCall['params']) : array());
+                if (!empty($this->dataSourceCall['methodTotalCount']))
+                {
+                    $this->contentTotalCount = call_user_func_array(array($db, $this->dataSourceCall['methodTotalCount']), !empty($this->dataSourceCall['params']) ? array($this->dataSourceCall['params']) : array());
+                }
+                $this->fillChilds();
+                $this->fillResources();
             }
-            $this->fillChilds();
-            $this->fillResources();
         }
         else
         {
@@ -77,7 +117,7 @@ class Collection extends \Domain\Collection
                         {
                             if ($oChild->{$keyChild} == $entity->{$keyParent})
                             {
-                                $entity->{$child['appendMethod']}(&$oChild);
+                                $entity->{$child['appendMethod']}($oChild);
                             }
                             if ($aChildsTotalCount)
                             {
@@ -182,6 +222,8 @@ class Collection extends \Domain\Collection
     protected function prepareDataSourceCallDeclaretion()
     {
         $this->dataSourceCall['method'] = $this->dataType->getNodeByPath('/type/dataSource/method')->getNodeValue();
+        $this->dataSourceCall['methodStore'] = $this->dataType->getNodeByPath('/type/dataStore/method')->getNodeValue();
+        $this->dataSourceCall['dataRemove'] = $this->dataType->getNodeByPath('/type/dataRemove/method')->getNodeValue();
         if ($totalcountmethod = $this->dataType->getNodeByPath('/type/dataSource/methodTotalCount'))
         {
             $this->dataSourceCall['methodTotalCount'] = $this->dataType->getNodeByPath('/type/dataSource/methodTotalCount')->getNodeValue();
