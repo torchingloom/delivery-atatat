@@ -8,9 +8,12 @@ class IndexController extends \Controller_Action
         $this->getHelper('ViewRenderer')->setNoRender();
     }
 
-    public function testAction()
+    public function gropsAutofillAction()
     {
-echo 123;
+        $oModel = new \Domain\Model\UserGroup(array('algo' => 'isNotNull'));
+        /* @var $oCollection \Domain\Collection\UserGroup */
+        $oCollection = $oModel->getCollection('list');
+        $oCollection->autofill();
     }
 }
 

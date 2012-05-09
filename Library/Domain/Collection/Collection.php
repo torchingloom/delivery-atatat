@@ -222,8 +222,14 @@ class Collection extends \Domain\Collection
     protected function prepareDataSourceCallDeclaretion()
     {
         $this->dataSourceCall['method'] = $this->dataType->getNodeByPath('/type/dataSource/method')->getNodeValue();
-        $this->dataSourceCall['methodStore'] = $this->dataType->getNodeByPath('/type/dataStore/method')->getNodeValue();
-        $this->dataSourceCall['dataRemove'] = $this->dataType->getNodeByPath('/type/dataRemove/method')->getNodeValue();
+        if ($mthdASD = $this->dataType->getNodeByPath('/type/dataStore/method'))
+        {
+            $this->dataSourceCall['methodStore'] = $mthdASD->getNodeValue();
+        }
+        if ($mthdASD = $this->dataType->getNodeByPath('/type/dataRemove/method'))
+        {
+            $this->dataSourceCall['dataRemove'] = $mthdASD->getNodeValue();
+        }
         if ($totalcountmethod = $this->dataType->getNodeByPath('/type/dataSource/methodTotalCount'))
         {
             $this->dataSourceCall['methodTotalCount'] = $this->dataType->getNodeByPath('/type/dataSource/methodTotalCount')->getNodeValue();

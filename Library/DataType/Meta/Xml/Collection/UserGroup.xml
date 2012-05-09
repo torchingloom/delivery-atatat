@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="UserGroup">
+    <dataSource>
+        <method>UserGroupGetter</method>
+    </dataSource>
+</type>
+
+
+<!-- EX -->
+<!--
+<type name="MainEntryList">
+    <dataSource>
+        <method>EntryListByGroup</method>
+        <params>
+            <status>published</status>
+            <limit>3</limit>
+            <entry_group_id>29</entry_group_id>
+            <order>entry_to_entry_group.sort DESC</order>
+            <order>entry.publish_date DESC</order>
+        </params>
+
+        <fetch>
+            <class>\Domain\Entity\Entry</class>
+            <factory>\Domain\Entity\Entry::::factory</factory>
+        </fetch>
+
+        <columns>
+            <entry.id type="int" />
+            <entry.title type="varchar" />
+            <entry.announce type="varchar" />
+        </columns>
+    </dataSource>
+</type>
+-->

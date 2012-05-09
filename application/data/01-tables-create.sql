@@ -99,6 +99,7 @@ CREATE TABLE delivery_user_group
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(200) NOT NULL,
 	`when_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`algo` VARCHAR (100) NULL COMMENT 'Ну типа идентификатор стратегии для автозаполнения',
 	PRIMARY KEY (`id`)
 )
 	ENGINE=INNODB 

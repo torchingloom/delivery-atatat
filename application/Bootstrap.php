@@ -1,10 +1,8 @@
 <?php
 
-use \Autoloader;
 use \Service\Auth\Auth;
 use \Service\Auth\Roles;
 use \Controller\Router;
-use \DataSource\Mysql\Mysql;
 
 
 
@@ -25,7 +23,7 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
     protected function _initAutoload()
     {
         require_once '../Library/Autoloader.php';
-        \Zend_Loader_Autoloader::getInstance()->registerNamespace('Main')->pushAutoloader(new Autoloader());
+        \Zend_Loader_Autoloader::getInstance()->registerNamespace('Main')->pushAutoloader(new \Autoloader());
     }
 
     protected function _initConfig()
@@ -88,10 +86,10 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
 
     protected function _initDb()
     {
-        $_params = \Service\Config::get('resources/db/params')->toArray();
+        $_params = \Service\Config::get('database.delivery/params')->toArray();
 
         // пока что прям так
-        $db = new Mysql
+        $db = new \DataSource\Mysql\Mysql
         (
             new \DataSource\Mysql\Adapter
             (

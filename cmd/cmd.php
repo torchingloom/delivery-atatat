@@ -1,7 +1,7 @@
 <?php
 
 
-//php cmd/cmd.php [staging] test
+    //php cmd/cmd.php [staging] grops-autofill
 
 array_shift($argv);
 if (!$argv || count($argv) < 2)
