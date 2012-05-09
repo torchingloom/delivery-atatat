@@ -44,8 +44,8 @@ class Collection extends \Domain\Collection
     {
         if (!empty($this->dataSourceCall['methodStore']))
         {
-            $db = \Service\Registry::get('db');
-            $result = call_user_func_array(array($db, $this->dataSourceCall['methodStore']), array($data));
+            $db = \Service\Registry::get("db_{$this->dataSourceCall['methodStore']['db']}");
+            $result = call_user_func_array(array($db, $this->dataSourceCall['methodStore']['method']), array($data));
             $this->fill();
             return $result;
         }
@@ -57,10 +57,10 @@ class Collection extends \Domain\Collection
 
     public function remove(array $data)
     {
-        if (!empty($this->dataSourceCall['dataRemove']))
+        if (!empty($this->dataSourceCall['methodRemove']))
         {
-            $db = \Service\Registry::get('db');
-            $result = call_user_func_array(array($db, $this->dataSourceCall['dataRemove']), array($data));
+            $db = \Service\Registry::get("db_{$this->dataSourceCall['methodRemove']['db']}");
+            $result = call_user_func_array(array($db, $this->dataSourceCall['methodRemove']['method']), array($data));
             $this->fill();
             return $result;
         }
@@ -72,12 +72,12 @@ class Collection extends \Domain\Collection
 
     protected function fill()
     {
-        if (!empty($this->dataSourceCall['method']))
+        if (!empty($this->dataSourceCall['methodGet']))
         {
             if (empty($this->dataSourceCall['params']['empty']))
             {
-                $db = \Service\Registry::get('db');
-                $this->content = call_user_func_array(array($db, $this->dataSourceCall['method']), !empty($this->dataSourceCall['params']) ? array($this->dataSourceCall['params']) : array());
+                $db = \Service\Registry::get("db_{$this->dataSourceCall['methodGet']['db']}");
+                $this->content = call_user_func_array(array($db, $this->dataSourceCall['methodGet']['method']), !empty($this->dataSourceCall['params']) ? array($this->dataSourceCall['params']) : array());
                 if (!empty($this->dataSourceCall['methodTotalCount']))
                 {
                     $this->contentTotalCount = call_user_func_array(array($db, $this->dataSourceCall['methodTotalCount']), !empty($this->dataSourceCall['params']) ? array($this->dataSourceCall['params']) : array());
@@ -221,19 +221,40 @@ class Collection extends \Domain\Collection
      */
     protected function prepareDataSourceCallDeclaretion()
     {
-        $this->dataSourceCall['method'] = $this->dataType->getNodeByPath('/type/dataSource/method')->getNodeValue();
-        if ($mthdASD = $this->dataType->getNodeByPath('/type/dataStore/method'))
+        $this->dataSourceCall['methodGet']['method'] = $this->dataType->getNodeByPath('/type/dataSource/method')->getNodeValue();
+        $this->dataSourceCall['methodGet']['db'] = 'default';
+        if ($var = $this->dataType->getNodeByPath('/type/dataSource/db'))
         {
-            $this->dataSourceCall['methodStore'] = $mthdASD->getNodeValue();
+            $this->dataSourceCall['methodGet']['db'] = $var->getNodeValue();
         }
-        if ($mthdASD = $this->dataType->getNodeByPath('/type/dataRemove/method'))
+
+        if ($var = $this->dataType->getNodeByPath('/type/dataStore/method'))
         {
-            $this->dataSourceCall['dataRemove'] = $mthdASD->getNodeValue();
+            $this->dataSourceCall['methodStore']['method'] = $var->getNodeValue();
+            $this->dataSourceCall['methodStore']['db'] = 'default';
+            if ($var = $this->dataType->getNodeByPath('/type/dataStore/db'))
+            {
+                $this->dataSourceCall['methodStore']['db'] = $var->getNodeValue();
+            }
         }
+
+        if ($var = $this->dataType->getNodeByPath('/type/dataRemove/method'))
+        {
+            $this->dataSourceCall['methodRemove']['method'] = $var->getNodeValue();
+            $this->dataSourceCall['methodRemove']['db'] = 'default';
+            if ($var = $this->dataType->getNodeByPath('/type/dataRemove/db'))
+            {
+                $this->dataSourceCall['methodRemove']['db'] = $var->getNodeValue();
+            }
+        }
+
+
         if ($totalcountmethod = $this->dataType->getNodeByPath('/type/dataSource/methodTotalCount'))
         {
             $this->dataSourceCall['methodTotalCount'] = $this->dataType->getNodeByPath('/type/dataSource/methodTotalCount')->getNodeValue();
         }
+
+
         $this->dataSourceCall['params'] = array();
         foreach ($this->dataType->getNodeListByPath('/type/dataSource/params/*') AS $_param)
         {

@@ -33,6 +33,6 @@ class BootstrapCmd extends Bootstrap
             )
         );
 
-        \Service\Registry::set('dbSnob', $db);
+        \Service\Registry::set('db_snob', $db);
     }
 }

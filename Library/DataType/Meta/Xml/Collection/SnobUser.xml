@@ -2,6 +2,7 @@
 
 <type name="SnobUser">
     <dataSource>
+        <db>snob</db>
         <method>SnobUserGetter</method>
     </dataSource>
 </type>

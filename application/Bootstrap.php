@@ -104,7 +104,7 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
             )
         );
 
-        \Service\Registry::set('db', $db);
+        \Service\Registry::set('db_default', $db);
     }
 
     protected function FromtController($dir = 'default')
