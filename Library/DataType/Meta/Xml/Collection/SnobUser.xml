@@ -5,6 +5,9 @@
         <db>snob</db>
         <method>SnobUserGetter</method>
     </dataSource>
+    <dataStore>
+        <method>SnobUserSetter</method>
+    </dataStore>
 </type>
 
 

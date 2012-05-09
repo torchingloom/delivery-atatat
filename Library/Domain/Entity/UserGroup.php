@@ -19,6 +19,11 @@ class UserGroup extends Entity
         }
         UserGroup_Autofill::factory($this->algo, $this)->fill();
     }
+
+    public function appendUserPermanent(User $oUser)
+    {
+
+    }
 }
 
 class UserGroup_Exception extends EntityException

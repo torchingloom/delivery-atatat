@@ -1,4 +1,6 @@
 
+USE delivery;
+
 -- SET FOREIGN_KEY_CHECKS=0;
 
 
@@ -7,7 +9,6 @@ DROP TABLE IF EXISTS delivery_user_to_group;
 DROP TABLE IF EXISTS delivery_user_group;
 DROP TABLE IF EXISTS delivery_user_to_task;
 DROP TABLE IF EXISTS delivery_task;
-DROP TABLE IF EXISTS delivery_user_property;
 DROP TABLE IF EXISTS delivery_user;
 
 
@@ -55,38 +56,29 @@ CREATE TABLE delivery_user
 (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`email` VARCHAR(200) NOT NULL,
+	`login` VARCHAR(100) NOT NULL,
+	`sex` TINYINT(1) NOT NULL DEFAULT 0,
 	`first_name` VARCHAR(200),
 	`last_name` VARCHAR(200) NOT NULL,
 	`when_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	UNIQUE KEY `email` (`email`),
-	PRIMARY KEY (`id`)
-)
-	ENGINE=INNODB 
-	DEFAULT CHARSET=utf8
-;
-
-
-
-CREATE TABLE delivery_user_property
-(
-	`user_id` INT(11) UNSIGNED NOT NULL,
 	`snob_user_id` INT(11) NULL,
-	`snob_person_type` ENUM ('partner', 'editor', 'snob', 'starting', 'premium') NULL COMMENT '"partner" партнеры; 
-"premium" УП;
-"starting" подписчик журнала;
+	`snob_person_type` ENUM ('partner', 'editor', 'snob', 'starting', 'basic', 'premium') NULL COMMENT '"partner" партнеры;
+"starting|basic|premium" подписчик;
 "snob" ЧК;
-"editor" сотрудник
+"editor" сотрудник;
 ',
-	`city` VARCHAR (500),
+	`city` VARCHAR (500) NULL,
 	`subscribe_start_date` TIMESTAMP NULL,
 	`subscribe_end_date` TIMESTAMP NULL,
-	PRIMARY KEY (`user_id`),
-	CONSTRAINT `fk_delivery_user_property__user_id` FOREIGN KEY (`user_id`) REFERENCES `delivery_user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	`invited_by_project` TINYINT(1) NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `email` (`email`),
 	KEY `snob_user_id` (`snob_user_id`),
 	KEY `snob_person_type` (`snob_person_type`),
 	KEY `city` (`city`),
 	KEY `subscribe_start_date` (`subscribe_start_date`),
 	KEY `subscribe_end_date` (`subscribe_end_date`)
+
 )
 	ENGINE=INNODB 
 	DEFAULT CHARSET=utf8

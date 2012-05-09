@@ -40,10 +40,14 @@ class Collection extends \Domain\Collection
      * @return mixed
      * @throws CollectionException
      */
-    public function store(array $data)
+    public function store(array $data = null, array $args = null)
     {
         if (!empty($this->dataSourceCall['methodStore']))
         {
+            if (!$data)
+            {
+                $data = $this->toArray();
+            }
             $db = \Service\Registry::get("db_{$this->dataSourceCall['methodStore']['db']}");
             $result = call_user_func_array(array($db, $this->dataSourceCall['methodStore']['method']), array($data));
             $this->fill();
@@ -51,7 +55,7 @@ class Collection extends \Domain\Collection
         }
         else
         {
-            throw new CollectionException("\n\nНе ясно как пытаться сохранить данные для коллекции : ".__NAMESPACE__."/".__CLASS__." \n\nТакие дела");
+            throw new CollectionException("\n\nНе ясно как пытаться сохранить данные для коллекции : ". __NAMESPACE__ ."/". __CLASS__ ." \n\nТакие дела");
         }
     }
 
@@ -66,7 +70,7 @@ class Collection extends \Domain\Collection
         }
         else
         {
-            throw new CollectionException("\n\nНе ясно как пытаться удалять данные для коллекции : ".__NAMESPACE__."/".__CLASS__." \n\nТакие дела");
+            throw new CollectionException("\n\nНе ясно как пытаться удалять данные для коллекции : ". __NAMESPACE__ ."/". __CLASS__ ." \n\nТакие дела");
         }
     }
 
@@ -96,6 +100,7 @@ class Collection extends \Domain\Collection
     {
         if ($this->childs)
         {
+            // todo fix collection childs db
             $db = \Service\Registry::get('db');
             
             foreach ($this->childs AS $entity => &$child)

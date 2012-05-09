@@ -65,6 +65,11 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
 
     public function toArray()
     {
-        return $this->content;
+        $result = array();
+        foreach ($this->content AS $key => $item)
+        {
+            $result[$key] = $item->toArray();
+        }
+        return $result;
     }
 }

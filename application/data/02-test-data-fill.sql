@@ -1,4 +1,5 @@
 
+USE delivery;
 
 INSERT INTO `delivery_template`
 	(`name`, `subject`, `from`, `body_plain`, `body_html`)
