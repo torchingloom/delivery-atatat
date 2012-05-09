@@ -1,5 +1,8 @@
 <?php
 
+require_once 'Zend/Loader/Autoloader.php';
+require_once 'Zend/Loader/Autoloader/Interface.php';
+
 class Autoloader implements \Zend_Loader_Autoloader_Interface
 {
 	/**

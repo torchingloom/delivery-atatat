@@ -40,29 +40,24 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
         $defaultNamespace->numberOfPageRequests++;
     }
 */
-    public function _initFrontcontroller()
+    protected function _initFrontcontroller()
     {
-        $controller = \Zend_Controller_Front::getInstance();
-        $controller->throwExceptions('resources.frontController.params.displayExceptions');
-        $controller->setControllerDirectory( \Service\Config::get('resources.frontController.controllerDirectory') );
-        return $controller;
+        return $this->FromtController();
     }
 
-    protected function _initRequest()
+    protected function _initRequest($uri = null)
     {
         $this->bootstrap('FrontController');
         $front = $this->getResource('FrontController');
 
-        $request = new \Controller_Request();
+        $request = new \Controller_Request($uri);
         $request->setBaseUrl('/');
         \Service\Registry::set('request', $request);
 
         $front->setRequest($request);
-
-        return $request;
     }
 
-    public function _initRoute()
+    protected function _initRoute()
     {
         /* @var $front \Zend_Controller_Front  */
         $front = $this->getResource('FrontController');
@@ -78,7 +73,7 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
     }
 
 
-    public function _initLayout()
+    protected function _initLayout()
     {
         \Zend_Layout::startMvc
         (
@@ -112,6 +107,16 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
         );
 
         \Service\Registry::set('db', $db);
+    }
+
+    protected function FromtController($dir = 'default')
+    {
+        $this->_initAutoload();
+        $this->_initConfig();
+        $controller = \Zend_Controller_Front::getInstance();
+        $controller->throwExceptions('resources.frontController.params.displayExceptions');
+        $controller->setControllerDirectory( \Service\Config::get("resources.frontController.controllerDirectory.{$dir}") );
+        return $controller;
     }
 }
 
