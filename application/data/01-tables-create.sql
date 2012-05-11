@@ -92,6 +92,7 @@ CREATE TABLE delivery_user_group
 	`name` VARCHAR(200) NOT NULL,
 	`when_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`algo` VARCHAR (100) NULL COMMENT 'Ну типа идентификатор стратегии для автозаполнения',
+	`when_autofill` TIMESTAMP NULL,
 	PRIMARY KEY (`id`)
 )
 	ENGINE=INNODB 
@@ -103,7 +104,7 @@ CREATE TABLE delivery_user_to_group
 (
 	`group_id` INT(11) UNSIGNED NOT NULL,
 	`user_id` INT(11) UNSIGNED NOT NULL,
-	`status` ENUM ('0', '1') NOT NULL DEFAULT 1  COMMENT '0 - не получает писем. В ТЗ есть пункт, на счет того, что если пользователя удалили вручную, то автоматически он не должен попасть. Для этого это поле и есть',
+	`status` ENUM ('0', '1') NOT NULL DEFAULT '1' COMMENT '0 - не получает писем. В ТЗ есть пункт, на счет того, что если пользователя удалили вручную, то автоматически он не должен попасть. Для этого это поле и есть',
 	PRIMARY KEY (`group_id`, `user_id`),
 	CONSTRAINT `fk_delivery_user_to_group__group_id` FOREIGN KEY (`group_id`) REFERENCES `delivery_user_group` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT `fk_delivery_user_to_group__user_id` FOREIGN KEY (`user_id`) REFERENCES `delivery_user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,

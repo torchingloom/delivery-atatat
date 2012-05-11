@@ -6,10 +6,12 @@ class UserGroup extends Collection
 {
     public function autofill()
     {
+        $result = array();
         /* @var $oGroup \Domain\Entity\UserGroup */
         foreach ($this->content AS $oGroup)
         {
-            $oGroup->autofill();
+            $result[$oGroup->id] = array('group' => $oGroup, 'result' => $oGroup->autofill());
         }
+        return $result;
     }
 }

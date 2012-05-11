@@ -6,7 +6,6 @@ class SnobUserSetter extends DbCommand
 {
 	public function SnobUserSetter($params = array())
 	{
-        $result = array();
         $arr = array('insert' => array(), 'update' => array());
         foreach ($params AS $data)
         {
@@ -50,6 +49,8 @@ class SnobUserSetter extends DbCommand
             $sql = str_replace("''", "NULL", "UPDATE\n`delivery_user`\nSET{$sql}\nWHERE `id` = {$item['id']}");
             $this->_connection->query($sql);
         }
+
+        return array('insert' => count($arr['insert']), 'update' => count($arr['update']));
     }
 
     protected static function dataMap($data)

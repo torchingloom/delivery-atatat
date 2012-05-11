@@ -35,4 +35,4 @@ $application->setOptions(array("ARGS" => $INCOMING));
 $application->bootstrap()->run();
 
 
-echo number_format(microtime(true) - $_START_, 2) .'s';
+echo "\n\n" .number_format(microtime(true) - $_START_, 2) .'s';

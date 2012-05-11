@@ -13,7 +13,10 @@ class IndexController extends \Controller_Action
         $oModel = new \Domain\Model\UserGroup(array('algo' => 'isNotNull'));
         /* @var $oCollection \Domain\Collection\UserGroup */
         $oCollection = $oModel->getCollection('list');
-        $oCollection->autofill();
+        foreach ($oCollection->autofill() AS $res)
+        {
+            echo "\nGroup: {$res['group']->id} {$res['group']->name}\n{$res['group']->algo}\nUsers: add {$res['result']['snobuser']['insert']}, upd {$res['result']['snobuser']['update']}\nIn group: before {$res['result']['group']['before']}, now {$res['result']['group']['now']}\n";
+        }
     }
 }
 

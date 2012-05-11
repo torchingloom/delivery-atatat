@@ -154,6 +154,11 @@ class Entity implements \ArrayAccess, \Iterator, \Countable
     {
         return $this->__data__;
     }
+
+    public function fill($array)
+    {
+        $this->__data__ = $array;
+    }
 }
 
 class EntityException extends \Exception

@@ -17,12 +17,17 @@ class UserGroup extends Entity
         {
             throw new UserGroup_Exception("algo not defined for group {$this->id}");
         }
-        UserGroup_Autofill::factory($this->algo, $this)->fill();
+        return UserGroup_Autofill::factory($this->algo, $this)->fill();
     }
 
     public function appendUserPermanent(User $oUser)
     {
 
+    }
+
+    public function appendUserCollectionPermanent(\Domain\Collection\User $oCollection)
+    {
+        return \Service\Registry::get('db_default')->UserGroupAppendUser($this->id, $oCollection);
     }
 }
 
