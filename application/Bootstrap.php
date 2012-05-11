@@ -86,7 +86,7 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
 
     protected function _initDb()
     {
-        $_params = \Service\Config::get('database.delivery/params')->toArray();
+        $_params = \Service\Config::get('database.default/params')->toArray();
 
         // пока что прям так
         $db = new \DataSource\Mysql\Mysql

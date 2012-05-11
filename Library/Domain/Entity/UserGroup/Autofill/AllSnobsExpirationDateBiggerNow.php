@@ -2,11 +2,11 @@
 
 namespace Domain\Entity;
 
-class UserGroup_Autofill_AllSubscribersExpirationDateBiggerNow extends UserGroup_Autofill
+class UserGroup_Autofill_AllSnobsExpirationDateBiggerNow extends UserGroup_Autofill
 {
     public function fill()
     {
-        $oModel = new \Domain\Model\SnobUser(array('expiration_date' => '> NOW()', 'person_type_id' => 4));
+        $oModel = new \Domain\Model\SnobUser(array('expiration_date' => '> NOW()', 'person_type_id' => 1));
         /* @var $oCollection \Domain\Collection\SnobUser */
         $oCollection = $oModel->getCollection('list');
         $oCollection->store();

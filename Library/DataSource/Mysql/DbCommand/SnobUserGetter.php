@@ -19,6 +19,8 @@ class SnobUserGetter extends DbCommand
         );
         $sql = $this->sql($params);
 
+//        \Utils::printr($sql); exit();
+
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->_connection->query($sql);
         $oDBStatatement->setFetch($params['__FETCH__']);
@@ -29,33 +31,44 @@ class SnobUserGetter extends DbCommand
    private function sql($params)
    {
        $snobdb = \Service\Config::get('database.snob.params.dbname');
+       $defaultdb = \Service\Config::get('database.default.params.dbname');
 
        ob_start();
 ?>
 
 SELECT
     `person`.*,
+
     `payment`.`city`,
-    `subscribe_plan`.`name` AS `subscribe_plan_name`,
-    `subscribe_plan`.`title` AS `subscribe_plan_title`,
 
-    `delivery_user`.`id` AS `delivery_user_id`,
+   `delivery_user`.`id` AS `delivery_user_id`,
 
-    IF (`person_partner`.`person_id`, 1, 0) AS `partner`
+   `subscribe_plan`.`name` AS `subscribe_plan_name`,
+
+   `subscribe_plan`.`title` AS `subscribe_plan_title`,
+
+    IF (`person_partner`.`person_id`, 1, 0) AS `partner`,
+
+   `delivery_user_email_exists`.`email` IS NOT NULL AS `delivery_user_email_exists`
+
 FROM
+
     `<? echo $snobdb ?>`.`person`
 
-   LEFT JOIN `<? echo $snobdb ?>`.`person_partner` ON true
+    LEFT JOIN `<? echo $snobdb ?>`.`person_partner` ON true
        AND `person`.`id` = `person_partner`.`person_id`
 
-   LEFT JOIN `<? echo $snobdb ?>`.`payment` ON true
+    LEFT JOIN `<? echo $snobdb ?>`.`payment` ON true
        AND `person`.`payment_id` = `payment`.`id`
 
     LEFT JOIN `<? echo $snobdb ?>`.`subscribe_plan` ON true
         AND `person`.`subscribe_plan_id` = `subscribe_plan`.`id`
 
-    LEFT JOIN `delivery_user` ON true
+    LEFT JOIN `<? echo $defaultdb ?>`.`delivery_user` ON true
         AND `person`.`id` = `delivery_user`.`snob_user_id`
+
+    LEFT JOIN `<? echo $defaultdb ?>`.`delivery_user` AS `delivery_user_email_exists` ON true
+        AND `person`.`email` = `delivery_user_email_exists`.`email`
 
 
 WHERE
@@ -79,6 +92,9 @@ WHERE
     <? endif; ?>
 <? endif; ?>
 
+-- SORRY, PAL
+GROUP BY
+   `person`.`email`
 
 <?
        $sql = ob_get_contents();

@@ -3,6 +3,9 @@
 
 //php cmd/cmd.php [staging] grops-autofill
 
+$_START_ = microtime(true);
+
+
 array_shift($argv);
 if (!$argv || count($argv) < 2)
 {
@@ -31,3 +34,5 @@ $application->setBootstrap(APPLICATION_PATH ."/Bootstrap-CMD.php", 'BootstrapCmd
 $application->setOptions(array("ARGS" => $INCOMING));
 $application->bootstrap()->run();
 
+
+echo number_format(microtime(true) - $_START_, 2) .'s';

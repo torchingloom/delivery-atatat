@@ -15,6 +15,6 @@ class User extends Entity
 {
     public function store()
     {
-        \Service\Registry::get('db_default')->UserSetter($this->toArray());
+        \Service\Registry::get('db_delivery')->UserSetter($this->toArray());
     }
 }
