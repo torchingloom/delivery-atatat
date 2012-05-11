@@ -29,6 +29,11 @@ class UserGroup extends Entity
     {
         return \Service\Registry::get('db_default')->UserGroupAppendUser($this->id, $oCollection);
     }
+
+    public function cleanAndFill(\Domain\Collection\User $oCollection)
+    {
+        return \Service\Registry::get('db_default')->UserGroupCleanAndFill($this->id, $oCollection);
+    }
 }
 
 class UserGroup_Exception extends EntityException
