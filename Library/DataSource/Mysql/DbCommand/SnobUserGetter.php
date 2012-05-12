@@ -13,13 +13,12 @@ class SnobUserGetter extends DbCommand
             (
                 'id' => null,
                 'expiration_date' => null,
+                'modification_date' => null,
                 'person_type_id' => null,
                 '__FETCH__' => array('class' => '\Domain\Entity\SnobUser')
             )
         );
         $sql = $this->sql($params);
-
-//        \Utils::printr($sql); exit();
 
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->_connection->query($sql);
@@ -87,8 +86,16 @@ WHERE
 <? if ($params['expiration_date']): ?>
     <? if (is_array($params['expiration_date'])): ?>
     AND `person`.`expiration_date` IN ("<? echo join('", "', (array) $params['expiration_date']) ?>")
-    <? elseif (preg_match('/w+/i', $params['expiration_date'])): ?>
+    <? elseif (preg_match('/[^\d-\s:]/i', $params['expiration_date'])): ?>
     AND `person`.`expiration_date` <? echo $params['expiration_date'] ?>
+    <? endif; ?>
+<? endif; ?>
+
+<? if ($params['modification_date']): ?>
+    <? if (is_array($params['modification_date'])): ?>
+    AND `person`.`modification_date` IN ("<? echo join('", "', (array) $params['modification_date']) ?>")
+    <? elseif (preg_match('/[^\d-\s:]/i', $params['modification_date'])): ?>
+    AND `person`.`modification_date` <? echo $params['modification_date'] ?>
     <? endif; ?>
 <? endif; ?>
 

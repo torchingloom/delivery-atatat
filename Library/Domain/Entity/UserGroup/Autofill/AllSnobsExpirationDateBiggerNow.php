@@ -6,7 +6,14 @@ class UserGroup_Autofill_AllSnobsExpirationDateBiggerNow extends UserGroup_Autof
 {
     public function fill()
     {
-        $oModel = new \Domain\Model\SnobUser(array('expiration_date' => '> NOW()', 'person_type_id' => 1));
+        $result = array();
+
+        $aModelParams = array('expiration_date' => '> NOW()', 'person_type_id' => 1);
+        if ($this->oUserGroup->when_create)
+        {
+            $aModelParams['modification_date'] = "> '{$this->oUserGroup->when_autofill}'";
+        }
+        $oModel = new \Domain\Model\SnobUser($aModelParams);
         /* @var $oCollection \Domain\Collection\SnobUser */
         $oCollection = $oModel->getCollection('list');
         $result['snobuser'] = $oCollection->store();

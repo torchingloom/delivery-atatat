@@ -7,6 +7,7 @@ namespace Domain\Entity;
  * @property mixed $name
  * @property mixed $when_create
  * @property mixed $algo
+ * @property mixed $when_autofill
  */
 
 class UserGroup extends Entity

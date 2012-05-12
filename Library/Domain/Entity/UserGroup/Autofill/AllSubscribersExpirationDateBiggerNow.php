@@ -8,7 +8,12 @@ class UserGroup_Autofill_AllSubscribersExpirationDateBiggerNow extends UserGroup
     {
         $result = array();
 
-        $oModel = new \Domain\Model\SnobUser(array('expiration_date' => '> NOW()', 'person_type_id' => 4));
+        $aModelParams = array('expiration_date' => '> NOW()', 'person_type_id' => 4);
+        if ($this->oUserGroup->when_create)
+        {
+            $aModelParams['modification_date'] = "> '{$this->oUserGroup->when_autofill}'";
+        }
+        $oModel = new \Domain\Model\SnobUser($aModelParams);
         /* @var $oCollection \Domain\Collection\SnobUser */
         $oCollection = $oModel->getCollection('list');
         $result['snobuser'] = $oCollection->store();
