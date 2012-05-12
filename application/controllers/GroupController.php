@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends \Controller_Action
+class GroupController extends \Controller_Action
 {
     public function indexAction()
     {
