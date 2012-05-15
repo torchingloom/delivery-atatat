@@ -8,7 +8,12 @@ class GroupController extends \Controller_Action
 
     public function listAction()
     {
-        $this->Model = new Domain\Model\Template();
+        $this->view->oModel = new Domain\Model\UserGroup();
+    }
+
+    public function viewAction()
+    {
+        $this->view->oModel = new Domain\Model\UserGroup();
     }
 }
 

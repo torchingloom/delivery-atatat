@@ -35,6 +35,16 @@ class UserGroup extends Entity
     {
         return \Service\Registry::get('db_default')->UserGroupCleanAndFill($this->id, $oCollection);
     }
+
+    public function appendUser(User $oUser)
+    {
+        parent::appendChild('user', $oUser);
+    }
+
+    public function appendUserTotalCount($iCount)
+    {
+        parent::setChildTotalCount('user', $iCount);
+    }
 }
 
 class UserGroup_Exception extends EntityException

@@ -3,7 +3,20 @@
 <type name="UserGroup">
     <dataSource>
         <method>UserGroupGetter</method>
+        <methodTotalCount>UserGroupTotalCountGetter</methodTotalCount>
     </dataSource>
+
+    <children>
+        <entry
+            method="UserGetter"
+            methodTotalCount="UserTotalCountGetter"
+            appendMethod="appendUser"
+            appendTotalCountMethod="appendUserTotalCount"
+            appendTotalCountValueField="count"
+            parent="id:group_id"
+            child="group_id"
+        />
+    </children>
 </type>
 
 

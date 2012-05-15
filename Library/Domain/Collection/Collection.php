@@ -100,16 +100,19 @@ class Collection extends \Domain\Collection
     {
         if ($this->childs)
         {
-            // todo fix collection childs db
-            $db = \Service\Registry::get('db');
-            
             foreach ($this->childs AS $entity => &$child)
             {
-                $keyParent = $child['relation']['parent'];
+                $db = \Service\Registry::get($child['db']);
+
+                $keyParent = explode(':', $child['relation']['parent']);
+                if (count($keyParent) < 2)
+                {
+                    $keyParent[] = $keyParent[0];
+                }
                 $keyChild = $child['relation']['child'];
                 foreach ($this->content AS $entity)
                 {
-                    $child['params'][$keyParent][] = $entity->{$keyParent};
+                    $child['params'][$keyParent[1]][] = $entity->{$keyParent[0]};
                 }
 
                 if ($aChilds = call_user_func_array(array($db, $child['method']), array($child['params'])))
@@ -120,7 +123,7 @@ class Collection extends \Domain\Collection
                     {
                         foreach ($this->content AS $entity)
                         {
-                            if ($oChild->{$keyChild} == $entity->{$keyParent})
+                            if ($oChild->{$keyChild} == $entity->{$keyParent[0]})
                             {
                                 $entity->{$child['appendMethod']}($oChild);
                             }
@@ -128,7 +131,7 @@ class Collection extends \Domain\Collection
                             {
                                 foreach ($aChildsTotalCount AS $count)
                                 {
-                                    if ($count->{$keyChild} == $entity->{$keyParent})
+                                    if ($count->{$keyChild} == $entity->{$keyParent[0]})
                                     {
                                         $entity->{$child['appendTotalCountMethod']}($count->{$child['appendTotalCountValueField']});
                                     }
@@ -300,6 +303,7 @@ class Collection extends \Domain\Collection
             $tag = $_child->getTagName();
             $this->childs[$tag] = array
             (
+                'db' => $_child->getAttribute('db') ? "db_{$_child->getAttribute('db')}" : 'db_default',
                 'method' => $_child->getAttribute('method'),
                 'appendMethod' => $_child->getAttribute('appendMethod'),
                 'methodTotalCount' => $_child->getAttribute('methodTotalCount'),

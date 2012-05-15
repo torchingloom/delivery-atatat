@@ -2,9 +2,9 @@
 
 namespace DataSource\Mysql\DbCommand;
 
-class UserGetter extends DbCommand
+class UserTotalCountGetter extends DbCommand
 {
-	public function UserGetter($params = array())
+	public function UserTotalCountGetter($params = array())
 	{
         $params = $this->ParamsAndFieldsPrepareByMethod
         (
@@ -15,7 +15,6 @@ class UserGetter extends DbCommand
                 'subscribe_end_date' => null,
                 'snob_person_type' => null,
                 'group_id' => null,
-                '__FETCH__' => array('class' => '\Domain\Entity\User', 'factory' => '\Domain\Entity\User::factory')
             )
         );
 
@@ -23,8 +22,16 @@ class UserGetter extends DbCommand
 
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->_connection->query($sql);
-        $oDBStatatement->setFetch($params['__FETCH__']);
-        $result = $oDBStatatement->fetchAll();
+
+        if ($params['group_id'])
+        {
+            $result = $oDBStatatement->fetchAll();
+        }
+        else
+        {
+            $result = $oDBStatatement->fetchColumn();
+        }
+
         return $result;
     }
 
@@ -38,7 +45,7 @@ class UserGetter extends DbCommand
 
 SELECT
 
-   `delivery_user`.*
+   COUNT(*) AS `count`
 
 <? if ($params['group_id']): ?>
 
@@ -75,6 +82,13 @@ WHERE
     <? elseif (preg_match('/w+/i', $params['subscribe_end_date'])): ?>
     AND `delivery_user`.`subscribe_end_date` <? echo $params['subscribe_end_date'] ?>
     <? endif; ?>
+<? endif; ?>
+
+<? if ($params['group_id']): ?>
+
+GROUP BY
+   `delivery_user_to_group`.`group_id`
+
 <? endif; ?>
 
 <?

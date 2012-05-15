@@ -16,4 +16,17 @@
     </tpl-new>
     <tpl-rm rule="tpl/rm/:id" controller="tpl" action="rm" />
 
+    <group rule="group/(\d+)" type="regex" controller="group" action="view">
+        <names>
+            <id>1</id>
+        </names>
+    </group>
+    <group-new rule="group/new" controller="group" action="view">
+        <defaults>
+            <id>new</id>
+            <new>new</new>
+        </defaults>
+    </group-new>
+    <group-rm rule="group/rm/:id" controller="group" action="rm" />
+
 </route>
