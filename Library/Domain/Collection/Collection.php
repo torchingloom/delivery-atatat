@@ -163,6 +163,7 @@ class Collection extends \Domain\Collection
                     }
                 }
             }
+            $this->rewind();
         }
     }
 

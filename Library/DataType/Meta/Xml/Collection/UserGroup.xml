@@ -5,6 +5,13 @@
         <method>UserGroupGetter</method>
         <methodTotalCount>UserGroupTotalCountGetter</methodTotalCount>
     </dataSource>
+    <dataStore>
+        <method>UserGroupSetter</method>
+    </dataStore>
+    <dataRemove>
+        <method>UserGroupRemover</method>
+    </dataRemove>
+
 
     <children>
         <entry
@@ -17,6 +24,67 @@
             child="group_id"
         />
     </children>
+
+    <form>
+        <elements>
+            <id>
+                <type>Hidden</type>
+                <name>id</name>
+            </id>
+            <name>
+                <type>Text</type>
+                <options>
+                    <label>Название группы</label>
+                    <required>1</required>
+                    <validators>
+                        <strlen>
+                            <validator>StringLength</validator>
+                            <options>
+                                <min>6</min>
+                                <max>200</max>
+                            </options>
+                        </strlen>
+                    </validators>
+                </options>
+            </name>
+
+            <users>
+                <name>users</name>
+                <type>TooGlasses</type>
+                <options>
+                    <label>Пользователи</label>
+                    <sourceModel>
+                        <name>User</name>
+                        <collection>list</collection>
+                    </sourceModel>
+                </options>
+            </users>
+
+            <submit>
+                <type>submit</type>
+                <options>
+                    <value>save</value>
+                    <label>Сохранить</label>
+                    <attribs>
+                        <!--<onclick>ClickOnButton(this)</onclick>-->
+                        <name></name>
+                    </attribs>
+                </options>
+            </submit>
+            <reset>
+                <type>reset</type>
+                <options>
+                    <value>reset</value>
+                    <label>Отменить</label>
+                    <attribs>
+                        <!--<onclick>ClickOnButton(this)</onclick>-->
+                        <name></name>
+                    </attribs>
+                </options>
+            </reset>
+
+        </elements>
+    </form>
 </type>
 
 

@@ -11,6 +11,9 @@ class ErrorController extends Zend_Controller_Action
             case 'tplnotfound':
                 $m = 'Такого шаблона не существует';
         	break;
+            case 'usergroupnotfound':
+                $m = 'Такой группы пользователей не существует';
+        	break;
         }
         $this->view->message = $m;
     }

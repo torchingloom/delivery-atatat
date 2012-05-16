@@ -1,31 +1,7 @@
 
-<? /* @var $oModel \Domain\Model\UserGroup */ ?>
-<? $oModel = $this->oModel; ?>
-
-<? /* @var $oModel Domain\Collection\UserGroup */ ?>
-<? $oList = $oModel->getCollection('list'); ?>
-
-<ul class="submenu">
-    <li><a href="/group/new">Добавить новую группу</a></li>
-</ul>
-
-<ul class="list usergroup-list">
-
-<? $index = 0 ?>
 <? /* @var $oGroup Domain\Entity\UserGroup */ ?>
-<? foreach ($oList AS $oGroup): ?>
+<? $oGroup = $this->oGroup; ?>
 
-    <li>
-        <a href="/group/<? echo $oGroup->id ?>"><? echo $oGroup->name ?></a>
-
-<? if (!$oGroup->algo): ?>
-
-        <a href="/group/rm/<? echo $oGroup->id ?>" onclick="return confirm('Нажмите OK, если вы хотите удалить группу\n<? echo preg_replace('/[\'"]/ims', '&quot;', $oGroup->name) ?> полностью')">Удалить</a>
-
-<? endif; ?>
-
-    </li>
-
-<? endforeach; ?>
-
-</ul>
+<div class="form-wrapper usergroup-form">
+    <? echo $this->oForm; ?>
+</div>

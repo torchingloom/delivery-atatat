@@ -32,4 +32,9 @@ class User extends Entity
         $newo->fill($o->toArray());
         return $newo;
     }
+
+    public function __toString()
+    {
+        return "{$this->last_name} {$this->first_name} ({$this->email})";
+    }
 }

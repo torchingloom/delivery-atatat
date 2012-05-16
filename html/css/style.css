@@ -381,3 +381,56 @@ s.ie7 body {
     font-size: 90%;
     color: red;
 }
+
+
+.form-wrapper .multielement-list
+{
+    border: 1px solid;
+    width: 300px;
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.form-wrapper .multielement-list LI
+{
+    padding: 10px;
+    white-space: nowrap;
+    border-bottom: 1px solid;
+}
+
+.form-wrapper .multielement-list .selected
+{
+    background-color: #9dd1dd;
+}
+
+
+
+.form-wrapper .multielement-wrapper .multielement-list, .form-wrapper .multielement-wrapper .multielement-control
+{
+    float: left;
+}
+
+.form-wrapper .multielement-wrapper-after
+{
+    clear: both;
+}
+
+.form-wrapper .multielement-control
+{
+    margin: 10px;
+}
+
+.form-wrapper .multielement-control .multielement-move-right, .form-wrapper .multielement-control .multielement-move-left
+{
+    display: block;
+    width: 50px;
+    height: 19px;
+    background-image: url(/img/multielement-move-right.png);
+}
+
+
+.form-wrapper .multielement-control .multielement-move-left
+{
+    background-image: url(/img/multielement-move-left.png);
+}

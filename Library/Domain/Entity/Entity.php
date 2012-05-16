@@ -83,6 +83,20 @@ class Entity implements \ArrayAccess, \Iterator, \Countable
         return $this->resources[$type];
     }
 
+    public function __toString()
+    {
+        ob_start();
+        print_r($this->__data__);
+        $s = ob_get_contents();
+        ob_end_clean();
+        return $s;
+    }
+
+    public function idGet()
+    {
+        return $this->id;
+    }
+
     public function __set($var, $value)
     {
         $this->__data__[$var] = $value;
