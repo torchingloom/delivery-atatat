@@ -77,7 +77,9 @@ CREATE TABLE delivery_user
 	KEY `snob_person_type` (`snob_person_type`),
 	KEY `city` (`city`),
 	KEY `subscribe_start_date` (`subscribe_start_date`),
-	KEY `subscribe_end_date` (`subscribe_end_date`)
+	KEY `subscribe_end_date` (`subscribe_end_date`),
+	KEY `last_name_n_first_name` (`last_name`, `first_name`),
+	KEY `last_name_n_first_name_n_email` (`last_name`, `first_name`, `email`)
 
 )
 	ENGINE=INNODB 

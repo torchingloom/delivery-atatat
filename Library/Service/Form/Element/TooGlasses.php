@@ -2,11 +2,19 @@
 
 class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 {
-    protected $sourceModel;
+    protected
+        $sourceModel,
+        $sourceModelAsync
+    ;
 
     protected function setSourceModel($valuev)
     {
         $this->sourceModel = $valuev;
+    }
+
+    protected function setsourceModelAsync($valuev)
+    {
+        $this->sourceModelAsync = $valuev;
     }
 
     protected function checkSourceModel()
@@ -51,14 +59,15 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 
         $sElement = str_replace('multiple', 'style="display: none" multiple', $sElement);
         $elname = $this->getName();
-        $sElementAddictional = '
+        $sElementAddictional = self::js() . $this->autocomliteJs() .'
 <div class="multielement-wrapper">
+'. $this->autocomliteField() .'
 <div class="multielement-list"><ul id="'. $elname .'-source">';
         $i = 0;
         /* @var $oEntity \Domain\Entity\Entity */
         foreach ($oCollection AS $oEntity)
         {
-            $sElementAddictional .= "<li id='{$elname}-item-{$oEntity->idGet()}' class='multielement-element' title='{$oEntity}'><input type='checkbox' value='{$oEntity->idGet()}-source-item' /> {$oEntity}</li>";
+            $sElementAddictional .= "<li id='{$elname}-item-{$oEntity->idGet()}' class='multielement-element' title='{$oEntity}'><input type='checkbox' value='{$oEntity->idGet()}' /> {$oEntity}</li>";
         }
         $sElementAddictional .= '</ul></div>
 <div class="multielement-control" id="multielement-control-'. $elname .'">
@@ -73,7 +82,23 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
         }
         $sElementAddictional .= '</ul></div></div><div class="multielement-wrapper-after"></div>';
 
-        return str_replace('</select>', "</select>". self::js() . $sElementAddictional, $sElement);
+        return str_replace('</select>', "</select>". $sElementAddictional, $sElement);
+    }
+
+    protected function autocomliteField()
+    {
+        if ($this->sourceModelAsync)
+        {
+            return '<div class="multielement-source-autocomlite"><input type="text" id="'. $this->getName() .'-source-autocomlite" /></div>';
+        }
+    }
+
+    protected function autocomliteJs()
+    {
+        if ($this->sourceModelAsync)
+        {
+            return "<script>$('document').ready( function() { $('#{$this->getName()}-source-autocomlite').keyup( function() { multielementSourceAutocomlite($(this), '{$this->sourceModelAsync['url']}', '{$this->sourceModelAsync['paramname']}') } ) } );</script>";
+        }
     }
 
     protected static function JS()
@@ -84,6 +109,32 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
             ob_start();
 ?>
 <script>
+
+$.ajaxSetup({  cache: true });
+
+function multielementSourceAutocomlite(_element, _url, _paramname)
+{
+    $.getJSON(_url +"?"+ _paramname +"="+ _element.attr('value'), function(_result) { multielementSourceAutocomliteCallback(_element, _result) });
+}
+
+function multielementSourceAutocomliteCallback(_element, _result)
+{
+    _glass = $('#'+ _element.attr('id').replace(/-autocomlite/, ''));
+    _glass.find('li').remove();
+    _elemname = _element.attr('id').replace(/-.*/g, '');
+
+    var items = [];
+    $.each
+    (
+        _result,
+        function(key, val)
+        {
+            items.push('<li id="'+ _elemname +'-item-'+ key +'" class="multielement-element" title="'+ val +'"><input type="checkbox" value="'+ key +'" /> '+ val +"</li>");
+        }
+    );
+    _glass.append(items.join(''));
+    multielementClickOnRowBinder();
+}
 
 function multielementMoveElement(_element, _direction)
 {
@@ -103,25 +154,33 @@ function multielementMoveElement(_element, _direction)
     ;
 }
 
+
+function multielementClickOnRowBinder()
+{
+
+    $('.multielement-element')
+        .unbind('click')
+        .click
+        (
+           function ()
+           {
+               inpt = $(this).find("input");
+               inpt.attr("checked", !inpt.attr("checked"));
+               $(this).removeClass('selected');
+               if (inpt.attr("checked"))
+               {
+                   $(this).addClass('selected');
+               }
+               return false;
+           }
+        );
+}
+
 $('document').ready
 (
     function ()
     {
-    	$('.multielement-element').click
-        (
-            function ()
-            {
-                inpt = $(this).find("input");
-                inpt.attr("checked", !inpt.attr("checked"));
-                $(this).removeClass('selected');
-                if (inpt.attr("checked"))
-                {
-                    $(this).addClass('selected');
-                }
-                return false;
-            }
-        );
-
+        multielementClickOnRowBinder();
         $('.multielement-control a').click
         (
             function ()
@@ -132,11 +191,12 @@ $('document').ready
         );
     }
 );
+
 </script>
 <?php
             $js = ob_get_contents();
             ob_end_clean();
-            return $js;
+            return preg_replace('/\n/ims', '', $js);
         }
     }
 }

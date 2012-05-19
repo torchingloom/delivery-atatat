@@ -57,6 +57,10 @@
                         <name>User</name>
                         <collection>list</collection>
                     </sourceModel>
+                    <sourceModelAsync>
+                        <url>/j/users</url>
+                        <paramname>q</paramname>
+                    </sourceModelAsync>
                 </options>
             </users>
 

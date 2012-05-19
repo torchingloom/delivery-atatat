@@ -404,8 +404,6 @@ s.ie7 body {
     background-color: #9dd1dd;
 }
 
-
-
 .form-wrapper .multielement-wrapper .multielement-list, .form-wrapper .multielement-wrapper .multielement-control
 {
     float: left;
@@ -429,8 +427,13 @@ s.ie7 body {
     background-image: url(/img/multielement-move-right.png);
 }
 
-
 .form-wrapper .multielement-control .multielement-move-left
 {
     background-image: url(/img/multielement-move-left.png);
+}
+
+
+.form-wrapper .multielement-source-autocomlite INPUT
+{
+    width: 300px;
 }

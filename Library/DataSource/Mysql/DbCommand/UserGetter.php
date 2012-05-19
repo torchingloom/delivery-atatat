@@ -12,6 +12,7 @@ class UserGetter extends DbCommand
             array
             (
                 'id' => null,
+                'query' => null,
                 'subscribe_end_date' => null,
                 'snob_person_type' => null,
                 'group_id' => null,
@@ -76,6 +77,20 @@ WHERE
     AND `delivery_user`.`subscribe_end_date` <? echo $params['subscribe_end_date'] ?>
     <? endif; ?>
 <? endif; ?>
+
+<? if ($params['query']): ?>
+    AND
+    (
+        false
+        OR `delivery_user`.`first_name` LIKE '%<? echo $params['query'] ?>%'
+        OR `delivery_user`.`last_name` LIKE '%<? echo $params['query'] ?>%'
+        OR `delivery_user`.`email` LIKE '%<? echo $params['query'] ?>%'
+    )
+  <? endif; ?>
+
+ORDER BY
+   `delivery_user`.`last_name`,
+   `delivery_user`.`first_name`
 
 <?
        $sql = ob_get_contents();
