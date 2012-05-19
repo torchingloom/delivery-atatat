@@ -82,7 +82,7 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
         }
         $sElementAddictional .= '</ul></div></div><div class="multielement-wrapper-after"></div>';
 
-        return str_replace('</select>', "</select>". $sElementAddictional, $sElement);
+        return preg_replace('/<select.*?\/select>/ims', $sElementAddictional, $sElement);
     }
 
     protected function autocomliteField()
@@ -150,8 +150,14 @@ function multielementMoveElement(_element, _direction)
 
     _source.find('input[checked=checked]')
         .removeAttr('checked')
+        .removeAttr('name')
         .parent().removeClass('selected').appendTo(_destination)
     ;
+
+    if (_direction == 'right')
+    {
+        _destination.find('input').attr('name', _element +'[]');
+    }
 }
 
 
