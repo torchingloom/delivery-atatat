@@ -52,6 +52,7 @@
                 <name>users</name>
                 <type>TooGlasses</type>
                 <options>
+                    <childAsField>users</childAsField>
                     <label>Пользователи</label>
                     <sourceModel>
                         <name>User</name>

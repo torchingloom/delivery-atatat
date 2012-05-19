@@ -61,12 +61,17 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
         $elname = $this->getName();
         $sElementAddictional = self::js() . $this->autocomliteJs() .'
 <div class="multielement-wrapper">
+<div class="multielement-form-value" id="'. $elname .'-form-value"></div>
 '. $this->autocomliteField() .'
 <div class="multielement-list"><ul id="'. $elname .'-source">';
         $i = 0;
         /* @var $oEntity \Domain\Entity\Entity */
         foreach ($oCollection AS $oEntity)
         {
+            if (array_key_exists($oEntity->idGet(), $this->getValue()))
+            {
+                continue;
+            }
             $sElementAddictional .= "<li id='{$elname}-item-{$oEntity->idGet()}' class='multielement-element' title='{$oEntity}'><input type='checkbox' value='{$oEntity->idGet()}' /> {$oEntity}</li>";
         }
         $sElementAddictional .= '</ul></div>
@@ -76,9 +81,9 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 </div>
 <div class="multielement-list"><ul id="'. $elname .'-result">';
         $i = 0;
-        /* @var $oEntity \Domain\Entity\Entity */
-        foreach ($oCollection AS $oEntity)
+        foreach ($this->getValue() AS $valueid => $valuetitle)
         {
+            $sElementAddictional .= "<li id='{$elname}-item-{$valueid}' class='multielement-element' title='{$valuetitle}'><input type='checkbox' value='{$valueid}' /> {$valuetitle}</li>";
         }
         $sElementAddictional .= '</ul></div></div><div class="multielement-wrapper-after"></div>';
 
@@ -150,20 +155,12 @@ function multielementMoveElement(_element, _direction)
 
     _source.find('input[checked=checked]')
         .removeAttr('checked')
-        .removeAttr('name')
         .parent().removeClass('selected').appendTo(_destination)
     ;
-
-    if (_direction == 'right')
-    {
-        _destination.find('input').attr('name', _element +'[]');
-    }
 }
-
 
 function multielementClickOnRowBinder()
 {
-
     $('.multielement-element')
         .unbind('click')
         .click
@@ -182,6 +179,26 @@ function multielementClickOnRowBinder()
         );
 }
 
+function multielementFormSetValues(_form)
+{
+    _form.find('.multielement-form-value').each
+    (
+        function ()
+        {
+            _place = $(this);
+            _elemname = $(this).attr('id').replace(/-.*/, '');
+            $('#'+ _elemname +'-result').find('input')
+                .clone()
+                .attr('name', _elemname +'[]')
+                .attr('type', 'text')
+                .appendTo(_place)
+            ;
+        }
+    );
+    _form.unbind('submit');
+    _form.submit();
+}
+
 $('document').ready
 (
     function ()
@@ -195,6 +212,8 @@ $('document').ready
                 return false;
             }
         );
+
+        $('.multielement-control').parents('form').submit( function() { multielementFormSetValues($(this)); return false; } );
     }
 );
 

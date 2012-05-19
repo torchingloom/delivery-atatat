@@ -432,8 +432,12 @@ s.ie7 body {
     background-image: url(/img/multielement-move-left.png);
 }
 
-
 .form-wrapper .multielement-source-autocomlite INPUT
 {
     width: 300px;
+}
+
+.form-wrapper .multielement-form-value
+{
+    /* display: none; */
 }
