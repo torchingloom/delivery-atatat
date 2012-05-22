@@ -1,7 +1,7 @@
 <?php
 
 
-//php cmd/cmd.php [staging] grops-autofill
+//php cmd/cmd.php [staging] groups-autofill
 
 $_START_ = microtime(true);
 

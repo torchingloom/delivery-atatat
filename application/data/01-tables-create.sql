@@ -12,6 +12,8 @@ DROP TABLE IF EXISTS delivery_task;
 DROP TABLE IF EXISTS delivery_user;
 
 
+
+
 CREATE TABLE delivery_template
 (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -70,7 +72,7 @@ CREATE TABLE delivery_user
 	`city` VARCHAR (500) NULL,
 	`subscribe_start_date` TIMESTAMP NULL,
 	`subscribe_end_date` TIMESTAMP NULL,
-	`invited_by_project` TINYINT(1) NOT NULL DEFAULT 0,
+	`is_paid` TINYINT(1) NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `email` (`email`),
 	KEY `snob_user_id` (`snob_user_id`),

@@ -2,19 +2,15 @@
 
 namespace Domain\Model;
 
-class Template extends Model
+class UserFilter extends Model
 {
     protected function prepareCollectionsConfig()
     {
         $this->collectionsConfig['list'] = array
         (
-            'Collection' => '\Domain\Collection\Template',
-            'DataType' => 'Xml/Collection/Template',
+            'Collection' => '\Domain\Collection\UserFilter',
+            'DataType' => 'Xml/Collection/UserFilter',
             'Params' => $this->INCOMING
         );
     }
-}
-
-class TemplateException extends \Exception
-{
 }

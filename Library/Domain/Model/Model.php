@@ -4,14 +4,23 @@ namespace Domain\Model;
 
 class Model implements \ArrayAccess, \Iterator, \Countable
 {
+    protected $INCOMING;
+
     protected
         $collectionsConfig = array(),
         $collections = array()
     ;
     
-    public function __construct()
+    public function __construct($params = array())
     {
+        $this->INCOMING = $params;
+        $this->prepareCollectionsConfig();
         $this->initCollections();
+    }
+
+    protected function prepareCollectionsConfig()
+    {
+        // virtual
     }
 
     public function initCollections()
@@ -21,6 +30,10 @@ class Model implements \ArrayAccess, \Iterator, \Countable
             $_className = @$_classParams['Collection'] ?: $index;
             if (class_exists($_className))
             {
+                if ($this->INCOMING && is_array($this->INCOMING))
+                {
+                    $_classParams = array_merge($this->INCOMING, $_classParams);
+                }
                 $this->collections[$index] = new $_className($_classParams);
             }
             else

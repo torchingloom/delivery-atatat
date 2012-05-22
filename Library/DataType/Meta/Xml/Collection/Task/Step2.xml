@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="TaskStep2">
+    <form>
+        <elements>
+            <groups>
+                <type>CheckboxFromModel</type>
+                <options>
+                    <label>Выберите группы пользователей, которые будут участвовать в рассылке</label>
+                    <required>1</required>
+                    <sourceModel>
+                        <name>UserGroup</name>
+                        <collection>list</collection>
+                        <options>
+                            <without_children>1</without_children>
+                        </options>
+                    </sourceModel>
+                </options>
+            </groups>
+
+            <filters>
+                <type>CheckboxFromModel</type>
+                <options>
+                    <label>Выберите фильтры для выбранных групп</label>
+                    <required>1</required>
+                    <sourceModel>
+                        <name>UserFilter</name>
+                        <collection>list</collection>
+                        <options>
+                            <without_children>1</without_children>
+                        </options>
+                    </sourceModel>
+                </options>
+            </filters>
+
+            <submit>
+                <type>submit</type>
+                <options>
+                    <value>next</value>
+                    <label>Перейти к следующему шагу - старту задачи</label>
+                </options>
+            </submit>
+            <prev>
+                <type>submit</type>
+                <options>
+                    <value>prev</value>
+                    <label>Перейти к предыдущему шагу - настройке параметров письма</label>
+                </options>
+            </prev>
+            <reset>
+                <type>reset</type>
+                <options>
+                    <value>reset</value>
+                    <label>Сбросить внесенные изменения</label>
+                </options>
+            </reset>
+        </elements>
+
+    </form>
+
+</type>

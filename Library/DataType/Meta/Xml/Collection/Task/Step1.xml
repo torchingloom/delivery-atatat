@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<type name="Template">
-    <dataSource>
-        <method>TemplateGetter</method>
-    </dataSource>
-    <dataStore>
-        <method>TemplateSetter</method>
-    </dataStore>
-    <dataRemove>
-        <method>TemplateRemover</method>
-    </dataRemove>
-
+<type name="TaskStep1">
     <form>
         <elements>
-            <id>
-                <type>Hidden</type>
-                <name>id</name>
-            </id>
             <name>
                 <type>Text</type>
                 <options>
@@ -98,17 +84,26 @@
             <submit>
                 <type>submit</type>
                 <options>
-                    <value>save</value>
-                    <label>Сохранить</label>
+                    <value>next</value>
+                    <label>Перейти к следующему шагу - выбору пользователей</label>
                 </options>
             </submit>
+            <prev>
+                <type>submit</type>
+                <options>
+                    <value>prev</value>
+                    <label>Перейти к предыдущему шагу - выбору шаблона</label>
+                </options>
+            </prev>
             <reset>
                 <type>reset</type>
                 <options>
                     <value>reset</value>
-                    <label>Отменить</label>
+                    <label>Сбросить внесенные изменения</label>
                 </options>
             </reset>
         </elements>
+
     </form>
+
 </type>

@@ -47,9 +47,6 @@ class UserGroupTotalCountGetter extends DbCommand
     <? endif; ?>
 <? endif; ?>
 
-    ORDER BY
-        `name`
-
 <?
            $sql = ob_get_contents();
            ob_end_clean();

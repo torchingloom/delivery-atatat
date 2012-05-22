@@ -17,6 +17,16 @@ class Form extends \Zend_Form
         $cfg = new \Zend_Config_Xml(static::prefix() . $this->xmlname .'.xml');
         parent::__construct($cfg->form);
 
+        $this->valuesSet($o);
+
+        $this->removeIdElementIfEmpty();
+    }
+
+    /**
+     * @param \Domain\Entity\Entity $o
+     */
+    public function valuesSet($o)
+    {
         if ($o)
         {
             /* @var $oElement \Zend_Form_Element */
@@ -42,8 +52,6 @@ class Form extends \Zend_Form
                 }
             }
         }
-
-        $this->removeIdElementIfEmpty();
     }
 
     protected static function prefix()
@@ -59,3 +67,6 @@ class Form extends \Zend_Form
         }
     }
 }
+
+class Form_Exception extends \Exception
+{}

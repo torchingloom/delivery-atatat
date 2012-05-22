@@ -45,6 +45,11 @@ class UserGroup extends Entity
     {
         parent::setChildTotalCount('users', $iCount);
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
 
 class UserGroup_Exception extends EntityException

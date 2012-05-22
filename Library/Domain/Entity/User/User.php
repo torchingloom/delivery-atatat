@@ -15,7 +15,7 @@ namespace Domain\Entity;
  * @property mixed $city
  * @property mixed $subscribe_start_date
  * @property mixed $subscribe_end_date
- * @property mixed $invited_by_project
+ * @property mixed $is_paid
  */
 
 

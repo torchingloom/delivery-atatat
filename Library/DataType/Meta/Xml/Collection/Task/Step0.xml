@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="TaskStep0">
+    <form>
+        <elements>
+
+            <template>
+                <name>template</name>
+                <type>SelectFromModel</type>
+                <options>
+                    <label>Выберите шаблон</label>
+                    <sourceModel>
+                        <name>Template</name>
+                        <collection>list</collection>
+                    </sourceModel>
+                </options>
+            </template>
+
+            <submit>
+                <type>submit</type>
+                <options>
+                    <value>next</value>
+                    <label>Перейти к следующему шагу - настройке параметров письма</label>
+                </options>
+            </submit>
+        </elements>
+
+    </form>
+
+</type>
+

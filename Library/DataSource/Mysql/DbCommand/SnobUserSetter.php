@@ -140,7 +140,7 @@ class SnobUserSetter extends DbCommand
             'city' => 'city',
             'subscribe_start_date' => 'creation_date',
             'subscribe_end_date' => 'expiration_date',
-            'invited_by_project' => 'invited_by_project',
+            'is_paid' => 'is_paid',
         );
     }
 }

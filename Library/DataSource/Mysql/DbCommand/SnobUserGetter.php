@@ -38,6 +38,8 @@ class SnobUserGetter extends DbCommand
 SELECT
     `person`.*,
 
+    `person`.`invited_by_project` AS `is_paid`,
+
     `payment`.`city`,
 
    `delivery_user`.`id` AS `delivery_user_id`,

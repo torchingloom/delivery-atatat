@@ -1,6 +1,6 @@
 <?php
 
-class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
+class Service_Form_Element_CheckboxFromModel extends Zend_Form_Element_MultiCheckbox
 {
     protected
         $_sourceModel,
@@ -22,10 +22,10 @@ class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
             || empty($this->_sourceModel['collection'])
         )
         {
-            throw new Service_Form_Element_SelectFromModel_Exception;
+            throw new Service_Form_Element_CheckboxFromModel_Exception;
         }
     }
-    
+
     public function init()
     {
         $this->checkSourceModel();
@@ -47,15 +47,14 @@ class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
     {
         if (!class_exists($sModelClass = "\\Domain\\Model\\{$this->_sourceModel['name']}"))
         {
-            throw new Service_Form_Element_SelectFromModel_Exception;
+            throw new Service_Form_Element_CheckboxFromModel_Exception;
         }
         /* @var $oModel \Domain\Model\Model */
         $oModel = new $sModelClass (!empty($this->_sourceModel['options']) ? $this->_sourceModel['options'] : null);
         if (!($oCollection = $oModel->getCollection($this->_sourceModel['collection'])))
         {
-            throw new Service_Form_Element_SelectFromModel_Exception;
+            throw new Service_Form_Element_CheckboxFromModel_Exception;
         }
-
 
         /* @var $oEntity \Domain\Entity\Entity */
         foreach ($oCollection AS $oEntity)
@@ -66,7 +65,7 @@ class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
     }
 }
 
-class Service_Form_Element_SelectFromModel_Exception extends Exception
+class Service_Form_Element_CheckboxFromModel_Exception extends Exception
 {
 
 }

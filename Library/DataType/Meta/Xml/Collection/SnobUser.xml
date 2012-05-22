@@ -2,38 +2,10 @@
 
 <type name="SnobUser">
     <dataSource>
-        <db>snob_full</db>
+        <db>snob</db>
         <method>SnobUserGetter</method>
     </dataSource>
     <dataStore>
         <method>SnobUserSetter</method>
     </dataStore>
 </type>
-
-
-<!-- EX -->
-<!--
-<type name="MainEntryList">
-    <dataSource>
-        <method>EntryListByGroup</method>
-        <params>
-            <status>published</status>
-            <limit>3</limit>
-            <entry_group_id>29</entry_group_id>
-            <order>entry_to_entry_group.sort DESC</order>
-            <order>entry.publish_date DESC</order>
-        </params>
-
-        <fetch>
-            <class>\Domain\Entity\Entry</class>
-            <factory>\Domain\Entity\Entry::::factory</factory>
-        </fetch>
-
-        <columns>
-            <entry.id type="int" />
-            <entry.title type="varchar" />
-            <entry.announce type="varchar" />
-        </columns>
-    </dataSource>
-</type>
--->
