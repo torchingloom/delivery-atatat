@@ -70,6 +70,7 @@ CREATE TABLE delivery_user
 "editor" сотрудник;
 ',
 	`city` VARCHAR (500) NULL,
+	`country` VARCHAR (500) NULL,
 	`subscribe_start_date` TIMESTAMP NULL,
 	`subscribe_end_date` TIMESTAMP NULL,
 	`is_paid` TINYINT(1) NOT NULL DEFAULT 0,
@@ -78,6 +79,7 @@ CREATE TABLE delivery_user
 	KEY `snob_user_id` (`snob_user_id`),
 	KEY `snob_person_type` (`snob_person_type`),
 	KEY `city` (`city`),
+	KEY `country` (`country`),
 	KEY `subscribe_start_date` (`subscribe_start_date`),
 	KEY `subscribe_end_date` (`subscribe_end_date`),
 	KEY `last_name_n_first_name` (`last_name`, `first_name`),

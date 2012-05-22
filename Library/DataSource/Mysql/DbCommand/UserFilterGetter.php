@@ -6,11 +6,9 @@ class UserFilterGetter extends DbCommand
 {
     protected $filters = array
     (
-        'paid' => 'Платный аккаут',
-        'free' => 'Беcплатный аккаут',
-        'city-london' => 'Город - Лондон',
-        'city-ny' => 'Город - NY',
-        'city-moscow' => 'Город - Москва',
+        'paid' => 'Платный или бесплатный аккаут',
+        'city' => 'Город',
+        'country' => 'Страна',
         'subscribe_end_date' => 'Дата окончания подписки',
         'subscribe_start_date' => 'Дата начала подписки',
     );

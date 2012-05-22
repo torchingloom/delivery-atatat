@@ -19,6 +19,12 @@ class Entity implements \ArrayAccess, \Iterator, \Countable
 
     public function __construct($args = array())
     {
+        $this->init();
+    }
+
+    protected function init()
+    {
+        // virtual
     }
 
     public function appendChild($kind, Entity $object, $key = 'id')
@@ -81,15 +87,6 @@ class Entity implements \ArrayAccess, \Iterator, \Countable
             return null;
         }
         return $this->resources[$type];
-    }
-
-    public function __toString()
-    {
-        ob_start();
-        print_r($this->__data__);
-        $s = ob_get_contents();
-        ob_end_clean();
-        return $s;
     }
 
     public function idGet()
@@ -164,14 +161,29 @@ class Entity implements \ArrayAccess, \Iterator, \Countable
         return count($this->__data__);
     }
 
+    public function fill($array)
+    {
+        $this->__data__ = $array;
+        $this->init();
+    }
+
     public function toArray()
     {
         return $this->__data__;
     }
 
-    public function fill($array)
+    public function toString()
     {
-        $this->__data__ = $array;
+        ob_start();
+        print_r($this->__data__);
+        $s = ob_get_contents();
+        ob_end_clean();
+        return $s;
+    }
+
+    public function __toString()
+    {
+        return $this->toString();
     }
 }
 

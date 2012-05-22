@@ -3,8 +3,10 @@
 namespace Domain\Entity;
 
 /**
- * @property mixed $name
- * @property mixed $title
+ * @property string $name
+ * @property string $title
+ * @property string $kind
+ * @property string $options
  */
 
 
@@ -18,12 +20,17 @@ class UserFilter extends Entity
         return $newo;
     }
 
+    protected function init()
+    {
+        $this->kind = 'default';
+    }
+
     public function idGet()
     {
         return $this->name;
     }
 
-    public function __toString()
+    public function toString()
     {
         return $this->title;
     }

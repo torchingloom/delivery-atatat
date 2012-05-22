@@ -33,7 +33,7 @@ class User extends Entity
         return $newo;
     }
 
-    public function __toString()
+    public function toString()
     {
         return "{$this->last_name} {$this->first_name} ({$this->email})";
     }

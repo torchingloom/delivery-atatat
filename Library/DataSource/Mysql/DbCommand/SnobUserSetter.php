@@ -29,6 +29,7 @@ class SnobUserSetter extends DbCommand
         {
             $sql .= ($sql ? ",\n" : '') . str_replace("''", "NULL", "('". join("', '", $item) ."')");
         }
+
         if ($sql)
         {
             $sql = "INSERT INTO `delivery_user`\n(`". join('`, `', array_slice(array_keys(self::fields()), 2)) ."`)\nVALUES\n" . $sql;
@@ -138,6 +139,7 @@ class SnobUserSetter extends DbCommand
             'snob_user_id' => 'id',
             'snob_person_type' => 'snob_person_type',
             'city' => 'city',
+            'country' => 'country',
             'subscribe_start_date' => 'creation_date',
             'subscribe_end_date' => 'expiration_date',
             'is_paid' => 'is_paid',

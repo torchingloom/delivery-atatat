@@ -441,3 +441,14 @@ s.ie7 body {
 {
     /* display: none; */
 }
+
+
+.form-wrapper .dinamic-checkbox-controls-wrapper
+{
+
+}
+
+.form-wrapper .dinamic-checkbox-controls-wrapper .secondary-subelement
+{
+    display: none;
+}

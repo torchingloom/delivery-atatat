@@ -2,7 +2,7 @@
 
 namespace Domain\Entity;
 
-class UserFilter_SubscribeStartDate extends UserFilter
+class UserFilter_Country extends UserFilter
 {
     protected function init()
     {

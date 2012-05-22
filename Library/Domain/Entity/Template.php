@@ -13,7 +13,7 @@ namespace Domain\Entity;
 
 class Template extends Entity
 {
-    public function __toString()
+    public function toString()
     {
         return $this->name;
     }

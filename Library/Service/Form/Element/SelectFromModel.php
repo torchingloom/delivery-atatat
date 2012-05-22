@@ -61,7 +61,7 @@ class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
         foreach ($oCollection AS $oEntity)
         {
             $this->_sourceElements[$oEntity->idGet()] = $oEntity;
-            $this->options[$oEntity->idGet()] = $oEntity->__toString();
+            $this->options[$oEntity->idGet()] = $oEntity->toString();
         }
     }
 }

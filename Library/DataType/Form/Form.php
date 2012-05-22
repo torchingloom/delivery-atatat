@@ -40,7 +40,7 @@ class Form extends \Zend_Form
                         /* @var \Domain\Entity\Entity $child */
                         foreach ($childs AS $child)
                         {
-                            $valuev[$child->idGet()] = $child->__toString();
+                            $valuev[$child->idGet()] = $child->toString();
                         }
                         $oElement->setValue($valuev);
                         continue;

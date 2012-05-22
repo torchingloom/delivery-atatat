@@ -42,15 +42,17 @@ SELECT
 
     `payment`.`city`,
 
-   `delivery_user`.`id` AS `delivery_user_id`,
+    `payment`.`country`,
 
-   `subscribe_plan`.`name` AS `subscribe_plan_name`,
+    `delivery_user`.`id` AS `delivery_user_id`,
 
-   `subscribe_plan`.`title` AS `subscribe_plan_title`,
+    `subscribe_plan`.`name` AS `subscribe_plan_name`,
+
+    `subscribe_plan`.`title` AS `subscribe_plan_title`,
 
     IF (`person_partner`.`person_id`, 1, 0) AS `partner`,
 
-   `delivery_user_email_exists`.`email` IS NOT NULL AS `delivery_user_email_exists`
+    `delivery_user_email_exists`.`email` IS NOT NULL AS `delivery_user_email_exists`
 
 FROM
 
@@ -101,7 +103,7 @@ WHERE
     <? endif; ?>
 <? endif; ?>
 
--- SORRY, PAL
+-- >8-]
 GROUP BY
    `person`.`email`
 

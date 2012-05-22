@@ -46,7 +46,7 @@ class UserGroup extends Entity
         parent::setChildTotalCount('users', $iCount);
     }
 
-    public function __toString()
+    public function toString()
     {
         return $this->name;
     }
