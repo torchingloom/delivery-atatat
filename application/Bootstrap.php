@@ -16,10 +16,6 @@ defined('LOGIT') || define('LOGIT', false);
 
 class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
 {
-    protected function _initTrasgalacticUtils()
-    {
-    }
-
     protected function _initAutoload()
     {
         require_once '../Library/Autoloader.php';
@@ -29,6 +25,11 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
     protected function _initConfig()
     {
         \Service\Config::init($this->getOptions());
+    }
+
+    protected function _initSession()
+    {
+        \Service\Session\Session::start();
     }
 /*
     protected function _initForceSession()

@@ -29,4 +29,10 @@
     </group-new>
     <group-rm rule="group/rm/:id" controller="group" action="rm" />
 
+    <task-new rule="task/new/:step" controller="task" action="new">
+        <defaults>
+            <step>0</step>
+        </defaults>
+    </task-new>
+
 </route>

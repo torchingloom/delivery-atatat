@@ -37,6 +37,11 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
         parent::init();
     }
 
+    public function isValid($value)
+    {
+        return true;
+    }
+
     public function render(Zend_View_Interface $view = null)
     {
         return $this->decorate(parent::render($view));
@@ -68,7 +73,7 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
         /* @var $oEntity \Domain\Entity\Entity */
         foreach ($oCollection AS $oEntity)
         {
-            if (array_key_exists($oEntity->idGet(), $this->getValue()))
+            if ($this->getValue() && array_key_exists($oEntity->idGet(), $this->getValue()))
             {
                 continue;
             }
@@ -190,7 +195,7 @@ function multielementFormSetValues(_form)
             $('#'+ _elemname +'-result').find('input')
                 .clone()
                 .attr('name', _elemname +'[]')
-                .attr('type', 'text')
+                .attr('type', 'hidden')
                 .appendTo(_place)
             ;
         }

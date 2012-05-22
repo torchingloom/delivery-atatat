@@ -27,7 +27,6 @@ class GroupController extends \Controller_Action
 
         $this->view->oGroup = $oGroup;
         $this->view->oForm = $oForm;
-
         if ($_POST && $oForm->isValid($_POST))
         {
             $result = $oCollection->store(array($_POST));
