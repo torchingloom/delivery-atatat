@@ -56,6 +56,7 @@
                     <sourceModel>
                         <name>User</name>
                         <collection>list</collection>
+                        <fillAsync>true</fillAsync>
                     </sourceModel>
                     <sourceModelAsync>
                         <url>/j/users</url>

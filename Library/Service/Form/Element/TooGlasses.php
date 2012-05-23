@@ -3,28 +3,28 @@
 class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 {
     protected
-        $sourceModel,
-        $sourceModelAsync
+        $_sourceModel,
+        $_sourceModelAsync
     ;
 
     protected function setSourceModel($valuev)
     {
-        $this->sourceModel = $valuev;
+        $this->_sourceModel = $valuev;
     }
 
     protected function setsourceModelAsync($valuev)
     {
-        $this->sourceModelAsync = $valuev;
+        $this->_sourceModelAsync = $valuev;
     }
 
     protected function checkSourceModel()
     {
         if
         (
-            !$this->sourceModel
-            || !is_array($this->sourceModel)
-            || empty($this->sourceModel['name'])
-            || empty($this->sourceModel['collection'])
+            !$this->_sourceModel
+            || !is_array($this->_sourceModel)
+            || empty($this->_sourceModel['name'])
+            || empty($this->_sourceModel['collection'])
         )
         {
             throw new Service_Form_Element_TooGlasses_Exception;
@@ -49,15 +49,15 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 
     protected function decorate($sElement)
     {
-        if (!class_exists($sModelClass = "\\Domain\\Model\\{$this->sourceModel['name']}"))
+        if (!class_exists($sModelClass = "\\Domain\\Model\\{$this->_sourceModel['name']}"))
         {
             throw new Service_Form_Element_TooGlasses_Exception;
         }
 
         /* @var $oModel \Domain\Model\Model */
-        $oModel = new $sModelClass (!empty($this->sourceModel['options']) ? $this->sourceModel['options'] : null);
+        $oModel = new $sModelClass (!empty($this->_sourceModel['options']) ? $this->_sourceModel['options'] : null);
         /* @var $oModel \Domain\Collection\Collection */
-        if (!($oCollection = $oModel->getCollection($this->sourceModel['collection'])))
+        if (!($oCollection = $oModel->getCollection($this->_sourceModel['collection'])))
         {
             throw new Service_Form_Element_TooGlasses_Exception;
         }
@@ -69,16 +69,21 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 <div class="multielement-form-value" id="'. $elname .'-form-value"></div>
 '. $this->autocomliteField() .'
 <div class="multielement-list"><ul id="'. $elname .'-source">';
-        $i = 0;
-        /* @var $oEntity \Domain\Entity\Entity */
-        foreach ($oCollection AS $oEntity)
+
+        if (empty($this->_sourceModel['fillAsync']))
         {
-            if ($this->getValue() && array_key_exists($oEntity->idGet(), $this->getValue()))
+            $i = 0;
+            /* @var $oEntity \Domain\Entity\Entity */
+            foreach ($oCollection AS $oEntity)
             {
-                continue;
+                if ($this->getValue() && array_key_exists($oEntity->idGet(), $this->getValue()))
+                {
+                    continue;
+                }
+                $sElementAddictional .= "<li class='multielement-element' title='{$oEntity}'><input type='checkbox' value='{$oEntity->idGet()}' /> {$oEntity}</li>";
             }
-            $sElementAddictional .= "<li id='{$elname}-item-{$oEntity->idGet()}' class='multielement-element' title='{$oEntity}'><input type='checkbox' value='{$oEntity->idGet()}' /> {$oEntity}</li>";
         }
+
         $sElementAddictional .= '</ul></div>
 <div class="multielement-control" id="multielement-control-'. $elname .'">
     <div><a href="#" class="multielement-move-left"></a></div>
@@ -90,7 +95,7 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
         {
             foreach ($this->getValue() AS $valueid => $valuetitle)
             {
-                $sElementAddictional .= "<li id='{$elname}-item-{$valueid}' class='multielement-element' title='{$valuetitle}'><input type='checkbox' value='{$valueid}' /> {$valuetitle}</li>";
+                $sElementAddictional .= "<li class='multielement-element' title='{$valuetitle}'><input type='checkbox' value='{$valueid}' /> {$valuetitle}</li>";
             }
         }
         $sElementAddictional .= '</ul></div></div><div class="multielement-wrapper-after"></div>';
@@ -100,7 +105,7 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 
     protected function autocomliteField()
     {
-        if ($this->sourceModelAsync)
+        if ($this->_sourceModelAsync)
         {
             return '<div class="multielement-source-autocomlite"><input type="text" id="'. $this->getName() .'-source-autocomlite" /></div>';
         }
@@ -108,9 +113,18 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 
     protected function autocomliteJs()
     {
-        if ($this->sourceModelAsync)
+        if ($this->_sourceModelAsync)
         {
-            return "<script>$('document').ready( function() { $('#{$this->getName()}-source-autocomlite').keyup( function() { multielementSourceAutocomlite($(this), '{$this->sourceModelAsync['url']}', '{$this->sourceModelAsync['paramname']}') } ) } );</script>";
+            return "<script>
+$().ready
+(
+    function()
+    {
+        $('#{$this->getName()}-source-autocomlite').keyup( function() { multielementSourceAutocomlite($(this), '{$this->_sourceModelAsync['url']}', '{$this->_sourceModelAsync['paramname']}') } );
+        ". (!empty($this->_sourceModel['fillAsync']) ? "multielementSourceAutocomlite($('#{$this->getName()}-source-autocomlite'), '{$this->_sourceModelAsync['url']}', '{$this->_sourceModelAsync['paramname']}');" : "") ."
+    }
+);
+</script>";
         }
     }
 
@@ -142,7 +156,7 @@ function multielementSourceAutocomliteCallback(_element, _result)
         _result,
         function(key, val)
         {
-            items.push('<li id="'+ _elemname +'-item-'+ key +'" class="multielement-element" title="'+ val +'"><input type="checkbox" value="'+ key +'" /> '+ val +"</li>");
+            items.push('<li class="multielement-element" title="'+ val +'"><input type="checkbox" value="'+ key +'" /> '+ val +"</li>");
         }
     );
     _glass.append(items.join(''));
@@ -207,7 +221,7 @@ function multielementFormSetValues(_form)
     _form.submit();
 }
 
-$('document').ready
+$().ready
 (
     function ()
     {
