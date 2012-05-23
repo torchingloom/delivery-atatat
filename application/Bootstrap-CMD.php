@@ -10,7 +10,7 @@ class BootstrapCmd extends Bootstrap
     protected function _initRequest($uri = null)
     {
         $INCOMING = $this->getApplication()->getOption('ARGS');
-        parent::_initRequest(Zend_Uri_Http::fromString("http://fuhrer/index/{$INCOMING[0]}"));
+        parent::_initRequest(Zend_Uri_Http::fromString("http://fuhrer/index/{$INCOMING[0]}?vars=". join('|', array_slice($INCOMING, 1))));
     }
 
     protected function _initDbSnob()

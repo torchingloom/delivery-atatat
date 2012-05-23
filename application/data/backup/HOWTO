@@ -1,0 +1,1 @@
+php cmd/cmd.php "[staging]" download-data
