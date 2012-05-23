@@ -9,8 +9,8 @@ class UserFilterGetter extends DbCommand
         'paid' => 'Платный или бесплатный аккаут',
         'city' => 'Город',
         'country' => 'Страна',
-        'subscribe_end_date' => 'Дата окончания подписки',
-        'subscribe_start_date' => 'Дата начала подписки',
+        'subscribe_end_date' => 'Дата окончания подписки не позже',
+        'subscribe_start_date' => 'Дата начала подписки позже',
     );
 
 	public function UserFilterGetter($params = array())

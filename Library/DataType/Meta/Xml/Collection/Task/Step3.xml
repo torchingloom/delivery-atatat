@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="TaskStep3">
+    <form>
+        <elements>
+            <when_start>
+                <type>DateTime</type>
+                <options>
+                    <label>Укажите дату, с которой задача начнет выполняться</label>
+                    <description>Если не заполнять, то задача начнет выполняться сразу же!</description>
+                </options>
+            </when_start>
+
+            <submit>
+                <type>submit</type>
+                <options>
+                    <value>next</value>
+                    <label>старт!</label>
+                </options>
+            </submit>
+            <prev>
+                <type>submit</type>
+                <options>
+                    <value>prev</value>
+                    <label>Перейти к предыдущему шагу - выбору пользователей</label>
+                </options>
+            </prev>
+            <reset>
+                <type>reset</type>
+                <options>
+                    <value>reset</value>
+                    <label>Сбросить внесенные изменения</label>
+                </options>
+            </reset>
+        </elements>
+
+    </form>
+
+</type>

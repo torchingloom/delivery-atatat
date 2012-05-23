@@ -33,6 +33,11 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
         $this->optionsAdd();
     }
 
+    public function isValid($value, $context = null)
+    {
+        return true;
+    }
+
     public function sourceElementsGet()
     {
         return $this->_sourceElements;
@@ -116,7 +121,11 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
         {
             return '';
         }
-        $class = "\Zend_Form_Element_{$subelement->kind}";
+
+        if (!@class_exists($class = "\Zend_Form_Element_{$subelement->kind}"))
+        {
+            $class = "Service_Form_Element_{$subelement->kind}";
+        }
 
         /** @var $o \Zend_Form_Element */
         $o = new $class($subelement->toArray());

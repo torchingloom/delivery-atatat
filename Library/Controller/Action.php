@@ -6,7 +6,7 @@ class Controller_Action extends \Zend_Controller_Action
     {
         $this->view->headTitle(\Service\Config::get('html.title_prefix'));
         $this->view->headScript()
-            ->appendFile("/js/libs/jquery-1.7.2.min.js", 'text/javascript')
+            ->appendFile("/js/libs/jquery/jquery-1.7.2.min.js", 'text/javascript')
             ->appendFile("/js/script.js", 'text/javascript')
         ;
 

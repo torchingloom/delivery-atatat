@@ -8,6 +8,6 @@ class UserFilter_City extends UserFilter
     {
         parent::init();
         $this->kind = 'multiselect';
-        $this->options = array('options' => array('moscow' => 'Москва', 'london' => 'Лондон', 'ny' => 'Нью Йорк'));
+        $this->multioptions = array('moscow' => 'Москва', 'london' => 'Лондон', 'ny' => 'Нью Йорк');
     }
 }

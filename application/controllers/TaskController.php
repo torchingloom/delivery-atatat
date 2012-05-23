@@ -10,7 +10,6 @@ class TaskController extends \Controller_Action
     public function init()
     {
         parent::init();
-//        $this->sessiondata = \Service\Session\Variable::get('newtask');
         $this->sessiondata = new \Zend_Session_Namespace('newtask');
         $this->sessiondata->step = $this->_request->getParam('step');
         if (!$this->stepIsValid($this->sessiondata->step))
