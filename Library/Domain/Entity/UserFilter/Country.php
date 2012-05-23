@@ -7,7 +7,7 @@ class UserFilter_Country extends UserFilter
     protected function init()
     {
         parent::init();
-        $this->kind = 'multiselect';
+        $this->kind = 'Multiselect';
         foreach (\Service\Registry::get('db_default')->UserCountryGetter() AS $oCountry)
         {
             $multioptions[$oCountry->idGet()] = $oCountry->toString();

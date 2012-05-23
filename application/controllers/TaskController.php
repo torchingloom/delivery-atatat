@@ -96,16 +96,20 @@ class TaskController extends \Controller_Action
             }
             else
             {
-                $this->finalize();
+                $this->_redirect("/task/finalize");
             }
         }
 
         $this->view->oForm = $oForm;
     }
 
-    protected function finalize()
+    public function finalizeAction()
     {
-        \Utils::printr($this->stepData(3)->when_start->getValue()); exit();
+        $this->view->ddd = $this->stepData();
+    }
+
+    public function listAction()
+    {
     }
 }
 
