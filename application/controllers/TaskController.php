@@ -87,13 +87,25 @@ class TaskController extends \Controller_Action
         if ($_POST && $oForm->isValid($_POST))
         {
             $this->stepDataSet($this->step(), $oForm);
-            if ($nextstep = $this->step('next'))
+            if ($this->step('next'))
             {
-                $this->_redirect("/task/new/{$nextstep}");
+                if ($nextstep = $this->step('next'))
+                {
+                    $this->_redirect("/task/new/{$nextstep}");
+                }
+            }
+            else
+            {
+                $this->finalize();
             }
         }
 
         $this->view->oForm = $oForm;
+    }
+
+    protected function finalize()
+    {
+        \Utils::printr($this->stepData(3)->when_start->getValue()); exit();
     }
 }
 
