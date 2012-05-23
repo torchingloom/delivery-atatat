@@ -35,7 +35,14 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
 
     public function isValid($value, $context = null)
     {
+        parent::isValid($value, $context);
         return true;
+    }
+
+    public function setValue($value)
+    {
+        $this->_value = $value;
+        return $this;
     }
 
     public function sourceElementsGet()
@@ -144,13 +151,15 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
             (
                 "name=\"{$subelement->name}",
                 "id=\"{$subelement->name}",
+                "[{$subelement->name}]",
                 "[]"
             ),
             array
             (
                 "name=\"{$this->getName()}[{$subelement->name}]",
                 "id=\"{$this->getName()}-{$subelement->name}-sub",
-                "[value]"
+                "[{$subelement->name}][value]",
+                "[value][]"
             ),
             $o->render()
         );
