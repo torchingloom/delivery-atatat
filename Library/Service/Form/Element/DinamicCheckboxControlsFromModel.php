@@ -33,16 +33,24 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
         $this->optionsAdd();
     }
 
+    // todo Service_Form_Element_DinamicCheckboxControlsFromModel::isValid()
     public function isValid($value, $context = null)
     {
         parent::isValid($value, $context);
         return true;
     }
 
-    public function setValue($value)
+    public function setValue($multivaluev)
     {
-        $this->_value = $value;
-        return $this;
+        $realvaluev = array();
+        foreach ($multivaluev AS $name => $valuev)
+        {
+            if (!empty($valuev['checked']))
+            {
+                $realvaluev[$name] = $valuev['value'];
+            }
+        }
+        return parent::setValue($realvaluev);
     }
 
     public function sourceElementsGet()
@@ -152,14 +160,14 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
                 "name=\"{$subelement->name}",
                 "id=\"{$subelement->name}",
                 "[{$subelement->name}]",
-                "[]"
+                "[{$subelement->name}][]"
             ),
             array
             (
                 "name=\"{$this->getName()}[{$subelement->name}]",
                 "id=\"{$this->getName()}-{$subelement->name}-sub",
                 "[{$subelement->name}][value]",
-                "[value][]"
+                "[{$subelement->name}][value][]"
             ),
             $o->render()
         );
