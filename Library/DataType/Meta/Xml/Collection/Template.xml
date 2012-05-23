@@ -83,7 +83,7 @@
                 <required>1</required>
                 <options>
                     <label>Текст</label>
-                    <description>на случай, если не письмо будут смотреть в текстовом режиме</description>
+                    <description>на случай, если письмо будут смотреть в текстовом режиме</description>
                     <validators>
                         <strlen>
                             <validator>StringLength</validator>
