@@ -1,5 +1,4 @@
 
-USE delivery;
 
 -- SET FOREIGN_KEY_CHECKS=0;
 
@@ -69,8 +68,8 @@ CREATE TABLE delivery_user
 "snob" ЧК;
 "editor" сотрудник;
 ',
-	`city` VARCHAR (500) NULL,
-	`country` VARCHAR (500) NULL,
+	`city` VARCHAR (200) NULL,
+	`country` VARCHAR (200) NULL,
 	`subscribe_start_date` TIMESTAMP NULL,
 	`subscribe_end_date` TIMESTAMP NULL,
 	`is_paid` TINYINT(1) NOT NULL DEFAULT 0,

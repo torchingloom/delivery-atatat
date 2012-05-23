@@ -1,5 +1,5 @@
 $(
-	function() 
+	function()
 	{
 		$(".use-datepicker").datepicker
 		(
