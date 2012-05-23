@@ -45,6 +45,7 @@ class TplController extends \Controller_Action
 
         if ($_POST && $oForm->isValid($_POST))
         {
+            unset($_POST['submit']);
             $result = $oCollection->store(array($_POST));
             if ($isNew)
             {

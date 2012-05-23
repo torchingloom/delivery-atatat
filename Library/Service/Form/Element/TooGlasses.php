@@ -86,9 +86,12 @@ class Service_Form_Element_TooGlasses extends Zend_Form_Element_Multiselect
 </div>
 <div class="multielement-list"><ul id="'. $elname .'-result">';
         $i = 0;
-        foreach ($this->getValue() AS $valueid => $valuetitle)
+        if ($this->getValue())
         {
-            $sElementAddictional .= "<li id='{$elname}-item-{$valueid}' class='multielement-element' title='{$valuetitle}'><input type='checkbox' value='{$valueid}' /> {$valuetitle}</li>";
+            foreach ($this->getValue() AS $valueid => $valuetitle)
+            {
+                $sElementAddictional .= "<li id='{$elname}-item-{$valueid}' class='multielement-element' title='{$valuetitle}'><input type='checkbox' value='{$valueid}' /> {$valuetitle}</li>";
+            }
         }
         $sElementAddictional .= '</ul></div></div><div class="multielement-wrapper-after"></div>';
 

@@ -32,7 +32,6 @@ class UserGroupSetter extends DbCommand
         }
 
         $this->_connection->delete("delivery_user_to_group", "group_id IN (". join(',', array_keys($users)) .") AND status > 0"); //не удалять скрытых
-        $sql = '';
         foreach ($users AS $griupid => $userids)
         {
             $sql = "INSERT INTO `delivery_user_to_group` (`group_id`, `user_id`) VALUES ({$griupid}, ". join("),({$griupid},", $userids) .") ON DUPLICATE KEY UPDATE `user_id` = `user_id`;";

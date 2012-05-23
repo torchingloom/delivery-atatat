@@ -12,7 +12,6 @@
         <method>UserGroupRemover</method>
     </dataRemove>
 
-
     <children>
         <entry
             method="UserGetter"
