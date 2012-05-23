@@ -42,28 +42,18 @@ class TaskController extends \Controller_Action
     {
         if ($step === null)
         {
-            $rs = array();
-            if (!$this->sessiondata->data)
-            {
-                return;
-            }
-            foreach ($this->sessiondata->data AS $step => $data)
-            {
-                $rs[$step] = unserialize($data);
-            }
-            return $rs;
+            return $this->sessiondata->data;
         }
-
-        if (array_key_exists($step, $this->sessiondata->data))
+        if (!empty($this->sessiondata->data[$step]))
         {
-            return unserialize($this->sessiondata->data[$step]);
+            return $this->sessiondata->data[$step];
         }
         return null;
     }
 
     protected function stepDataSet($step, $data)
     {
-        $this->sessiondata->data[$step] = serialize($data);
+        $this->sessiondata->data[$step] = $data;
     }
 
     protected function stepIsValid($step)
@@ -77,11 +67,13 @@ class TaskController extends \Controller_Action
 
     public function newAction()
     {
-//        if (!($oForm = $this->stepData($this->step())))
+        \DataType\Form_Task::stepdataSet($this->stepData());
+
+        if (!($oForm = $this->stepData($this->step())))
         {
             $class = "\\DataType\\Form_Task_Step{$this->step()}";
             /* @var $oForm \DataType\Form_Task */
-            $oForm = new $class($this->stepData());
+            $oForm = new $class();
         }
 
         if ($_POST && $oForm->isValid($_POST))
@@ -105,7 +97,8 @@ class TaskController extends \Controller_Action
 
     public function finalizeAction()
     {
-        $this->view->ddd = $this->stepData();
+        $oPreparator = new \DataType\Form_Task_DataPreparator($this->stepData());
+        $this->view->ddd = $oPreparator->prepare();
     }
 
     public function listAction()

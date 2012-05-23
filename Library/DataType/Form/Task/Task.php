@@ -4,12 +4,21 @@ namespace DataType;
 
 class Form_Task extends Form
 {
-    protected $stepdata;
+    protected static $stepdata;
 
-    public function  __construct($stepdata = null)
+    public function  __construct()
     {
-        $this->stepdata = $stepdata;
         parent::__construct();
+    }
+
+    public static function stepdataSet($stepdata)
+    {
+        static::$stepdata = $stepdata;
+    }
+
+    public static function stepdataGet()
+    {
+        return static::$stepdata;
     }
 }
 
