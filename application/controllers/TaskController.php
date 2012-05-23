@@ -51,6 +51,11 @@ class TaskController extends \Controller_Action
         return null;
     }
 
+    protected function stepDataReset()
+    {
+        $this->sessiondata->data = null;
+    }
+
     protected function stepDataSet($step, $data)
     {
         $this->sessiondata->data[$step] = $data;
@@ -97,8 +102,12 @@ class TaskController extends \Controller_Action
 
     public function finalizeAction()
     {
-        $oPreparator = new \DataType\Form_Task_DataPreparator($this->stepData());
-        $this->view->ddd = $oPreparator->prepare();
+        if ($this->stepData())
+        {
+            $oPreparator = new \DataType\Form_Task_DataPreparator($this->stepData());
+            $this->view->ddd = $oPreparator->prepare();
+            $this->stepDataReset();
+        }
     }
 
     public function listAction()
