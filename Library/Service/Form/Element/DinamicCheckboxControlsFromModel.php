@@ -81,15 +81,16 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
         $sElement = preg_replace('|<dd(.*?)>(.*?)</dd>|is', '<dd$1><div class="dinamic-checkbox-controls-wrapper">$2</div></dd>', $sElement);
         foreach ($this->sourceElementsGet() AS $key => $valuev)
         {
+            $keyInElId = preg_replace('|[^0-9a-z]|is', '', $key);
             $sElement = preg_replace
             (
                 array
                 (
-                    "|(<label for=\"{$elname}-{$key}\">.*?</label>)|ims",
+                    "|<label for=\"{$elname}-{$keyInElId}\">(.*?)</label>|ims",
                 ),
                 array
                 (
-                    '<div class="primary-subelement" id="primary-subelement-'. $elname .'-'. $key .'">$1</div><div class="secondary-subelement" id="secondary-subelement-'. $elname .'-'. $key .'">'. $this->renderSubelement($valuev) .'</div>',
+                    '<div class="primary-subelement" id="primary-subelement-'. $elname .'-'. $key .'"><label for="'. $elname .'-'. $key .'">$1</label></div><div class="secondary-subelement" id="secondary-subelement-'. $elname .'-'. $key .'">'. $this->renderSubelement($valuev) .'</div>',
                 ),
                 $sElement
             );
@@ -98,7 +99,7 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
             (
                 array
                 (
-                    "name=\"{$elname}[]\" id=\"{$elname}-{$key}\"",
+                    "name=\"{$elname}[]\" id=\"{$elname}-{$keyInElId}\"",
                 ),
                 array
                 (
