@@ -18,9 +18,9 @@ class Zend_View_Helper_MainMenu extends \Zend_View_Helper_Abstract
         return array
         (
             '/task/new' => 'Поставить задачу',
+            '/task/list' => 'История задач',
             '/group/list' => 'Группы пользователей',
             '/tpl/list' => 'Шаблоны',
-            '/task/list' => 'История задач',
         );
     }
 }
