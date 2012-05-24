@@ -25,8 +25,19 @@ class IndexController extends \Controller_Action
     public function downloadDataAction()
     {
         $cfg = \Service\Config::get('database.default.params');
-        $where = APPLICATION_PATH .'data/backup/'. (@$this->vars[0] ?: date('YmdHis')) . '.sql';
+        $where = APPLICATION_PATH .'data/backup/'. (@$this->vars[0] ?: date('YmdHis')) .'.sql';
         system("mysqldump --opt -h {$cfg->host} -u {$cfg->username} -p{$cfg->password} {$cfg->dbname} > {$where}");
+    }
+
+    public function uploadDataAction()
+    {
+        $cfg = \Service\Config::get('database.default.params');
+        if (empty($this->vars[0]))
+        {
+            throw new Exception('file`s name is empty!');
+        }
+        $where = APPLICATION_PATH .'data/backup/'. $this->vars[0] .'.sql';
+        system("mysql -h {$cfg->host} -u {$cfg->username} -p{$cfg->password} {$cfg->dbname} < {$where}");
     }
 }
 

@@ -2,6 +2,8 @@
 
 
 //php cmd/cmd.php [staging] groups-autofill
+//php cmd/cmd.php "[staging]" download-data test
+//php cmd/cmd.php "[staging]" upload-data test
 
 $_START_ = microtime(true);
 
