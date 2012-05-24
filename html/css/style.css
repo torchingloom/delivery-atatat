@@ -452,3 +452,24 @@ s.ie7 body {
 {
     display: none;
 }
+
+
+.task-view-wrapper .task-view-part
+{
+    float: left;
+}
+
+.task-view-user
+{
+    font-size: 90%;
+}
+
+.task-view-user-nosend
+{
+    color: orange;
+}
+
+.task-view-parts-after
+{
+    clear: both;
+}

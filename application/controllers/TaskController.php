@@ -10,6 +10,7 @@ class TaskController extends \Controller_Action
     public function init()
     {
         parent::init();
+
         $this->sessiondata = new \Zend_Session_Namespace('newtask');
         $this->sessiondata->step = $this->_request->getParam('step');
         if (!$this->stepIsValid($this->sessiondata->step))
@@ -106,12 +107,29 @@ class TaskController extends \Controller_Action
         {
             $oPreparator = new \DataType\Form_Task_DataPreparator($this->stepData());
             $this->view->ddd = $oPreparator->prepare();
-            $this->stepDataReset();
+            \Utils::printr($this->view->ddd); exit();
+//            $this->stepDataReset();
+        }
+        else
+        {
+            $this->_redirect('/task/list');
         }
     }
 
     public function listAction()
     {
+        $this->view->oModel = new Domain\Model\Task();
+    }
+
+    public function viewAction()
+    {
+        $oModel = new Domain\Model\Task(array('id' => $this->_request->getParam('id')));
+        $oCollection = $oModel->getCollection('list');
+        /* @var $oTask Domain\Entity\Template */
+        if (!($this->view->oTask = $oCollection->current()))
+        {
+            $this->_redirect('/error/tasknotfound');
+        }
     }
 }
 

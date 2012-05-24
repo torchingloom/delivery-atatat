@@ -15,6 +15,7 @@ class UserTotalCountGetter extends DbCommand
                 'subscribe_end_date' => null,
                 'snob_person_type' => null,
                 'group_id' => null,
+                'task_id' => null,
             )
         );
 
@@ -23,7 +24,7 @@ class UserTotalCountGetter extends DbCommand
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->_connection->query($sql);
 
-        if ($params['group_id'])
+        if ($params['group_id'] || $params['task_id'])
         {
             $result = $oDBStatatement->fetchAll();
         }
@@ -51,6 +52,10 @@ SELECT
 
    , `delivery_user_to_group`.`group_id`
 
+<? elseif ($params['task_id']): ?>
+
+   , `delivery_user_to_task`.`task_id`
+
 <? endif; ?>
 
 FROM
@@ -62,6 +67,14 @@ FROM
     JOIN `<? echo $defaultdb ?>`.`delivery_user_to_group` ON true
         AND `delivery_user`.`id` = `delivery_user_to_group`.`user_id`
         AND `delivery_user_to_group`.`group_id` IN ("<? echo join('", "', (array) $params['group_id']) ?>")
+
+
+<? elseif ($params['task_id']): ?>
+
+    JOIN `<? echo $defaultdb ?>`.`delivery_user_to_task` ON true
+      AND `delivery_user`.`id` = `delivery_user_to_task`.`user_id`
+      AND `delivery_user_to_task`.`task_id` IN ("<? echo join('", "', (array) $params['task_id']) ?>")
+
 
 <? endif; ?>
 
@@ -88,6 +101,11 @@ WHERE
 
 GROUP BY
    `delivery_user_to_group`.`group_id`
+
+<? elseif ($params['task_id']): ?>
+
+GROUP BY
+   `delivery_user_to_task`.`task_id`
 
 <? endif; ?>
 

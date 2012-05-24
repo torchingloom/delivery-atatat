@@ -1,0 +1,44 @@
+
+<? /* @var $oTask Domain\Entity\Task */ ?>
+<? $oTask = $this->oTask; ?>
+
+<? $fields = array('name' => 'Название', 'subject' => 'Тема', 'from' => 'От кого', 'body_plain' => 'Текст', 'body_html' => 'HTML') ?>
+
+<div class="task-view-wrapper form-wrapper">
+    <div class="task-view-part">
+        <dl>
+            <dt>Название</dt>
+            <dd><? echo $oTask->name ?></dd>
+
+            <dt>Тема</dt>
+            <dd><? echo $oTask->subject ?></dd>
+
+            <dt>От кого</dt>
+            <dd><? echo $oTask->from ?></dd>
+
+            <dt>Текст</dt>
+            <dd><textarea><? echo $oTask->body_plain ?></textarea></dd>
+
+            <dt>HTML</dt>
+            <dd><textarea><? echo $oTask->body_html ?></textarea></dd>
+        </dl>
+    </div>
+    <div class="task-view-part">
+        <dl>
+            <dt>Пользователи</dt>
+            <dd>
+                <ul>
+
+<? /* @var $oUser Domain\Entity\User */ ?>
+<? foreach ($oTask->getChilds('user') AS $oUser): ?>
+                    <li class="task-view-user<? echo !$oUser->when_send ? ' task-view-user-nosend" title="Пока сообщение не отправлено' : ' title="Сообщение не отправлено '. $oUser->when_send ?>"><? echo $oUser ?> <? echo $oUser->when_send ?></li>
+
+<? endforeach; ?>
+
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div class="task-view-parts-after"></div>
+</div>
+

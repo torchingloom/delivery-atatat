@@ -1,0 +1,28 @@
+
+<? /* @var $oModel Domain\Model\Task */ ?>
+<? $oModel = $this->oModel; ?>
+
+<? /* @var $oModel Domain\Collection\Task */ ?>
+<? $oList = $oModel->getCollection('list'); ?>
+
+
+<ul class="list task-list">
+
+<? $index = 0 ?>
+<? /* @var $oTask Domain\Entity\Task */ ?>
+<? foreach ($oList AS $oTask): ?>
+
+    <li>
+        <a href="/task/<? echo $oTask->id ?>"><? echo $oTask->name ?></a>
+
+<? if ($count = $oTask->getChildTotalCount('user')): ?>
+
+       <span class="user-count">(<? echo $count ?>)</span>
+
+<? endif; ?>
+
+    </li>
+
+<? endforeach; ?>
+
+</ul>

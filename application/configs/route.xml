@@ -29,6 +29,12 @@
     </group-new>
     <group-rm rule="group/rm/:id" controller="group" action="rm" />
 
+
+    <task rule="task/(\d+)" type="regex" controller="task" action="view">
+        <names>
+            <id>1</id>
+        </names>
+    </task>
     <task-new rule="task/new/:step" controller="task" action="new">
         <defaults>
             <step>0</step>

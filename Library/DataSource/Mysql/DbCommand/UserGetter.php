@@ -16,11 +16,13 @@ class UserGetter extends DbCommand
                 'subscribe_end_date' => null,
                 'snob_person_type' => null,
                 'group_id' => null,
+                'task_id' => null,
                 '__FETCH__' => array('class' => '\Domain\Entity\User', 'factory' => '\Domain\Entity\User::factory')
             )
         );
 
         $sql = $this->sql($params);
+
 
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->_connection->query($sql);
@@ -39,11 +41,16 @@ class UserGetter extends DbCommand
 
 SELECT
 
-   `delivery_user`.*
+    `delivery_user`.*
 
 <? if ($params['group_id']): ?>
 
-   , `delivery_user_to_group`.`group_id`
+    , `delivery_user_to_group`.`group_id`
+
+<? elseif ($params['task_id']): ?>
+
+    , `delivery_user_to_task`.`task_id`
+    , `delivery_user_to_task`.`when_send`
 
 <? endif; ?>
 
@@ -56,6 +63,12 @@ FROM
     JOIN `<? echo $defaultdb ?>`.`delivery_user_to_group` ON true
         AND `delivery_user`.`id` = `delivery_user_to_group`.`user_id`
         AND `delivery_user_to_group`.`group_id` IN ("<? echo join('", "', (array) $params['group_id']) ?>")
+
+<? elseif ($params['task_id']): ?>
+
+    JOIN `<? echo $defaultdb ?>`.`delivery_user_to_task` ON true
+        AND `delivery_user`.`id` = `delivery_user_to_task`.`user_id`
+        AND `delivery_user_to_task`.`task_id` IN ("<? echo join('", "', (array) $params['task_id']) ?>")
 
 <? endif; ?>
 

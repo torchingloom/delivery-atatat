@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="Task">
+    <dataSource>
+        <method>TaskGetter</method>
+    </dataSource>
+    <dataStore>
+        <method>TaskSetter</method>
+    </dataStore>
+    <dataRemove>
+        <method>TaskRemover</method>
+    </dataRemove>
+
+    <children>
+        <entry
+            method="UserGetter"
+            methodTotalCount="UserTotalCountGetter"
+            appendMethod="appendUser"
+            appendTotalCountMethod="appendUserTotalCount"
+            appendTotalCountValueField="count"
+            parent="id:task_id"
+            child="task_id"
+        />
+    </children>
+</type>

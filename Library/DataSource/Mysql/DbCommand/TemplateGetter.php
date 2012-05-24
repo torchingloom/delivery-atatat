@@ -11,7 +11,6 @@ class TemplateGetter extends DbCommand
             $params,
             array
             (
-                'limit' => 25,
                 'id' => null,
                 '__FETCH__' => array('class' => '\Domain\Entity\Template')
             )
