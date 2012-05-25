@@ -24,16 +24,16 @@ class Mysql
             $this->_functions[$functionName] = new $className ($this->_connection);
         }
         
-//        if (\Service\Log\Log::isEnabled())
+        if (\Service\Log\Log::isEnabled())
         {
-//            $LogUnit = \Service\Log\Log::instance('DB')->unit("{$functionName}", serialize($args));
+            $LogUnit = \Service\Log\Log::instance('DB')->unit("{$functionName}", serialize(array_keys($args)));
         }
 
         $_result = call_user_func_array(array($this->_functions[$functionName], $functionName), $args);
 
         if (!empty($LogUnit))
         {
-//            $LogUnit->checkout();
+            $LogUnit->checkout();
         }
         
         return $_result;

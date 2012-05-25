@@ -107,8 +107,10 @@ class TaskController extends \Controller_Action
         {
             $oPreparator = new \DataType\Form_Task_DataPreparator($this->stepData());
             $this->view->ddd = $oPreparator->prepare();
-            \Utils::printr($this->view->ddd); exit();
 //            $this->stepDataReset();
+            $oModel = new Domain\Model\Task(array('id' => 'new :)'));
+            $oCollection = $oModel->getCollection('list');
+            $result = $oCollection->store(array($oPreparator->prepare()));
         }
         else
         {

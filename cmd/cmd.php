@@ -1,10 +1,14 @@
 <?php
 
+ini_set('memory_limit', (1024 * 2) .'M');
 
-//php cmd/cmd.php [staging] groups-autofill
 //php cmd/cmd.php "[staging]" download-data test
 //php cmd/cmd.php "[staging]" upload-data test
-
+//php cmd/cmd.php "[staging]" groups-autofill
+/*
+php cmd/cmd.php "[staging]" upload-data tables-create
+php cmd/cmd.php "[staging]" groups-autofill > 1.txt
+*/
 $_START_ = microtime(true);
 
 

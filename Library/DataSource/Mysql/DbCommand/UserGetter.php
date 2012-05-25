@@ -13,16 +13,25 @@ class UserGetter extends DbCommand
             (
                 'id' => null,
                 'query' => null,
+                'snob_user_id' => null,
                 'subscribe_end_date' => null,
                 'snob_person_type' => null,
                 'group_id' => null,
                 'task_id' => null,
+                'filters' => null,
+                'noorder' => null,
                 '__FETCH__' => array('class' => '\Domain\Entity\User', 'factory' => '\Domain\Entity\User::factory')
             )
         );
 
         $sql = $this->sql($params);
 
+        if ($params['filters'])
+        {
+            \Utils::printr($params['filters']);
+            \Utils::printr($sql);
+            exit();
+        }
 
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->_connection->query($sql);
@@ -83,6 +92,14 @@ WHERE
     AND `delivery_user`.`snob_person_type` IN ("<? echo join('", "', (array) $params['snob_person_type']) ?>")
 <? endif; ?>
 
+<? if ($params['snob_user_id']): ?>
+    <? if (is_array($params['snob_user_id'])): ?>
+    AND `delivery_user`.`snob_user_id` IN ("<? echo join('", "', (array) $params['snob_user_id']) ?>")
+    <? elseif (preg_match('/[^0-9]/ims', $params['snob_user_id'])): ?>
+    AND `delivery_user`.`snob_user_id` <? echo $params['snob_user_id'] ?>
+    <? endif; ?>
+<? endif; ?>
+
 <? if ($params['subscribe_end_date']): ?>
     <? if (is_array($params['subscribe_end_date'])): ?>
     AND `delivery_user`.`subscribe_end_date` IN ("<? echo join('", "', (array) $params['subscribe_end_date']) ?>")
@@ -99,11 +116,69 @@ WHERE
         OR `delivery_user`.`last_name` LIKE '%<? echo $params['query'] ?>%'
         OR `delivery_user`.`email` LIKE '%<? echo $params['query'] ?>%'
     )
-  <? endif; ?>
+<? endif; ?>
+
+<? if ($params['filters']): ?>
+    <? $filters = $params['filters']; ?>
+    <? if (!empty($filters['paid']) && !(array_key_exists('free', $filters['paid']) && array_key_exists('paid', $filters['paid']))): ?>
+
+    AND
+    (
+        false
+        OR `delivery_user`.`snob_user_id` IS NULL
+        OR `delivery_user`.`is_paid` = <? echo (int) empty($filters['paid']) ?>
+    )
+
+    <? endif; ?>
+    <? if (!empty($filters['subscribe_end_date'])): ?>
+
+    AND
+    (
+        false
+        OR `delivery_user`.`snob_user_id` IS NULL
+        OR `delivery_user`.`subscribe_end_date` <= '<? echo $filters['subscribe_end_date'] ?>'
+    )
+
+    <? endif; ?>
+    <? if (!empty($filters['subscribe_start_date'])): ?>
+
+    AND
+    (
+        false
+        OR `delivery_user`.`snob_user_id` IS NULL
+        OR `delivery_user`.`subscribe_start_date` >= '<? echo $filters['subscribe_start_date'] ?>'
+    )
+
+    <? endif; ?>
+    <? if (!empty($filters['city'])): ?>
+
+    AND
+    (
+        false
+        OR `delivery_user`.`snob_user_id` IS NULL
+        OR `delivery_user`.`city` IN ("<? echo join('","', $filters['city']) ?>")
+    )
+
+    <? endif; ?>
+    <? if (!empty($filters['country'])): ?>
+
+    AND
+    (
+        false
+        OR `delivery_user`.`snob_user_id` IS NULL
+        OR `delivery_user`.`country` IN ("<? echo join('","', $filters['country']) ?>")
+    )
+
+    <? endif; ?>
+<? endif; ?>
+
+<? if (!$params['noorder']): ?>
 
 ORDER BY
    `delivery_user`.`last_name`,
    `delivery_user`.`first_name`
+
+<? endif; ?>
 
 <?
        $sql = ob_get_contents();

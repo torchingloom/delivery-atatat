@@ -18,7 +18,8 @@ class UserGroup extends Entity
         {
             throw new UserGroup_Exception("algo not defined for group {$this->id}");
         }
-        return UserGroup_Autofill::factory($this->algo, $this)->fill();
+
+        return \Utils::arrayMergeRecursiveDistinct(array('group' => array('before' => 0, 'now' => 0), 'snobuser' => array('insert' => 0, 'update' => 0)), UserGroup_Autofill::factory($this->algo, $this)->fill());
     }
 
     public function appendUserPermanent(User $oUser)

@@ -40,5 +40,3 @@ class IndexController extends \Controller_Action
         system("mysql -h {$cfg->host} -u {$cfg->username} -p{$cfg->password} {$cfg->dbname} < {$where}");
     }
 }
-
-

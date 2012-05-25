@@ -2,6 +2,14 @@
 
 namespace DataSource\Mysql\DbCommand;
 
+/**
+ * @method \DataSource\Mysql\Adapter beginTransaction()
+ * @method \DataSource\Mysql\Adapter rollback()
+ * @method \DataSource\Mysql\Adapter commit()
+ * @method \int insert($table, array $bind)
+ * @method \int lastInsertId($tableName = null, $primaryKey = null)
+ */
+
 class DbCommand
 {
     /**
@@ -15,6 +23,15 @@ class DbCommand
 	{
 		$this->_connection = $connection;
 	}
+
+    public function __call($name, $arguments)
+    {
+        if (method_exists($this->_connection, $name))
+        {
+            return call_user_func_array(array($this->_connection, $name), $arguments);
+        }
+        return call_user_func_array(array(\Service\Registry::get('db_default'), $name), $arguments);
+    }
 
 	protected function ParamsAndFieldsPrepareByMethod(array $params = array(), array $defaults = array(), array $force = array())
 	{

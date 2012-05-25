@@ -18,7 +18,7 @@ class UserGroup_Autofill_AllSnobsExpirationDateBiggerNow extends UserGroup_Autof
         $oCollection = $oModel->getCollection('list');
         $result['snobuser'] = $oCollection->store();
 
-        $oModel = new \Domain\Model\User(array('subscribe_end_date' => '> NOW()', 'snob_person_type' => 'snob'));
+        $oModel = new \Domain\Model\User(array('subscribe_end_date' => '> NOW()', 'snob_person_type' => 'snob', 'noorder' => 1));
         $oCollection = $oModel->getCollection('list');
         $result['group'] = $this->oUserGroup->cleanAndFill($oCollection);
 

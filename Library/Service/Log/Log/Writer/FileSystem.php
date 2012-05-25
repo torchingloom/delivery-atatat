@@ -13,7 +13,7 @@ class Log_Writer_FileSystem extends Log_Writer
         }
         foreach ($this->log AS $section => $sectiondata)
         {
-            if (!$sectiondata['units'])
+            if (empty($sectiondata['units']))
             {
                 continue;
             }
@@ -27,6 +27,7 @@ class Log_Writer_FileSystem extends Log_Writer
                 }
             }
         }
+        file_put_contents(\Service\Config::get('log.folder') . date("Y-m-d-H") .'.log', $str);
 //        error_log("\n\n". date("H:i:s") ."{$_SERVER['HTTP_HOST']}  {$_SERVER['REQUEST_URI']}\n\n{$str}");
     }
 }

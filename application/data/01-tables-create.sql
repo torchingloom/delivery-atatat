@@ -1,4 +1,5 @@
 
+USE snob_delivery;
 
 -- SET FOREIGN_KEY_CHECKS=0;
 
@@ -158,6 +159,17 @@ VALUES
 INSERT INTO `delivery_user_group`
 	(`name`, `algo`)
 VALUES 
-	('Все действующие', 'all_subscribers__expiration_date_bigger_now'),
-	('Все действующие ЧК', 'all_snobs__expiration_date_bigger_now')
+	('Зарегистрированные на сайте', 'all_subscribers__expiration_date_bigger_now')
+	,('Сотрудники', 'all_employees')
+	,('Партнеры', 'all_partners')
+	,('Участники проекта - действительные', 'all_subscribers__premium_and_expiration_date_bigger_now')
+	,('Участники проекта - не действительные', 'all_subscribers__premium_and_expiration_date_smaller_now')
+	,('Подписчики журнала - действительные', 'all_subscribers__starting_and_expiration_date_bigger_now')
+	,('Подписчики журнала - не действительные', 'all_subscribers__starting_and_expiration_date_smaller_now')
+	,('Все действующие ЧК', 'all_snobs__expiration_date_bigger_now')
+	,('Все бывшие ЧК', 'all_snobs__expiration_date_smaller_now')
+	,('Бывшие участники', 'all_subscribers__expiration_date_smaller_now')
+	,('Гости', 'all_guests')
+
+--	,('Все за все времена (ух, предчувствую тормоза...)', 'all_subscribers')
 ;

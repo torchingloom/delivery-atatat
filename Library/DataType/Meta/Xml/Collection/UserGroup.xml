@@ -21,7 +21,12 @@
             appendTotalCountValueField="count"
             parent="id:group_id"
             child="group_id"
-        />
+        >
+
+            <params>
+                <noorder>1</noorder>
+            </params>
+        </entry>
     </children>
 
     <form>

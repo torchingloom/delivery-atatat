@@ -106,6 +106,28 @@ class SnobUserSetter extends DbCommand
         return (int) $data['sex'];
     }
 
+    protected static function propertyCalc_city($data)
+    {
+        $alias = array
+        (
+            'moscow' => '/(.*москва.*|.*москов.*|мск|msk|moskva|.*moscow.*|.*мо .*)/imsu',
+            'london' => '/.*london.*/imsu',
+            'ny' => '/(ny|.*new.*?york.*)/imsu',
+        );
+        if ($data['city'])
+        {
+            foreach ($alias AS $city => $reg)
+            {
+                if (preg_match($reg, $data['city']))
+                {
+                    $data['city'] = $city;
+                    break;
+                }
+            }
+        }
+        return $data['city'];
+    }
+
     protected static function propertyCalc_subscribe_start_date($data)
     {
         return self::propertyCalc_anydate($data['creation_date']);

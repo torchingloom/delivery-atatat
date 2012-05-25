@@ -15,6 +15,8 @@ class SnobUserGetter extends DbCommand
                 'expiration_date' => null,
                 'modification_date' => null,
                 'person_type_id' => null,
+                'subscribe_plan_name' => null,
+                'is_partner' => null,
                 '__FETCH__' => array('class' => '\Domain\Entity\SnobUser')
             )
         );
@@ -93,6 +95,14 @@ WHERE
     <? elseif (preg_match('/[^\d-\s:]/i', $params['expiration_date'])): ?>
     AND `person`.`expiration_date` <? echo $params['expiration_date'] ?>
     <? endif; ?>
+<? endif; ?>
+
+<? if ($params['is_partner']): ?>
+    AND `person_partner`.`person_id` IS NOT NULL
+<? endif; ?>
+
+<? if ($params['subscribe_plan_name']): ?>
+    AND `subscribe_plan`.`name` IN ("<? echo join('", "', (array) $params['subscribe_plan_name']) ?>")
 <? endif; ?>
 
 <? if ($params['modification_date']): ?>
