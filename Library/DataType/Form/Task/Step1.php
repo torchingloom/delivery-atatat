@@ -13,6 +13,6 @@ class Form_Task_Step1 extends Form_Task
         {
             throw new Form_Task_Exception('Шаг 0 не пройден');
         }
-        parent::valuesSet($oFormStep0->template->sourceElementSelectedGet());
+        parent::valuesSet(current($oFormStep0->template->sourceElementSelectedGet()));
     }
 }

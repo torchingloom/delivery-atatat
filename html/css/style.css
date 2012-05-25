@@ -360,10 +360,15 @@ s.ie7 body {
 
 
 
-.form-wrapper textarea
+.form-wrapper TEXTAREA
 {
     height: 200px;
-    width: 700px;
+    width: 600px;
+}
+
+.form-wrapper INPUT[type=text]
+{
+    width: 600px;
 }
 
 .form-wrapper .tinymce

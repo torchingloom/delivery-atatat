@@ -107,10 +107,12 @@ class TaskController extends \Controller_Action
         {
             $oPreparator = new \DataType\Form_Task_DataPreparator($this->stepData());
             $this->view->ddd = $oPreparator->prepare();
-//            $this->stepDataReset();
             $oModel = new Domain\Model\Task(array('id' => 'new :)'));
             $oCollection = $oModel->getCollection('list');
-            $result = $oCollection->store(array($oPreparator->prepare()));
+            if ($this->view->result = current($oCollection->store(array($oPreparator->prepare()))))
+            {
+                $this->stepDataReset();
+            }
         }
         else
         {

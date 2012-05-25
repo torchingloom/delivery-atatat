@@ -60,7 +60,16 @@ class Service_Form_Element_DinamicCheckboxControlsFromModel extends Zend_Form_El
 
     public function sourceElementSelectedGet()
     {
-        return $this->_sourceElements[$this->getValue()];
+        $result = null;
+        if ($this->getValue())
+        {
+            $result = array();
+            foreach ((array) $this->getValue() AS $valuev)
+            {
+                $result[] = $this->_sourceElements[$valuev];
+            }
+        }
+        return $result;
     }
 
     protected function optionsAdd()

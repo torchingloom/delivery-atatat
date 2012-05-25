@@ -8,6 +8,7 @@ namespace DataSource\Mysql\DbCommand;
  * @method \DataSource\Mysql\Adapter commit()
  * @method \int insert($table, array $bind)
  * @method \int lastInsertId($tableName = null, $primaryKey = null)
+ * @method \Zend_Db_Statement_Pdo query($sql, $bind = array())
  */
 
 class DbCommand

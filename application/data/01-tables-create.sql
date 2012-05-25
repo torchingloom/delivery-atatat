@@ -34,7 +34,7 @@ CREATE TABLE delivery_template
 CREATE TABLE delivery_task
 (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(200) NOT NULL,
+	`name` VARCHAR(2000) NOT NULL,
 	`subject` VARCHAR(500) NOT NULL,
 	`from` VARCHAR(500) NOT NULL,
 	`body_plain` TEXT,

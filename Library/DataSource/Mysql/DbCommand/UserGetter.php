@@ -20,7 +20,7 @@ class UserGetter extends DbCommand
                 'task_id' => null,
                 'filters' => null,
                 'noorder' => null,
-                '__FETCH__' => array('class' => '\Domain\Entity\User', 'factory' => '\Domain\Entity\User::factory')
+                '__FETCH__' => array('class' => '\Domain\Entity\User'/*, 'factory' => '\Domain\Entity\User::factory'*/)
             )
         );
 
@@ -28,9 +28,9 @@ class UserGetter extends DbCommand
 
         if ($params['filters'])
         {
-            \Utils::printr($params['filters']);
-            \Utils::printr($sql);
-            exit();
+//            \Utils::printr($params['filters']);
+//            \Utils::printr($sql);
+//            exit();
         }
 
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */

@@ -8,4 +8,9 @@ class Session extends \Zend_Session
     {
         return @$_SESSION[$var];
     }
+
+    public static function start()
+    {
+        return parent::start(\Service\Config::get('session'));
+    }
 }

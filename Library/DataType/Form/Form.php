@@ -46,7 +46,7 @@ class Form extends \Zend_Form
                         continue;
                     }
                 }
-                if (!is_null($o->{$sElementName}))
+                if (@$o->{$sElementName})
                 {
                     $oElement->setValue($o->{$sElementName});
                 }

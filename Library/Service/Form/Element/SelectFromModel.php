@@ -40,7 +40,16 @@ class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
 
     public function sourceElementSelectedGet()
     {
-        return $this->_sourceElements[$this->getValue()];
+        $result = null;
+        if ($this->getValue())
+        {
+            $result = array();
+            foreach ((array) $this->getValue() AS $valuev)
+            {
+                $result[] = $this->_sourceElements[$valuev];
+            }
+        }
+        return $result;
     }
 
     protected function optionsAdd()

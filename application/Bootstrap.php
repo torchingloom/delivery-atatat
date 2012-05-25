@@ -29,7 +29,17 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
 
     protected function _initSession()
     {
-        \Service\Session\Session::start();
+        $i = 0;
+        while (!\Service\Session\Session::isStarted() && $i++ < 10)
+        {
+            try
+            {
+                \Service\Session\Session::start();
+            }
+            catch (\Zend_Session_Exception $e)
+            {
+            }
+        }
     }
 /*
     protected function _initForceSession()
