@@ -26,6 +26,30 @@
                     <label>старт!</label>
                 </options>
             </submit>
+            <reset>
+                <type>reset</type>
+                <options>
+                    <value>reset</value>
+                    <label>Сбросить внесенные изменения</label>
+                </options>
+            </reset>
+
+
+            <testemail>
+                <type>Text</type>
+                <options>
+                    <label>Адрес для проверки</label>
+                    <description>Если вы хотите проверить тексты, то надо указать адрес в этом поле, и нажать кнопку ниже</description>
+                </options>
+            </testemail>
+            <testit>
+                <type>submit</type>
+                <options>
+                    <value>test</value>
+                    <label>Осмотреть результат, отправив на адрес для проверки</label>
+                </options>
+            </testit>
+
 <!--
 
             <prev>
@@ -36,16 +60,41 @@
                 </options>
             </prev>
 -->
-
-            <reset>
-                <type>reset</type>
-                <options>
-                    <value>reset</value>
-                    <label>Сбросить внесенные изменения</label>
-                </options>
-            </reset>
         </elements>
 
+
+        <DisplayGroups>
+            <DisplayGroup1>
+                <Elements>
+                    <ElementName1>name</ElementName1>
+                    <ElementName2>when_start</ElementName2>
+                    <ElementName3>submit</ElementName3>
+                    <ElementName4>reset</ElementName4>
+                </Elements>
+                <Options>
+                    <Name>testit</Name>
+                    <label>testemail</label>
+                    <Legend>Данные</Legend>
+                </Options>
+            </DisplayGroup1>
+            <DisplayGroup>
+                <Elements>
+                    <ElementName1>testemail</ElementName1>
+                    <ElementName2>testit</ElementName2>
+                </Elements>
+                <Options>
+                    <Name>testit</Name>
+                    <label>testemail</label>
+                    <Legend>Проверка</Legend>
+                </Options>
+            </DisplayGroup>
+        </DisplayGroups>
+        <DefaultDisplayGroupClass>
+            <fieldset>
+                <decorator>Fieldset</decorator>
+                <options></options>
+            </fieldset>
+        </DefaultDisplayGroupClass>
     </form>
 
 </type>

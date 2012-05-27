@@ -10,6 +10,7 @@ class Form_Task_Step3 extends Form_Task
     {
         $o = new \stdClass();
         $o->name = ''. date('d.m.Y H:i') .' '. current(static::$stepdata[0]->template->sourceElementSelectedGet())->name;
+        $o->when_start = date('d.m.Y H:i', strtotime('+10 min'));
         // todo жирно, да?
         parent::valuesSet($o);
     }
