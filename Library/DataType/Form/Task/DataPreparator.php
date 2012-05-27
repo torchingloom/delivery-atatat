@@ -4,18 +4,11 @@ namespace DataType;
 
 class Form_Task_DataPreparator
 {
-    protected $data;
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-
-    public function prepare()
+    public static function prepare($incoming)
     {
         $data = array();
         /** @var $oStep \Zend_Form */
-        foreach ($this->data AS $oStep)
+        foreach ($incoming AS $oStep)
         {
             /** @var $oElement \Zend_Form_Element */
             foreach ($oStep->getElements() AS $oElement)

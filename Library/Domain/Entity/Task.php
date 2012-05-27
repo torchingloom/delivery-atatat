@@ -26,6 +26,14 @@ class Task extends Entity
         parent::setChildTotalCount('user', $iCount);
     }
 
+    public function sendTest($data)
+    {
+        $users = array_keys(\Service\Registry::get('db_default')->UserGetter(array('group_id' => $data['groups'], 'filters' => array_merge($data['filters'], array('now' => $data['when_start'])), 'noorder' => 1)));
+        \Utils::printr($data);
+        \Utils::printr($users);
+        exit();
+    }
+
     public function toString()
     {
         return $this->name;

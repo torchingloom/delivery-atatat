@@ -85,6 +85,13 @@ class TaskController extends \Controller_Action
         if ($_POST && $oForm->isValid($_POST))
         {
             $this->stepDataSet($this->step(), $oForm);
+            
+            if ($this->_request->getParam('testit'))
+            {
+                $oTask = new \Domain\Entity\Task();
+                $oTask->sendTest(\DataType\Form_Task_DataPreparator::prepare($this->stepData()));
+            }
+            
             if ($this->step('next'))
             {
                 if ($nextstep = $this->step('next'))
@@ -105,11 +112,9 @@ class TaskController extends \Controller_Action
     {
         if ($this->stepData())
         {
-            $oPreparator = new \DataType\Form_Task_DataPreparator($this->stepData());
-            $this->view->ddd = $oPreparator->prepare();
             $oModel = new Domain\Model\Task(array('id' => 'new :)'));
             $oCollection = $oModel->getCollection('list');
-            if ($this->view->result = current($oCollection->store(array($oPreparator->prepare()))))
+            if ($this->view->result = current($oCollection->store(array(\DataType\Form_Task_DataPreparator::prepare($this->stepData())))))
             {
                 $this->stepDataReset();
             }
@@ -136,5 +141,3 @@ class TaskController extends \Controller_Action
         }
     }
 }
-
-
