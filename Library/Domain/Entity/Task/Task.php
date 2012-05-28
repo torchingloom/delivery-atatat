@@ -26,7 +26,7 @@ class Task extends Entity
         {
             $oMailer->send($this->testemail ?: $oUser->email, $this->messageBuild($oUser));
         }
-        exit();
+        return true;
     }
 
     /**

@@ -89,10 +89,9 @@ class TaskController extends \Controller_Action
             if ($this->_request->getParam('testit'))
             {
                 $oTask = new \Domain\Entity\Task_Test(\DataType\Form_Task_DataPreparator::prepare($this->stepData()));
-                $oTask->send();
+                $oForm->testitResultSet($oTask->send());
             }
-            
-            if ($this->step('next'))
+            elseif ($this->step('next'))
             {
                 if ($nextstep = $this->step('next'))
                 {

@@ -27,28 +27,6 @@ class Bootstrap extends \Zend_Application_Bootstrap_Bootstrap
         \Service\Config::init($this->getOptions());
     }
 
-    protected function _initSession()
-    {
-        $i = 0;
-        while (!\Service\Session\Session::isStarted() && $i++ < 10)
-        {
-            try
-            {
-                \Service\Session\Session::start();
-            }
-            catch (\Zend_Session_Exception $e)
-            {
-            }
-        }
-    }
-/*
-    protected function _initForceSession()
-    {
-        $this->bootstrap('db')->bootstrap('session');
-        $defaultNamespace = new \Zend_Session_Namespace('Default');
-        $defaultNamespace->numberOfPageRequests++;
-    }
-*/
     protected function _initFrontcontroller()
     {
         return $this->FromtController();

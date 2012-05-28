@@ -70,7 +70,7 @@ class Mailer
 
     public function send($emails, Message $oMsg)
     {
-//        ob_start();
+        ob_start();
 
         if (APPLICATION_ENVIRONMENT == 'staging')
         {
@@ -115,7 +115,7 @@ class Mailer
         $this->lastob = ob_get_contents();
 
 
-//        ob_end_clean();
+        ob_end_clean();
         
 
         $this->oMail->ClearAddresses();

@@ -14,4 +14,10 @@ class Form_Task_Step3 extends Form_Task
         // todo жирно, да?
         parent::valuesSet($o);
     }
+
+    public function testitResultSet($rs)
+    {
+        $oFld = $this->getElement('testemail');
+        $oFld->setErrors(array($oFld->getAttrib('sendit-msg')));
+    }
 }

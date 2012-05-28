@@ -490,3 +490,8 @@ s.ie7 body {
 {
     clear: both;
 }
+
+.form-wrapper #testemail-element .errors
+{
+    color: orange;
+}

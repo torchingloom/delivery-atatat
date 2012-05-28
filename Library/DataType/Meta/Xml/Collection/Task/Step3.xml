@@ -40,6 +40,7 @@
                 <options>
                     <label>Адрес для проверки</label>
                     <description>Если вы хотите проверить тексты, то надо указать адрес в этом поле, и нажать кнопку ниже</description>
+                    <sendit-msg>Проверяйте ящик!</sendit-msg>
                 </options>
             </testemail>
             <testit>
@@ -62,7 +63,6 @@
 -->
         </elements>
 
-
         <DisplayGroups>
             <DisplayGroup1>
                 <Elements>
@@ -71,22 +71,12 @@
                     <ElementName3>submit</ElementName3>
                     <ElementName4>reset</ElementName4>
                 </Elements>
-                <Options>
-                    <Name>testit</Name>
-                    <label>testemail</label>
-                    <Legend>Данные</Legend>
-                </Options>
             </DisplayGroup1>
             <DisplayGroup>
                 <Elements>
                     <ElementName1>testemail</ElementName1>
                     <ElementName2>testit</ElementName2>
                 </Elements>
-                <Options>
-                    <Name>testit</Name>
-                    <label>testemail</label>
-                    <Legend>Проверка</Legend>
-                </Options>
             </DisplayGroup>
         </DisplayGroups>
         <DefaultDisplayGroupClass>
@@ -95,6 +85,7 @@
                 <options></options>
             </fieldset>
         </DefaultDisplayGroupClass>
+
     </form>
 
 </type>
