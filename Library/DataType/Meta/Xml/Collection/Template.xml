@@ -50,15 +50,14 @@
                 </options>
             </subject>
             <from>
-                <type>Select</type>
+                <type>SelectFromModel</type>
                 <options>
                     <label>От</label>
                     <required>1</required>
-                    <multioptions>
-                        <noreply>noreply@snob.ru</noreply>
-                        <snob>snob@snob.ru</snob>
-                        <info>info@snob.ru</info>
-                    </multioptions>
+                    <sourceModel>
+                        <name>FromWho</name>
+                        <collection>list</collection>
+                    </sourceModel>
                     <description>От какого ящика будет отравленно послание</description>
                 </options>
             </from>
@@ -78,6 +77,7 @@
                     </validators>
                 </options>
             </body_html>
+<!--
             <body_plain>
                 <type>Textarea</type>
                 <required>1</required>
@@ -95,6 +95,7 @@
                     </validators>
                 </options>
             </body_plain>
+-->
             <submit>
                 <type>submit</type>
                 <options>

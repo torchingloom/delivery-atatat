@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="FromWho">
+    <dataSource>
+        <method>FromWhoGetter</method>
+    </dataSource>
+</type>

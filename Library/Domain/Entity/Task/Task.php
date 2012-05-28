@@ -12,6 +12,7 @@ namespace Domain\Entity;
  * @property mixed $when_start
  * @property mixed $type
  * @property mixed $status
+ * @property mixed $testemail
  */
 
 class Task extends Entity
@@ -19,12 +20,11 @@ class Task extends Entity
     public function send()
     {
         $oMailer = new \Service\Mail\Mailer();
-        $oMailer->SetFrom($this->from .'@snob.ru');
+        $oMailer->SetFrom($this->from);
         /** @var $oUser User */
         foreach ($this->getChilds('user') AS $oUser)
         {
-            $oMailer->send($oUser->email, $this->messageBuild($oUser));
-            break;
+            $oMailer->send($this->testemail ?: $oUser->email, $this->messageBuild($oUser));
         }
         exit();
     }
