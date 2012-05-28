@@ -20,6 +20,16 @@ class Utils
         }
     }
 
+    static function sprintf($string, $vars = array())
+    {
+        $replace = array('from' => array_keys($vars), 'to' => array_values($vars));
+        foreach ($replace['from'] AS &$valuev)
+        {
+            $valuev = '%'. $valuev .'%';
+        }
+        return \str_replace($replace['from'], $replace['to'], $string);
+    }
+
     static function textCut($txt, $length, $bStripTagsAndBBCodes = false)
     {
         if ($bStripTagsAndBBCodes)

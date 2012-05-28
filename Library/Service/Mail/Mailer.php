@@ -4,7 +4,7 @@ namespace Service\Mail;
 
 include_once 'PHPMailer/Core.php';
 
-class Mail_Mailer
+class Mailer
 {
     /**
      * @var Mail_PHPMailer_Core
@@ -22,7 +22,7 @@ class Mail_Mailer
     {
         if (!method_exists($this->oMail, $method))
         {
-            throw new \Service\Mail\Mail_Mailer_Exception();
+            throw new \Service\Mail\Mailer_Exception();
         }
         return call_user_func_array(array($this->oMail, $method), $vars);
     }
@@ -63,11 +63,14 @@ class Mail_Mailer
         }
     }
 
-    public function send($emails, Mail_Message $oMsg)
+    public function SetFrom($address, $name = '', $auto=1)
     {
-        ob_start();
+        return $this->oMail->SetFrom($address, $name, $auto);
+    }
 
-
+    public function send($emails, Message $oMsg)
+    {
+//        ob_start();
 
         if (APPLICATION_ENVIRONMENT == 'staging')
         {
@@ -89,15 +92,13 @@ class Mail_Mailer
             }
         }
 
-
-		
         $this->oMail->Subject = $oMsg->subject();
 
-        $this->oMail->Body = $oMsg->body();
-
 		$this->oMail->IsHTML(false);
+        $this->oMail->Body = $oMsg->body('text');
 		if ($oMsg->type() == 'html')
 		{
+            $this->oMail->Body = $oMsg->body('html');
 		    $this->oMail->IsHTML(true);
 		}
 		
@@ -114,7 +115,7 @@ class Mail_Mailer
         $this->lastob = ob_get_contents();
 
 
-        ob_end_clean();
+//        ob_end_clean();
         
 
         $this->oMail->ClearAddresses();
@@ -139,7 +140,7 @@ class Mail_Mailer
         $this->oMail->SMTPAuth = false;
         $this->oMail->Host = $this->cfg->smtp->host;
         $this->oMail->Port = $this->cfg->smtp->port;
-        $this->oMail->SetFrom($this->cfg->smtp->fromEmail);
+        $this->SetFrom($this->cfg->smtp->fromEmail);
     }
 
     protected function getDeveloperEmail()
@@ -163,4 +164,4 @@ class Mail_Mailer
     }
 }
 
-class Mail_Mailer_Exception extends \Exception {}
+class Mailer_Exception extends \Exception {}

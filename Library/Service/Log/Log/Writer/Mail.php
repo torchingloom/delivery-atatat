@@ -14,11 +14,11 @@ class Log_Writer_Mail extends Log_Writer
             return;
         }
 
-        $oMail = new \Service\Mail\Mail_Mailer();
-		$oMsg = new \Service\Mail\Mail_Message();
+        $oMail = new \Service\Mail\Mailer();
+		$oMsg = new \Service\Mail\Message();
 		$oMsg->type('html');
 		$oMsg->subject($title = "LOG: ". date("H:i:s") ." {$_SERVER['HTTP_HOST']} {$_SERVER['REQUEST_URI']}");
-		$oMsg->body(\Controller\ViewFuhrer::apply('tpl/_LOG_.phtml', array('log' => $this->log)));
+		$oMsg->body('html', \Controller\ViewFuhrer::apply('tpl/_LOG_.phtml', array('log' => $this->log)));
 		$oMail->send(Log::cfg()->email, $oMsg);
     }
 }

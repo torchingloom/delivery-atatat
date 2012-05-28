@@ -27,6 +27,46 @@ class Entity implements \ArrayAccess, \Iterator, \Countable
         // virtual
     }
 
+    public function idGet()
+    {
+        return $this->id;
+    }
+
+    public function __set($var, $value)
+    {
+        $this->__data__[$var] = $value;
+    }
+
+    public function __get($var)
+    {
+        return @$this->__data__[$var];
+    }
+
+    public function fill($array)
+    {
+        $this->__data__ = $array;
+        $this->init();
+    }
+
+    public function toArray()
+    {
+        return $this->__data__;
+    }
+
+    public function toString()
+    {
+        ob_start();
+        print_r($this->__data__);
+        $s = ob_get_contents();
+        ob_end_clean();
+        return $s;
+    }
+
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
     public function appendChild($kind, Entity $object, $key = 'id')
     {
         if ($key === null)
@@ -89,21 +129,6 @@ class Entity implements \ArrayAccess, \Iterator, \Countable
         return $this->resources[$type];
     }
 
-    public function idGet()
-    {
-        return $this->id;
-    }
-
-    public function __set($var, $value)
-    {
-        $this->__data__[$var] = $value;
-    }
-
-    public function __get($var)
-    {
-        return @$this->__data__[$var];
-    }
-
     public function offsetSet($offset, $value)
     {
         if (is_null($offset))
@@ -159,31 +184,6 @@ class Entity implements \ArrayAccess, \Iterator, \Countable
     public function count()
     {
         return count($this->__data__);
-    }
-
-    public function fill($array)
-    {
-        $this->__data__ = $array;
-        $this->init();
-    }
-
-    public function toArray()
-    {
-        return $this->__data__;
-    }
-
-    public function toString()
-    {
-        ob_start();
-        print_r($this->__data__);
-        $s = ob_get_contents();
-        ob_end_clean();
-        return $s;
-    }
-
-    public function __toString()
-    {
-        return $this->toString();
     }
 }
 

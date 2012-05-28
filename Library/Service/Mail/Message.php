@@ -2,41 +2,47 @@
 
 namespace Service\Mail;
 
-class Mail_Message
+class Message
 {
     private $subject;
-    private $body;
+    private $bodyHTML;
+    private $bodyTEXT;
     private $type = 'html';
     private $attachements;
 
     public function __construct($subject = '', $body = '', $type = 'html')
     {
         $this->subject($subject);
-        $this->body($body);
+        $this->body($type, $body);
         $this->type($type);
     }
     
-    public function subject($subject = '')
+    public function subject($subject = null)
     {
-        if ($subject)
+        if ($subject !== null)
         {
             $this->subject = $subject;
         }
         return APPLICATION_ENVIRONMENT == 'staging' ? '@STAGING | '. $this->subject : $this->subject;
     }
     
-    public function body($body = '')
+    public function body($type = null, $body = null)
     {
-        if ($body)
+        if ($type === null)
         {
-            $this->body = $body;
+            $type = 'HTML';
         }
-        return $this->body;
+        $type = strtoupper($type);
+        if ($body !== null)
+        {
+            $this->{"body{$type}"} = $body;
+        }
+        return $this->{"body{$type}"};
     }
     
-    public function type($type = '')
+    public function type($type = null)
     {
-        if ($type)
+        if ($type !== null)
         {
             $this->type = $type;
         }
@@ -77,7 +83,7 @@ class Mail_Message_Attachement
     {
         if (empty($aData['filename']))
         {
-            throw new Mail_Message_Attachement_Exception();
+            throw new Message_Attachement_Exception();
         }
 
         $this->filename = $aData['filename'];
@@ -92,7 +98,7 @@ class Mail_Message_Attachement
         }
         else
         {
-            throw new Mail_Message_Attachement_Exception();
+            throw new Message_Attachement_Exception();
         }
 
         if (!empty($aData['encoding']))
@@ -107,5 +113,5 @@ class Mail_Message_Attachement
     }
 }
 
-class Mail_Message_Exception extends \Exception {}
-class Mail_Message_Attachement_Exception extends \Exception {}
+class Message_Exception extends \Exception {}
+class Message_Attachement_Exception extends \Exception {}
