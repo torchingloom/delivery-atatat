@@ -495,3 +495,26 @@ s.ie7 body {
 {
     color: orange;
 }
+
+
+.user-email
+{
+    font-size: 85%;
+}
+.user-enddate
+{
+    font-size: 75%;
+}
+
+.form-message
+{
+    border: 1px solid;
+    padding: 10px;
+    margin: 0px 10px;
+    margin-top: 20px;
+}
+
+.form-message-good
+{
+    background-color: #90ee90;
+}

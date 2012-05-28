@@ -30,6 +30,9 @@
     </children>
 
     <form>
+        <messages>
+            <save>Изменения внесены в группу "%name%"!</save>
+        </messages>
         <elements>
             <id>
                 <type>Hidden</type>

@@ -54,6 +54,21 @@ class Form extends \Zend_Form
         }
     }
 
+    public function messageShow($ident)
+    {
+        $messages = $this->getAttrib('messages');
+        if (!empty($messages[$ident]))
+        {
+            $vals = $this->getElements();
+            foreach ($vals AS $key => &$valuev)
+            {
+                $valuev = $valuev->getValue();
+            }
+            $msg = \Utils::sprintf($messages[$ident], $vals);
+            $this->addDecorator('Message', array('message' => $msg, 'kind' => 'good'));
+        }
+    }
+
     protected static function prefix()
     {
         return \Service\Config::get('includePaths.library') .'DataType/Meta/Xml/Collection/';

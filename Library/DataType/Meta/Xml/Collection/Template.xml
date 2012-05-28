@@ -12,6 +12,9 @@
     </dataRemove>
 
     <form>
+        <messages>
+            <save>Изменения внесены в шаблон "%name%"!</save>
+        </messages>
         <elements>
             <id>
                 <type>Hidden</type>

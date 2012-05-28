@@ -18,7 +18,7 @@ class TaskSetter extends DbCommand
                 $task = array_fill_keys(array('name', 'subject', 'from', 'body_html', 'body_plain', 'body_plain', 'when_start'), null);
                 foreach ($task AS $key => & $valuev)
                 {
-                    $valuev = $data[$key];
+                    $valuev = @$data[$key];
                 }
 
                 $users = array_keys($this->UserGetter(array('group_id' => $data['groups'], 'filters' => array_merge($data['filters'], array('now' => $data['when_start'])), 'noorder' => 1)));

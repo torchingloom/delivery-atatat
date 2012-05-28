@@ -35,6 +35,6 @@ class User extends Entity
 
     public function toString()
     {
-        return "{$this->last_name} {$this->first_name} ({$this->email})";
+        return "{$this->last_name} {$this->first_name} ({$this->email}) [". date('d.m.Y', strtotime($this->subscribe_end_date)) ."]";
     }
 }
