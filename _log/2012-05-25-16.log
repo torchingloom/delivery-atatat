@@ -1,6 +1,0 @@
-
-
-Service\Log\Log_Unit_Imp_DB         2            0.60274505615234
-       UserGetter         2            0.60274505615234
-              [0.5927460193634] a:1:{i:0;i:0;}
-              [0.0099990367889404]  SELECT `delivery_user`.* FROM `snob_delivery`.`delivery_user` WHERE true ORDER BY `delivery_user`.`last_name`, `delivery_user`.`first_name` 
