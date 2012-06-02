@@ -65,11 +65,12 @@ CREATE TABLE `delivery_user`
 	`last_name` VARCHAR(200) NOT NULL,
 	`when_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`snob_user_id` INT(11) NULL,
-	`snob_person_type` ENUM ('partner', 'editor', 'snob', 'starting', 'basic', 'premium') NULL COMMENT '"partner" партнеры;
+	`snob_person_type` ENUM ('editor', 'snob', 'starting', 'basic', 'premium') NULL COMMENT '
 "starting|basic|premium" подписчик;
 "snob" ЧК;
 "editor" сотрудник;
 ',
+	`snob_person_partner` TINYINT(1),
 	`city` VARCHAR (200) NULL,
 	`country` VARCHAR (200) NULL,
 	`subscribe_start_date` TIMESTAMP NULL,
@@ -79,6 +80,7 @@ CREATE TABLE `delivery_user`
 	UNIQUE KEY `email` (`email`),
 	KEY `snob_user_id` (`snob_user_id`),
 	KEY `snob_person_type` (`snob_person_type`),
+	KEY `snob_person_partner` (`snob_person_partner`),
 	KEY `city` (`city`),
 	KEY `country` (`country`),
 	KEY `subscribe_start_date` (`subscribe_start_date`),

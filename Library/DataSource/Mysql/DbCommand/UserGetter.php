@@ -16,6 +16,7 @@ class UserGetter extends DbCommand
                 'snob_user_id' => null,
                 'subscribe_end_date' => null,
                 'snob_person_type' => null,
+                'snob_person_partner' => null,
                 'group_id' => null,
                 'task_id' => null,
                 'filters' => null,
@@ -83,6 +84,10 @@ WHERE
 
 <? if ($params['snob_person_type']): ?>
     AND `delivery_user`.`snob_person_type` IN ("<? echo join('", "', (array) $params['snob_person_type']) ?>")
+<? endif; ?>
+
+<? if ($params['snob_person_partner']): ?>
+    AND `delivery_user`.`snob_person_partner` = 1
 <? endif; ?>
 
 <? if ($params['snob_user_id']): ?>

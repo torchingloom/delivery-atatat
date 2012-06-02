@@ -18,7 +18,7 @@ class UserGroup_Autofill_AllPartners extends UserGroup_Autofill
         $oCollection = $oModel->getCollection('list');
         $result['snobuser'] = $oCollection->store();
 
-        $oModel = new \Domain\Model\User(array('snob_person_type' => array('partner'), 'noorder' => 1));
+        $oModel = new \Domain\Model\User(array('snob_person_partner' => 1, 'noorder' => 1));
         $oCollection = $oModel->getCollection('list');
         $result['group'] = $this->oUserGroup->cleanAndFill($oCollection);
 

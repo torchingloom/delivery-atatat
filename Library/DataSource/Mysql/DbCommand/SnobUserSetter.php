@@ -160,6 +160,7 @@ class SnobUserSetter extends DbCommand
             'last_name' => 'last_name',
             'snob_user_id' => 'id',
             'snob_person_type' => 'snob_person_type',
+            'snob_person_partner' => 'partner',
             'city' => 'city',
             'country' => 'country',
             'subscribe_start_date' => 'creation_date',
