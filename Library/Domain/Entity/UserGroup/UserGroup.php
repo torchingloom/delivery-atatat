@@ -39,12 +39,12 @@ class UserGroup extends Entity
 
     public function appendUser(User $oUser)
     {
-        parent::appendChild('users', $oUser);
+        parent::appendChild('user', $oUser);
     }
 
     public function appendUserTotalCount($iCount)
     {
-        parent::setChildTotalCount('users', $iCount);
+        parent::setChildTotalCount('user', $iCount);
     }
 
     public function toString()

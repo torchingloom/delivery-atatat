@@ -30,10 +30,7 @@ class Collection extends \Domain\Collection
         $this->prepareDataTypeDeclaration();
         $this->prepareResourceDeclaretion();
         $this->prepareDataSourceCallDeclaretion();
-        if (empty($this->params['without_children']) && empty($this->params['without_childs']) && empty($this->params['without_child']))
-        {
-            $this->prepareChildrenDeclaretion();
-        }
+        $this->prepareChildrenDeclaretion();
     }
 
     /**
@@ -103,7 +100,7 @@ class Collection extends \Domain\Collection
     {
         if ($this->childs)
         {
-            foreach ($this->childs AS $entity => &$child)
+            foreach ($this->childs AS $childcat => &$child)
             {
                 $db = \Service\Registry::get($child['db']);
 
@@ -113,9 +110,9 @@ class Collection extends \Domain\Collection
                     $keyParent[] = $keyParent[0];
                 }
                 $keyChild = $child['relation']['child'];
-                foreach ($this->content AS $entity)
+                foreach ($this->content AS $contententity)
                 {
-                    $child['params'][$keyParent[1]][] = $entity->{$keyParent[0]};
+                    $child['params'][$keyParent[1]][] = $contententity->{$keyParent[0]};
                 }
 
                 if ($aChilds = call_user_func_array(array($db, $child['method']), array($child['params'])))
@@ -124,11 +121,19 @@ class Collection extends \Domain\Collection
 
                     foreach ($aChilds AS &$oChild)
                     {
+                        /** @var $entity \Domain\Entity\Entity */
                         foreach ($this->content AS $entity)
                         {
                             if ($oChild->{$keyChild} == $entity->{$keyParent[0]})
                             {
-                                $entity->{$child['appendMethod']}($oChild);
+                                if ($child['appendMethod'])
+                                {
+                                    $entity->{$child['appendMethod']}($oChild);
+                                }
+                                else
+                                {
+                                    $entity->appendChild($childcat, $oChild);
+                                }
                             }
                             if ($aChildsTotalCount)
                             {
@@ -302,9 +307,18 @@ class Collection extends \Domain\Collection
      */
     protected function prepareChildrenDeclaretion()
     {
+        $without = null;
+        if (!empty($this->params['without_childs']))
+        {
+            $without = $this->params['without_childs'];
+        }
         foreach($this->dataType->getNodeListByPath('/type/children/*') AS $_child)
         {
             $tag = $_child->getTagName();
+            if ($without && (!is_array($without) || in_array($tag, $without)))
+            {
+                continue;
+            }
             $this->childs[$tag] = array
             (
                 'db' => $_child->getAttribute('db') ? "db_{$_child->getAttribute('db')}" : 'db_default',

@@ -13,7 +13,7 @@
     </dataRemove>
 
     <children>
-        <entry
+        <user
             method="UserGetter"
             methodTotalCount="UserTotalCountGetter"
             appendMethod="appendUser"
@@ -26,7 +26,17 @@
             <params>
                 <noorder>1</noorder>
             </params>
-        </entry>
+        </user>
+        <category
+            method="UserGroupCategoryGetter"
+            parent="id:category_id"
+            child="id"
+        >
+
+            <params>
+                <order />
+            </params>
+        </category>
     </children>
 
     <form>
@@ -70,7 +80,7 @@
                 <name>users</name>
                 <type>TooGlasses</type>
                 <options>
-                    <childAsField>users</childAsField>
+                    <childAsField>user</childAsField>
                     <label>Пользователи</label>
                     <sourceModel>
                         <name>User</name>

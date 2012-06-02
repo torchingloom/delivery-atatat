@@ -4,4 +4,11 @@
     <dataSource>
         <method>UserGroupCategoryGetter</method>
     </dataSource>
+    <children>
+        <group
+            method="UserGroupGetter"
+            parent="id:category_id"
+            child="category_id"
+        />
+    </children>
 </type>

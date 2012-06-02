@@ -1,8 +1,8 @@
 
-<? /* @var $oModel \Domain\Model\UserGroup */ ?>
+<? /* @var $oModel \Domain\Model\UserGroupCategory */ ?>
 <? $oModel = $this->oModel; ?>
 
-<? /* @var $oModel Domain\Collection\UserGroup */ ?>
+<? /* @var $oModel Domain\Collection\UserGroupCategory */ ?>
 <? $oList = $oModel->getCollection('list'); ?>
 
 <ul class="submenu">
@@ -12,27 +12,37 @@
 <ul class="list usergroup-list">
 
 <? $index = 0 ?>
-<? /* @var $oGroup Domain\Entity\UserGroup */ ?>
-<? foreach ($oList AS $oGroup): ?>
+<? /* @var $oGroupCategory Domain\Entity\UserGroupCategory */ ?>
+<? foreach ($oList AS $oGroupCategory): ?>
+    <? if (!($aGroups = $oGroupCategory->getChilds('group'))): ?>
+        <? continue; ?>
+    <? endif; ?>
+
+    <li><? echo $oGroupCategory->name ?><ul>
+
+    <? /* @var $oGroup Domain\Entity\UserGroup */ ?>
+    <? foreach ($aGroups AS $oGroup): ?>
 
     <li>
         <a href="/group/<? echo $oGroup->id ?>"><? echo $oGroup->name ?></a>
 
-
-
-<? if ($count = $oGroup->getChildTotalCount('user')): ?>
+        <? if ($count = $oGroup->getChildTotalCount('user')): ?>
 
         <span class="user-count">(<? echo $count ?>)</span>
 
-<? endif; ?>
+        <? endif; ?>
 
-<? if (!$oGroup->algo): ?>
+        <? if (!$oGroup->algo): ?>
 
         <a href="/group/rm/<? echo $oGroup->id ?>" onclick="return confirm('Нажмите OK, если вы хотите удалить группу\n<? echo preg_replace('/[\'"]/ims', '&quot;', $oGroup->name) ?> полностью')">Удалить</a>
 
-<? endif; ?>
+        <? endif; ?>
 
     </li>
+
+    <? endforeach; ?>
+
+    </ul></li>
 
 <? endforeach; ?>
 

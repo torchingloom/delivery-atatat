@@ -12,7 +12,7 @@
                         <name>UserGroup</name>
                         <collection>list</collection>
                         <options>
-                            <without_children>1</without_children>
+                            <without_childs>1</without_childs>
                         </options>
                     </sourceModel>
                 </options>

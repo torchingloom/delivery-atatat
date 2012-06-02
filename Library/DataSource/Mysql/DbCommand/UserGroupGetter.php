@@ -14,6 +14,7 @@ class UserGroupGetter extends DbCommand
                 'id' => null,
                 'algo' => null,
                 'order' => 'name',
+                'category_id' => null,
                 '__FETCH__' => array('class' => '\Domain\Entity\UserGroup')
             )
         );
@@ -40,6 +41,10 @@ class UserGroupGetter extends DbCommand
 
 <? if ($params['id']): ?>
        AND `delivery_user_group`.`id` IN ("<? echo join('", "', (array) $params['id']) ?>")
+<? endif; ?>
+
+<? if ($params['category_id']): ?>
+       AND `delivery_user_group`.`category_id` IN ("<? echo join('", "', (array) $params['category_id']) ?>")
 <? endif; ?>
 
 <? if ($params['algo']): ?>
