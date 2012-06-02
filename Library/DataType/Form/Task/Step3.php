@@ -9,8 +9,8 @@ class Form_Task_Step3 extends Form_Task
     public function valuesSet()
     {
         $o = new \stdClass();
-        $o->name = ''. date('d.m.Y H:i') .' '. current(static::$stepdata[0]->template->sourceElementSelectedGet())->name;
-        $o->when_start = date('d.m.Y H:i', strtotime('+10 min'));
+        $o->name = ''. date('Y-m-d H:i') .' '. current(static::$stepdata[0]->template->sourceElementSelectedGet())->name;
+        $o->when_start = date('Y-m-d H:i', strtotime('+10 min'));
         // todo жирно, да?
         parent::valuesSet($o);
     }

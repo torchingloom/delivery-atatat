@@ -26,9 +26,9 @@ class UserGetter extends DbCommand
 
         $sql = $this->sql($params);
 
-        if ($params['filters'])
+//        if ($params['filters'])
+//        if (!empty($params['person_type_id']) && in_array(2, $params['person_type_id']))
         {
-//            \Utils::printr($params['filters']);
 //            \Utils::printr($sql);
 //            exit();
         }

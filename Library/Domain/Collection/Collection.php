@@ -30,7 +30,7 @@ class Collection extends \Domain\Collection
         $this->prepareDataTypeDeclaration();
         $this->prepareResourceDeclaretion();
         $this->prepareDataSourceCallDeclaretion();
-        if (empty($this->params['without_children']))
+        if (empty($this->params['without_children']) && empty($this->params['without_childs']) && empty($this->params['without_child']))
         {
             $this->prepareChildrenDeclaretion();
         }

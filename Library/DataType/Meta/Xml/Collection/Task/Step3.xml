@@ -13,9 +13,17 @@
             </name>
             <when_start>
                 <type>DateTime</type>
+                <required>1</required>
                 <options>
                     <label>Укажите дату, с которой задача начнет выполняться</label>
-                    <description>Если не заполнять, то задача начнет выполняться сразу же!</description>
+                    <validators>
+                        <date>
+                            <validator>Date</validator>
+                            <options>
+                                <format>yyyy-mm-dd h:i</format>
+                            </options>
+                        </date>
+                    </validators>
                 </options>
             </when_start>
 
@@ -23,7 +31,7 @@
                 <type>submit</type>
                 <options>
                     <value>next</value>
-                    <label>старт!</label>
+                    <label>Запланировать задачу</label>
                 </options>
             </submit>
             <reset>
@@ -51,7 +59,7 @@
                 </options>
             </testit>
 
-
+<!--
             <prev>
                 <type>submit</type>
                 <options>
@@ -59,6 +67,7 @@
                     <label>Перейти к предыдущему шагу - выбору пользователей</label>
                 </options>
             </prev>
+-->
         </elements>
 
         <DisplayGroups>

@@ -13,6 +13,7 @@ class UserGroupGetter extends DbCommand
             (
                 'id' => null,
                 'algo' => null,
+                'order' => 'name',
                 '__FETCH__' => array('class' => '\Domain\Entity\UserGroup')
             )
         );
@@ -49,8 +50,14 @@ class UserGroupGetter extends DbCommand
     <? endif; ?>
 <? endif; ?>
 
-    ORDER BY
-        `name`
+
+<? if ($params['order']): ?>
+
+   ORDER BY
+   <? echo join(",\n", (array) $params['order']) ?>
+
+<? endif; ?>
+
 
 <?
            $sql = ob_get_contents();

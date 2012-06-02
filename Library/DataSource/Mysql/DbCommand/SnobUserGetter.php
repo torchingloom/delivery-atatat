@@ -21,7 +21,6 @@ class SnobUserGetter extends DbCommand
             )
         );
         $sql = $this->sql($params);
-
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->_connection->query($sql);
         $oDBStatatement->setFetch($params['__FETCH__']);
@@ -80,6 +79,7 @@ WHERE
     true
 
     AND `person`.`email` IS NOT NULL
+    AND `person`.`email` != ''
 
 <? if ($params['id']): ?>
     AND `person`.`id` IN ("<? echo join('", "', (array) $params['id']) ?>")

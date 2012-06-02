@@ -13,7 +13,7 @@ class IndexController extends \Controller_Action
 
     public function groupsAutofillAction()
     {
-        $oModel = new \Domain\Model\UserGroup(array('algo' => 'isNotNull'));
+        $oModel = new \Domain\Model\UserGroup(array('algo' => 'isNotNull', 'order' => 'autofill_order_position'));
         /* @var $oCollection \Domain\Collection\UserGroup */
         $oCollection = $oModel->getCollection('list');
         foreach ($oCollection->autofill() AS $res)

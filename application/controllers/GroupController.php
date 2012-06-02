@@ -8,7 +8,7 @@ class GroupController extends \Controller_Action
 
     public function listAction()
     {
-        $this->view->oModel = new Domain\Model\UserGroup();
+        $this->view->oModel = new Domain\Model\UserGroup(array('without_childs' => 1));
     }
 
     public function viewAction()

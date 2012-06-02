@@ -37,6 +37,7 @@
                     <label>Перейти к следующему шагу - старту задачи</label>
                 </options>
             </submit>
+<!--
             <prev>
                 <type>submit</type>
                 <options>
@@ -44,6 +45,7 @@
                     <label>Перейти к предыдущему шагу - настройке параметров письма</label>
                 </options>
             </prev>
+-->
             <reset>
                 <type>reset</type>
                 <options>

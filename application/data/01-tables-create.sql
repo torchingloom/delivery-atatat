@@ -40,7 +40,7 @@ CREATE TABLE delivery_task
 	`body_plain` TEXT,
 	`body_html` TEXT,
 	`when_start` TIMESTAMP NULL,
-	`type` ENUM('manual', 'auto_by_time') DEFAULT 'manual' COMMENT 'Это поле как бы говорит нам о том, что подписка будет запускаться вручную или же в какое-то время',
+	`type` ENUM('manual', 'auto_by_time') DEFAULT 'auto_by_time' COMMENT 'Это поле как бы говорит нам о том, что подписка будет запускаться вручную или же в какое-то время',
 	`status` ENUM('sheduled', 'executed', 'completed') DEFAULT 'sheduled',
 	PRIMARY KEY (`id`),
 	KEY `name` (`name`),
@@ -99,6 +99,7 @@ CREATE TABLE delivery_user_group
 	`when_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`algo` VARCHAR (100) NULL COMMENT 'Ну типа идентификатор стратегии для автозаполнения',
 	`when_autofill` TIMESTAMP NULL,
+	`autofill_order_position` INT(6) NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`)
 )
 	ENGINE=INNODB 
@@ -156,20 +157,22 @@ VALUES
 	('Проврка', 'Проверка свзяи', 'nobody@snob.ru', 'Hello %first_name%!\nПроверка свзяи!', '<p><b>Hello %first_name%?</b></p><p>Проверка свзяи!</p>')
 ;
 
-INSERT INTO `delivery_user_group`
-	(`name`, `algo`)
-VALUES 
-	('Зарегистрированные на сайте', 'all_subscribers__expiration_date_bigger_now')
-	,('Сотрудники', 'all_employees')
-	,('Партнеры', 'all_partners')
-	,('Участники проекта - действительные', 'all_subscribers__premium_and_expiration_date_bigger_now')
-	,('Участники проекта - не действительные', 'all_subscribers__premium_and_expiration_date_smaller_now')
-	,('Подписчики журнала - действительные', 'all_subscribers__starting_and_expiration_date_bigger_now')
-	,('Подписчики журнала - не действительные', 'all_subscribers__starting_and_expiration_date_smaller_now')
-	,('Все действующие ЧК', 'all_snobs__expiration_date_bigger_now')
-	,('Все бывшие ЧК', 'all_snobs__expiration_date_smaller_now')
-	,('Бывшие участники', 'all_subscribers__expiration_date_smaller_now')
-	,('Гости', 'all_guests')
+SET @autofill_order_position := 0;
 
---	,('Все за все времена (ух, предчувствую тормоза...)', 'all_subscribers')
+INSERT INTO `delivery_user_group`
+	(`name`, `algo`, `autofill_order_position`)
+VALUES 
+	('Сотрудники', 'all_employees', @autofill_order_position := @autofill_order_position + 100)
+	,('Партнеры', 'all_partners', @autofill_order_position := @autofill_order_position + 100)
+	,('Все действующие ЧК', 'all_snobs__expiration_date_bigger_now', @autofill_order_position := @autofill_order_position + 100)
+	,('Все бывшие ЧК', 'all_snobs__expiration_date_smaller_now', @autofill_order_position := @autofill_order_position + 100)
+	,('Участники проекта - действительные', 'all_subscribers__premium_and_expiration_date_bigger_now', @autofill_order_position := @autofill_order_position + 100)
+	,('Участники проекта - не действительные', 'all_subscribers__premium_and_expiration_date_smaller_now', @autofill_order_position := @autofill_order_position + 100)
+	,('Подписчики журнала - действительные', 'all_subscribers__starting_and_expiration_date_bigger_now', @autofill_order_position := @autofill_order_position + 100)
+	,('Подписчики журнала - не действительные', 'all_subscribers__starting_and_expiration_date_smaller_now', @autofill_order_position := @autofill_order_position + 100)
+	,('Гости', 'all_guests', @autofill_order_position := @autofill_order_position + 100)
+	,('Бывшие участники', 'all_subscribers__expiration_date_smaller_now', @autofill_order_position := @autofill_order_position + 100)
+	,('Зарегистрированные на сайте', 'all_subscribers__expiration_date_bigger_now', @autofill_order_position := @autofill_order_position + 100)
+
+--	,('Все за все времена (ух, предчувствую тормоза...)', 'all_subscribers', @autofill_order_position := @autofill_order_position + 100)
 ;
