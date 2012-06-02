@@ -4,17 +4,18 @@ USE snob_delivery;
 -- SET FOREIGN_KEY_CHECKS=0;
 
 
-DROP TABLE IF EXISTS delivery_template;
-DROP TABLE IF EXISTS delivery_user_to_group;
-DROP TABLE IF EXISTS delivery_user_group;
-DROP TABLE IF EXISTS delivery_user_to_task;
-DROP TABLE IF EXISTS delivery_task;
-DROP TABLE IF EXISTS delivery_user;
+DROP TABLE IF EXISTS `delivery_template`;
+DROP TABLE IF EXISTS `delivery_user_to_group`;
+DROP TABLE IF EXISTS `delivery_user_group_category`;
+DROP TABLE IF EXISTS `delivery_user_group`;
+DROP TABLE IF EXISTS `delivery_user_to_task`;
+DROP TABLE IF EXISTS `delivery_task`;
+DROP TABLE IF EXISTS `delivery_user`;
 
 
 
 
-CREATE TABLE delivery_template
+CREATE TABLE `delivery_template`
 (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(200) NOT NULL,
@@ -31,7 +32,7 @@ CREATE TABLE delivery_template
 ;
 
 
-CREATE TABLE delivery_task
+CREATE TABLE `delivery_task`
 (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(2000) NOT NULL,
@@ -54,7 +55,7 @@ CREATE TABLE delivery_task
 ;
 
 
-CREATE TABLE delivery_user
+CREATE TABLE `delivery_user`
 (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`email` VARCHAR(200) NOT NULL,
@@ -92,15 +93,30 @@ CREATE TABLE delivery_user
 
 
 
-CREATE TABLE delivery_user_group
+CREATE TABLE `delivery_user_group_category`
 (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(200) NOT NULL,
+	PRIMARY KEY (`id`)
+)
+	ENGINE=INNODB 
+	DEFAULT CHARSET=utf8
+;
+
+CREATE TABLE `delivery_user_group`
+(
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`category_id` INT(11) UNSIGNED NULL,
 	`name` VARCHAR(200) NOT NULL,
 	`when_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`algo` VARCHAR (100) NULL COMMENT 'Ну типа идентификатор стратегии для автозаполнения',
 	`when_autofill` TIMESTAMP NULL,
 	`autofill_order_position` INT(6) NOT NULL DEFAULT 0,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	CONSTRAINT `fk_delivery_user_group__category_id` FOREIGN KEY (`category_id`) REFERENCES `delivery_user_group_category` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	KEY `category_id` (`category_id`),
+	KEY `algo` (`algo`),
+	KEY `when_autofill_n_autofill_order_position` (`when_autofill`, `autofill_order_position`)
 )
 	ENGINE=INNODB 
 	DEFAULT CHARSET=utf8
@@ -157,22 +173,28 @@ VALUES
 	('Проврка', 'Проверка свзяи', 'nobody@snob.ru', 'Hello %first_name%!\nПроверка свзяи!', '<p><b>Hello %first_name%?</b></p><p>Проверка свзяи!</p>')
 ;
 
+INSERT INTO `delivery_user_group_category`
+	(`name`)
+VALUES
+	('Зарегистрированные'), ('ЧК'), ('Участники'), ('Подписчики'), ('Другие'), ('Гости'), ('Пользовательские')
+;
+
 SET @autofill_order_position := 0;
 
 INSERT INTO `delivery_user_group`
-	(`name`, `algo`, `autofill_order_position`)
+	(`name`, `algo`, `category_id`, `autofill_order_position`)
 VALUES 
-	('Сотрудники', 'all_employees', @autofill_order_position := @autofill_order_position + 100)
-	,('Партнеры', 'all_partners', @autofill_order_position := @autofill_order_position + 100)
-	,('Все действующие ЧК', 'all_snobs__expiration_date_bigger_now', @autofill_order_position := @autofill_order_position + 100)
-	,('Все бывшие ЧК', 'all_snobs__expiration_date_smaller_now', @autofill_order_position := @autofill_order_position + 100)
-	,('Участники проекта - действительные', 'all_subscribers__premium_and_expiration_date_bigger_now', @autofill_order_position := @autofill_order_position + 100)
-	,('Участники проекта - не действительные', 'all_subscribers__premium_and_expiration_date_smaller_now', @autofill_order_position := @autofill_order_position + 100)
-	,('Подписчики журнала - действительные', 'all_subscribers__starting_and_expiration_date_bigger_now', @autofill_order_position := @autofill_order_position + 100)
-	,('Подписчики журнала - не действительные', 'all_subscribers__starting_and_expiration_date_smaller_now', @autofill_order_position := @autofill_order_position + 100)
-	,('Гости', 'all_guests', @autofill_order_position := @autofill_order_position + 100)
-	,('Бывшие участники', 'all_subscribers__expiration_date_smaller_now', @autofill_order_position := @autofill_order_position + 100)
-	,('Зарегистрированные на сайте', 'all_subscribers__expiration_date_bigger_now', @autofill_order_position := @autofill_order_position + 100)
+	('Сотрудники', 'all_employees', 5, @autofill_order_position := @autofill_order_position + 100)
+	,('Партнеры', 'all_partners', 5, @autofill_order_position := @autofill_order_position + 100)
+	,('Все действующие ЧК', 'all_snobs__expiration_date_bigger_now', 2, @autofill_order_position := @autofill_order_position + 100)
+	,('Все бывшие ЧК', 'all_snobs__expiration_date_smaller_now', 2, @autofill_order_position := @autofill_order_position + 100)
+	,('Участники проекта - действительные', 'all_subscribers__premium_and_expiration_date_bigger_now', 3, @autofill_order_position := @autofill_order_position + 100)
+	,('Участники проекта - не действительные', 'all_subscribers__premium_and_expiration_date_smaller_now', 3, @autofill_order_position := @autofill_order_position + 100)
+	,('Подписчики журнала - действительные', 'all_subscribers__starting_and_expiration_date_bigger_now', 4, @autofill_order_position := @autofill_order_position + 100)
+	,('Подписчики журнала - не действительные', 'all_subscribers__starting_and_expiration_date_smaller_now', 4, @autofill_order_position := @autofill_order_position + 100)
+	,('Гости', 'all_guests', 6, @autofill_order_position := @autofill_order_position + 100)
+	,('Бывшие участники', 'all_subscribers__expiration_date_smaller_now', 1, @autofill_order_position := @autofill_order_position + 100)
+	,('Зарегистрированные на сайте', 'all_subscribers__expiration_date_bigger_now', 1, @autofill_order_position := @autofill_order_position + 100)
 
 --	,('Все за все времена (ух, предчувствую тормоза...)', 'all_subscribers', @autofill_order_position := @autofill_order_position + 100)
 ;

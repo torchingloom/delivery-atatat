@@ -22,7 +22,7 @@ class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
             || empty($this->_sourceModel['collection'])
         )
         {
-            throw new Service_Form_Element_SelectFromModel_Exception;
+            throw new Service_Form_Element_SelectFromModel_Exception('Source model not set');
         }
     }
     
@@ -56,7 +56,7 @@ class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
     {
         if (!class_exists($sModelClass = "\\Domain\\Model\\{$this->_sourceModel['name']}"))
         {
-            throw new Service_Form_Element_SelectFromModel_Exception;
+            throw new Service_Form_Element_SelectFromModel_Exception('Source model class not found');
         }
         /* @var $oModel \Domain\Model\Model */
         $oModel = new $sModelClass (!empty($this->_sourceModel['options']) ? $this->_sourceModel['options'] : null);

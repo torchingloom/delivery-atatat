@@ -38,6 +38,17 @@
                 <type>Hidden</type>
                 <name>id</name>
             </id>
+            <category_id>
+                <type>SelectFromModel</type>
+                <options>
+                    <label>Категория</label>
+                    <description>Поле только для удобства отображения в списках</description>
+                    <sourceModel>
+                        <name>UserGroupCategory</name>
+                        <collection>list</collection>
+                    </sourceModel>
+                </options>
+            </category_id>
             <name>
                 <type>Text</type>
                 <options>
