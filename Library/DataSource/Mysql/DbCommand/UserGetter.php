@@ -26,13 +26,6 @@ class UserGetter extends DbCommand
 
         $sql = $this->sql($params);
 
-//        if ($params['filters'])
-//        if (!empty($params['person_type_id']) && in_array(2, $params['person_type_id']))
-        {
-//            \Utils::printr($sql);
-//            exit();
-        }
-
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->_connection->query($sql);
         $oDBStatatement->setFetch($params['__FETCH__']);

@@ -41,7 +41,7 @@ CREATE TABLE delivery_task
 	`body_html` TEXT,
 	`when_start` TIMESTAMP NULL,
 	`type` ENUM('manual', 'auto_by_time') DEFAULT 'auto_by_time' COMMENT 'Это поле как бы говорит нам о том, что подписка будет запускаться вручную или же в какое-то время',
-	`status` ENUM('sheduled', 'executed', 'completed') DEFAULT 'sheduled',
+	`status` ENUM('scheduled', 'completed') DEFAULT 'scheduled',
 	PRIMARY KEY (`id`),
 	KEY `name` (`name`),
 	KEY `type` (`type`),

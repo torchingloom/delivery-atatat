@@ -19,14 +19,26 @@ class Task extends Entity
 {
     public function send()
     {
+        $result = array();
         $oMailer = new \Service\Mail\Mailer();
         $oMailer->SetFrom($this->from);
         /** @var $oUser User */
         foreach ($this->getChilds('user') AS $oUser)
         {
-            $oMailer->send($this->testemail ?: $oUser->email, $this->messageBuild($oUser));
+            if ($oUser->when_send)
+            {
+                continue;
+            }
+            if ($oMailer->send($this->testemail ?: $oUser->email, $this->messageBuild($oUser)))
+            {
+                $result[] = $oUser->id;
+            }
         }
-        return true;
+        if (!$this->testemail && $result)
+        {
+            $this->userMarkAsSend($result);
+        }
+        return array('sendto' => $result, 'status' => $this->tryMarkAsComplete());
     }
 
     /**
@@ -40,6 +52,16 @@ class Task extends Entity
         $oMsg->body('html', \Utils::sprintf($this->body_html, $oUser->toArray()));
         $oMsg->subject(\Utils::sprintf($this->subject, $oUser->toArray()));
         return $oMsg;
+    }
+
+    protected function userMarkAsSend($who)
+    {
+        return \Service\Registry::get('db_default')->TaskUserMarkAsSet($this->id, $who);
+    }
+
+    protected function tryMarkAsComplete()
+    {
+        return \Service\Registry::get('db_default')->TaskTryMarkAsComplete($this->id);
     }
 
     public function toString()

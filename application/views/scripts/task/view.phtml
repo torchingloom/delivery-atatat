@@ -16,6 +16,9 @@
             <dt>От кого</dt>
             <dd><? echo $oTask->from ?></dd>
 
+            <dt>Запланирована на</dt>
+            <dd><? echo date('Y-m-d H:i', strtotime($oTask->when_start)) ?></dd>
+
             <dt>Текст</dt>
             <dd><textarea><? echo $oTask->body_plain ?></textarea></dd>
 

@@ -22,6 +22,17 @@ class IndexController extends \Controller_Action
         }
     }
 
+    public function tasksExecAction()
+    {
+        $oModel = new \Domain\Model\Task(array('status' => 'scheduled', 'when_start' => '<= NOW()'));
+        /** @var $oTask \Domain\Entity\Task */
+        foreach ($oModel->getCollection('list') AS $oTask)
+        {
+            $taskres = $oTask->send();
+            echo "\nTask: #{$oTask->id} '{$oTask->name}', total {$oTask->getChildTotalCount('user')}, send to ". count($taskres['sendto']) .", status '{$taskres['status']}'.";
+        }
+    }
+
     public function downloadDataAction()
     {
         $cfg = \Service\Config::get('database.default.params');
