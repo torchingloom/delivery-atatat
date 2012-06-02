@@ -69,15 +69,6 @@
                 <options>
                     <label>HTML</label>
                     <required>1</required>
-                    <validators>
-                        <strlen>
-                            <validator>StringLength</validator>
-                            <options>
-                                <min>10</min>
-                                <max>500</max>
-                            </options>
-                        </strlen>
-                    </validators>
                 </options>
             </body_html>
 <!--

@@ -37,15 +37,6 @@
                 <options>
                     <label>HTML</label>
                     <required>1</required>
-                    <validators>
-                        <strlen>
-                            <validator>StringLength</validator>
-                            <options>
-                                <min>10</min>
-                                <max>500</max>
-                            </options>
-                        </strlen>
-                    </validators>
                 </options>
             </body_html>
 <!--
@@ -74,7 +65,7 @@
                     <label>Перейти к следующему шагу - выбору пользователей</label>
                 </options>
             </submit>
-<!--
+
             <prev>
                 <type>submit</type>
                 <options>
@@ -82,7 +73,7 @@
                     <label>Перейти к предыдущему шагу - выбору шаблона</label>
                 </options>
             </prev>
--->
+
             <reset>
                 <type>reset</type>
                 <options>

@@ -82,6 +82,11 @@ class TaskController extends \Controller_Action
             $oForm = new $class();
         }
 
+        if (!empty($_POST['prev']) && $prevstep = $this->step('prev'))
+        {
+            $this->_redirect("/task/new/{$prevstep}");
+        }
+
         if ($_POST && $oForm->isValid($_POST))
         {
             $this->stepDataSet($this->step(), $oForm);
@@ -91,12 +96,9 @@ class TaskController extends \Controller_Action
                 $oTask = new \Domain\Entity\Task_Test(\DataType\Form_Task_DataPreparator::prepare($this->stepData()));
                 $oForm->testitResultSet($oTask->send());
             }
-            elseif ($this->step('next'))
+            elseif ($nextstep = $this->step('next'))
             {
-                if ($nextstep = $this->step('next'))
-                {
-                    $this->_redirect("/task/new/{$nextstep}");
-                }
+                $this->_redirect("/task/new/{$nextstep}");
             }
             else
             {

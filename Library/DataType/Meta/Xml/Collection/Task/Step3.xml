@@ -51,7 +51,6 @@
                 </options>
             </testit>
 
-<!--
 
             <prev>
                 <type>submit</type>
@@ -60,7 +59,6 @@
                     <label>Перейти к предыдущему шагу - выбору пользователей</label>
                 </options>
             </prev>
--->
         </elements>
 
         <DisplayGroups>
