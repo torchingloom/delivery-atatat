@@ -12,7 +12,7 @@
     </dataRemove>
 
     <children>
-        <entry
+        <user
             method="UserGetter"
             methodTotalCount="UserTotalCountGetter"
             appendMethod="appendUser"
@@ -20,6 +20,10 @@
             appendTotalCountValueField="count"
             parent="id:task_id"
             child="task_id"
-        />
+        >
+            <params>
+                <status>1</status>
+            </params>
+        </user>
     </children>
 </type>

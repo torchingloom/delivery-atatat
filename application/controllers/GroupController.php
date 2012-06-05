@@ -44,11 +44,13 @@ class GroupController extends \Controller_Action
         if ($_POST && $oForm->isValid($_POST))
         {
             unset($_POST['submit']);
-            $oCollection->store(array($_POST));
-            $oForm->messageShow('save');
-            if ($isNew)
+            if ($result = $oCollection->store(array($_POST)))
             {
-                $this->_redirect('/group/'. current(current($result)));
+                $oForm->messageShow('save');
+                if ($isNew)
+                {
+                    $this->_redirect('/group/'. current(current($result)));
+                }
             }
         }
     }
