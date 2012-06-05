@@ -11,6 +11,19 @@ class GroupController extends \Controller_Action
 //        $this->view->oModel = new Domain\Model\UserGroup(array('without_childs' => array('user')));
         $this->view->oModel = new Domain\Model\UserGroupCategory();
     }
+    
+    public function rmAction()
+    {
+        $oModel = new Domain\Model\UserGroup(array('id' => $id = $this->_request->getParam('id')));
+        $oCollection = $oModel->getCollection('list');
+        /* @var $oGroup Domain\Entity\UserGroup */
+        if (!($oGroup = $oCollection->current()))
+        {
+            $this->_redirect('/error/usergroupnotfound');
+        }
+        $oCollection->remove(array($id));
+        $this->_redirect('/group/list');
+    }
 
     public function viewAction()
     {

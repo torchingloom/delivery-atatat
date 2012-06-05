@@ -99,7 +99,8 @@ CREATE TABLE `delivery_user_group_category`
 (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(200) NOT NULL,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `name` (`name`)
 )
 	ENGINE=INNODB 
 	DEFAULT CHARSET=utf8
@@ -115,6 +116,7 @@ CREATE TABLE `delivery_user_group`
 	`when_autofill` TIMESTAMP NULL,
 	`autofill_order_position` INT(6) NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`),
+	UNIQUE KEY `name` (`name`),
 	CONSTRAINT `fk_delivery_user_group__category_id` FOREIGN KEY (`category_id`) REFERENCES `delivery_user_group_category` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 	KEY `category_id` (`category_id`),
 	KEY `algo` (`algo`),
