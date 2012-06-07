@@ -441,12 +441,12 @@ s.ie7 body {
     display: block;
     width: 50px;
     height: 19px;
-    background-image: url(/img/multielement-move-right.png);
+    background-image: url(/i/multielement-move-right.png);
 }
 
 .form-wrapper .multielement-control .multielement-move-left
 {
-    background-image: url(/img/multielement-move-left.png);
+    background-image: url(/i/multielement-move-left.png);
 }
 
 .form-wrapper .multielement-source-autocomlite INPUT
@@ -519,9 +519,25 @@ s.ie7 body {
     background-color: #90ee90;
 }
 
+.list
+{
+    margin-left: 50px;
+}
+
+.list .delete A
+{
+    font-size: 80%;
+    color: orange;
+}
+
 .list UL
 {
     margin-left: 50px;
+}
+
+.list LI
+{
+    margin-top: 10px;
 }
 
 .submenu

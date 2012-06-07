@@ -46,7 +46,7 @@ class Collection extends \Domain\Collection
         {
             if (!$data)
             {
-                $data = $this->toArray();
+                $data = $this->content;
             }
             $db = \Service\Registry::get("db_{$this->dataSourceCall['methodStore']['db']}");
             $result = call_user_func_array(array($db, $this->dataSourceCall['methodStore']['method']), array($data));

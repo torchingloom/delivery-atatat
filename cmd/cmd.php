@@ -6,6 +6,7 @@ ini_set('memory_limit', (1024 * 2) .'M');
 //php cmd/cmd.php "[staging]" upload-data test
 //php cmd/cmd.php "[staging]" groups-autofill
 //php cmd/cmd.php "[staging]" tasks-exec
+//php cmd/cmd.php "[staging]" template-convert
 $_START_ = microtime(true);
 
 

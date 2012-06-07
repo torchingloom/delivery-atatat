@@ -33,7 +33,7 @@ class SnobUserSetter extends DbCommand
         if ($sql)
         {
             $sql = "INSERT INTO `delivery_user`\n(`". join('`, `', array_slice(array_keys(self::fields()), 2)) ."`)\nVALUES\n" . $sql;
-            $this->_connection->query($sql);
+            $this->query($sql);
         }
 
         foreach ($arr['update'] AS $item)
@@ -48,7 +48,7 @@ class SnobUserSetter extends DbCommand
                 $sql .= ($sql ? ',' : '') ."\n`{$name}` = '{$valuev}'";
             }
             $sql = str_replace("''", "NULL", "UPDATE\n`delivery_user`\nSET{$sql}\nWHERE `id` = {$item['id']}");
-            $this->_connection->query($sql);
+            $this->query($sql);
         }
 
         return array('insert' => count($arr['insert']), 'update' => count($arr['update']));

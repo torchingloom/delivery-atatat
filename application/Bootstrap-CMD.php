@@ -35,4 +35,27 @@ class BootstrapCmd extends Bootstrap
 
         \Service\Registry::set('db_snob', $db);
     }
+
+    protected function _initDbOldDelivery()
+    {
+        $_params = \Service\Config::get('database/old_delivery/params')->toArray();
+
+        // пока что прям так
+        $db = new \DataSource\Mysql\Mysql
+        (
+            new \DataSource\Mysql\Adapter
+            (
+                array
+                (
+                    'host'     => $_params['host'],
+                    'username' => $_params['username'],
+                    'password' => $_params['password'],
+                    'dbname'   => $_params['dbname'],
+                    'charset'  => 'utf8'
+                )
+            )
+        );
+
+        \Service\Registry::set('db_old_delivery', $db);
+    }
 }

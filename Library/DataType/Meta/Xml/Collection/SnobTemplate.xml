@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<type name="SnobTemplate">
+    <dataSource>
+        <db>old_delivery</db>
+        <method>SnobTemplateGetter</method>
+    </dataSource>
+    <dataStore>
+        <method>SnobTemplateSetter</method>
+    </dataStore>
+</type>

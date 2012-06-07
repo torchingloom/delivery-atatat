@@ -33,6 +33,16 @@ class IndexController extends \Controller_Action
         }
     }
 
+    public function templateConvertAction()
+    {
+        $oModel = new \Domain\Model\SnobTemplate(array('deleted' => 0));
+        /** @var $oCollection \Domain\Collection\SnobTemplate */
+        $oCollection = $oModel->getCollection('list');
+        $create = $oCollection->store();
+        $create = count($create['create']);
+        echo "Create {$create} ". Utils::pluralNumeric($create, 'template', 'templates', 'templates');
+    }
+
     public function downloadDataAction()
     {
         $cfg = \Service\Config::get('database.default.params');

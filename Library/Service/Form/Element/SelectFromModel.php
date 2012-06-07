@@ -65,7 +65,6 @@ class Service_Form_Element_SelectFromModel extends Zend_Form_Element_Select
             throw new Service_Form_Element_SelectFromModel_Exception;
         }
 
-
         /* @var $oEntity \Domain\Entity\Entity */
         foreach ($oCollection AS $oEntity)
         {
