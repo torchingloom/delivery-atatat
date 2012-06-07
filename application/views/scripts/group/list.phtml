@@ -34,7 +34,7 @@
 
         <? if (!$oGroup->algo): ?>
 
-        <a href="/group/rm/<? echo $oGroup->id ?>" onclick="return confirm('Нажмите OK, если вы хотите удалить группу\n<? echo preg_replace('/[\'"]/ims', '&quot;', $oGroup->name) ?> полностью')">Удалить</a>
+        <span class="delete"><a href="/group/rm/<? echo $oGroup->id ?>" onclick="return confirm('Нажмите OK, если вы хотите полностью удалить группу\n<? echo preg_replace('/[\'"]/ims', '&quot;', $oGroup->name) ?>')">Удалить</a></span>
 
         <? endif; ?>
 

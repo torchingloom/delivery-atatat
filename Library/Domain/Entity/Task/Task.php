@@ -22,16 +22,19 @@ class Task extends Entity
         $result = array();
         $oMailer = new \Service\Mail\Mailer();
         $oMailer->SetFrom($this->from);
-        /** @var $oUser User */
-        foreach ($this->getChilds('user') AS $oUser)
+        if ($aUsers = $this->getChilds('user'))
         {
-            if ($oUser->when_send)
+            /** @var $oUser User */
+            foreach ($this->getChilds('user') AS $oUser)
             {
-                continue;
-            }
-            if ($oMailer->send($this->testemail ?: $oUser->email, $this->messageBuild($oUser)))
-            {
-                $result[] = $oUser->id;
+                if ($oUser->when_send)
+                {
+                    continue;
+                }
+                if ($oMailer->send($this->testemail ?: $oUser->email, $this->messageBuild($oUser)))
+                {
+                    $result[] = $oUser->id;
+                }
             }
         }
         if (!$this->testemail && $result)
@@ -49,8 +52,12 @@ class Task extends Entity
     protected function messageBuild($oUser)
     {
         $oMsg = new \Service\Mail\Message();
-        $oMsg->body('html', \Utils::sprintf($this->body_html, $oUser->toArray()));
-        $oMsg->subject(\Utils::sprintf($this->subject, $oUser->toArray()));
+
+        $sBody = \Utils::sprintf($this->body_html, $oUser->toArray(), '%var');
+        $sBody = \str_replace('../i/', \Service\Config::get('site.url') .'/i/', $sBody);
+
+        $oMsg->body('html', $sBody);
+        $oMsg->subject(\Utils::sprintf($this->subject, $oUser->toArray(), '%var'));
         return $oMsg;
     }
 

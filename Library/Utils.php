@@ -20,12 +20,12 @@ class Utils
         }
     }
 
-    static function sprintf($string, $vars = array())
+    static function sprintf($string, $vars = array(), $tpl = '%var%')
     {
         $replace = array('from' => array_keys($vars), 'to' => array_values($vars));
         foreach ($replace['from'] AS &$valuev)
         {
-            $valuev = '%'. $valuev .'%';
+            $valuev = \str_replace('var', $valuev, $tpl);
         }
         return \str_replace($replace['from'], $replace['to'], $string);
     }

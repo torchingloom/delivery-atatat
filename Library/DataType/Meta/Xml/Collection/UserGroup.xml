@@ -25,6 +25,8 @@
 
             <params>
                 <noorder>1</noorder>
+                <FETCH_KEY>id</FETCH_KEY>
+                <FETCH_KEY>group_id</FETCH_KEY>
             </params>
         </user>
         <category

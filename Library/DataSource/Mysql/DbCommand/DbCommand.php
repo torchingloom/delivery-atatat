@@ -64,6 +64,12 @@ class DbCommand
         }
         $params['__FETCH__'] = array_merge($defaults['__FETCH__'], $params['__FETCH__']);
 
+        if (!empty($params['FETCH_KEY']))
+        {
+            $params['__FETCH__']['key'] = $params['FETCH_KEY'];
+            unset($params['FETCH_KEY']);
+        }
+
         return $params;
 	}
 

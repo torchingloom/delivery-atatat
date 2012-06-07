@@ -23,6 +23,8 @@
         >
             <params>
                 <status>1</status>
+                <FETCH_KEY>id</FETCH_KEY>
+                <FETCH_KEY>task_id</FETCH_KEY>
             </params>
         </user>
     </children>

@@ -24,11 +24,9 @@ class UserGetter extends DbCommand
                 '__FETCH__' => array('class' => '\Domain\Entity\User'/*, 'factory' => '\Domain\Entity\User::factory'*/)
             )
         );
-
         $sql = $this->sql($params);
-
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
-        $oDBStatatement = $this->_connection->query($sql);
+        $oDBStatatement = $this->query($sql);
         $oDBStatatement->setFetch($params['__FETCH__']);
         $result = $oDBStatatement->fetchAll();
         return $result;
