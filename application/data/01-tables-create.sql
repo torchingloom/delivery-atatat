@@ -6,8 +6,8 @@ USE snob_delivery;
 
 DROP TABLE IF EXISTS `delivery_template`;
 DROP TABLE IF EXISTS `delivery_user_to_group`;
-DROP TABLE IF EXISTS `delivery_user_group_category`;
 DROP TABLE IF EXISTS `delivery_user_group`;
+DROP TABLE IF EXISTS `delivery_user_group_category`;
 DROP TABLE IF EXISTS `delivery_user_to_task`;
 DROP TABLE IF EXISTS `delivery_task`;
 DROP TABLE IF EXISTS `delivery_user`;
@@ -23,6 +23,7 @@ CREATE TABLE `delivery_template`
 	`from` VARCHAR(100) NOT NULL,
 	`body_plain` TEXT,
 	`body_html` TEXT,
+	`kind` ENUM('default', 'system') NOT NULL DEFAULT 'default',
 	PRIMARY KEY (`id`),
 	KEY `name` (`name`),
 	KEY `from` (`from`)
@@ -61,8 +62,8 @@ CREATE TABLE `delivery_user`
 	`email` VARCHAR(200) NOT NULL,
 	`login` VARCHAR(100) NOT NULL,
 	`sex` TINYINT(1) NOT NULL DEFAULT 0,
-	`first_name` VARCHAR(200),
-	`last_name` VARCHAR(200) NOT NULL,
+	`first_name` VARCHAR(200) NOT NULL,
+	`last_name` VARCHAR(200),
 	`when_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`snob_user_id` INT(11) NULL,
 	`snob_person_type` ENUM ('editor', 'snob', 'starting', 'basic', 'premium') NULL COMMENT '
@@ -76,6 +77,8 @@ CREATE TABLE `delivery_user`
 	`subscribe_start_date` TIMESTAMP NULL,
 	`subscribe_end_date` TIMESTAMP NULL,
 	`is_paid` TINYINT(1) NOT NULL DEFAULT 0,
+	`status` ENUM('pending', 'deleted', 'normal') NOT NULL DEFAULT 'normal',
+	`activate_code` VARCHAR(32) NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `email` (`email`),
 	KEY `snob_user_id` (`snob_user_id`),
@@ -171,10 +174,10 @@ CREATE TABLE delivery_user_to_task
 
 
 INSERT INTO `delivery_template`
-	(`name`, `subject`, `from`, `body_plain`, `body_html`)
+	(`name`, `subject`, `from`, `body_html`, `kind`)
 VALUES 
-	('Вышли стошку баксов', 'Тема такая - вышли стошку баксов', 'noreply@snob.ru', 'Hello %first_name%?\nВышли стошку баксов, брат!', '<p><b>Hello %first_name%?</b></p><p>Вышли стошку баксов, брат!</p>'),
-	('Проврка', 'Проверка свзяи', 'nobody@snob.ru', 'Hello %first_name%!\nПроверка свзяи!', '<p><b>Hello %first_name%?</b></p><p>Проверка свзяи!</p>')
+	('Подписка - запрос подтверждения', 'Запрос подтверждение регистрации', 'snob@snob.ru', '<p>Hello, %first_name!</p><p>Кто-то, возможно что и вы, указал этот электронный адрес (%email) на snob.ru!</p><p>Если вы действительно хотите обратиться к свету, то перейдите по ссылке %site_url/confirm/%activate_code</p><p>Или прозябайте во тьме</p>', 'system'),
+	('Подписка - информирование о подтверждении', 'Подтверждение регистрации', 'snob@snob.ru', '<p>Радостно приветствуем, %first_name!</p><p>Теперь вы не останетесь в неведении</p>', 'system')
 ;
 
 INSERT INTO `delivery_user_group_category`
@@ -188,6 +191,7 @@ SET @autofill_order_position := 0;
 INSERT INTO `delivery_user_group`
 	(`name`, `algo`, `category_id`, `autofill_order_position`)
 VALUES 
+
 	('Сотрудники', 'all_employees', 5, @autofill_order_position := @autofill_order_position + 100)
 	,('Партнеры', 'all_partners', 5, @autofill_order_position := @autofill_order_position + 100)
 	,('Все действующие ЧК', 'all_snobs__expiration_date_bigger_now', 2, @autofill_order_position := @autofill_order_position + 100)

@@ -16,6 +16,8 @@ namespace Domain\Entity;
  * @property mixed $subscribe_start_date
  * @property mixed $subscribe_end_date
  * @property mixed $is_paid
+ * @property mixed $status
+ * @property mixed $activate_code
  */
 
 
@@ -35,6 +37,7 @@ class User extends Entity
 
     public function toString()
     {
-        return "{$this->last_name} {$this->first_name} ({$this->email}) [". date('d.m.Y', strtotime($this->subscribe_end_date)) ."]";
+//        return "{$this->last_name} {$this->first_name} ({$this->email}) [". date('d.m.Y', strtotime($this->subscribe_end_date)) ."]";
+        return "{$this->last_name} {$this->first_name} ({$this->email})". ($this->subscribe_end_date ? " [". date('d.m.Y', strtotime($this->subscribe_end_date)) ."]" : '');
     }
 }

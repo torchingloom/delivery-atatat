@@ -41,4 +41,6 @@
         </defaults>
     </task-new>
 
+    <error rule="confirm/:code" controller="user" action="confirm" />
+
 </route>

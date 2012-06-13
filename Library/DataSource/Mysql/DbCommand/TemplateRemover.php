@@ -6,6 +6,6 @@ class TemplateRemover extends DbCommand
 {
 	public function TemplateRemover($ids = array())
 	{
-        return $this->_connection->delete("delivery_template", "id IN (". join(',', (array) $ids) .")" );
+        return $this->_connection->delete("delivery_template", "id IN (". join(',', (array) $ids) .") AND kind != 'system'" );
     }
 }

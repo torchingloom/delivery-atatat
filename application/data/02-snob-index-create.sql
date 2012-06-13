@@ -1,5 +1,5 @@
 
-USE snob_full;
+USE snob;
 
 ALTER TABLE person ADD KEY type_id_n_expire_date (`expiration_date`, `person_type_id`);
 ALTER TABLE person ADD KEY type_id_n_email (`email`, `person_type_id`);

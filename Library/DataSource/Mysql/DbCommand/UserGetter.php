@@ -12,6 +12,7 @@ class UserGetter extends DbCommand
             array
             (
                 'id' => null,
+                'isnew' => null,
                 'query' => null,
                 'snob_user_id' => null,
                 'subscribe_end_date' => null,
@@ -21,10 +22,19 @@ class UserGetter extends DbCommand
                 'task_id' => null,
                 'filters' => null,
                 'noorder' => null,
+                'status' => 'normal',
+                'activate_code' => null,
                 '__FETCH__' => array('class' => '\Domain\Entity\User'/*, 'factory' => '\Domain\Entity\User::factory'*/)
             )
         );
+
+        if ($params['isnew'])
+        {
+            return array();
+        }
+
         $sql = $this->sql($params);
+
         /* @var $oDBStatatement \RG\DataSource\Mysql\Statement */
         $oDBStatatement = $this->query($sql);
         $oDBStatatement->setFetch($params['__FETCH__']);
@@ -75,6 +85,14 @@ FROM
 
 WHERE
     true
+
+<? if ($params['status']): ?>
+    AND `delivery_user`.`status` IN ("<? echo join('", "', (array) $params['status']) ?>")
+<? endif; ?>
+
+<? if ($params['activate_code']): ?>
+    AND `delivery_user`.`activate_code` IN ("<? echo join('", "', (array) $params['activate_code']) ?>")
+<? endif; ?>
 
 <? if ($params['id']): ?>
     AND `delivery_user`.`id` IN ("<? echo join('", "', (array) $params['id']) ?>")

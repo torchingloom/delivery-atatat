@@ -15,7 +15,7 @@ namespace Domain\Entity;
  * @property mixed $testemail
  */
 
-class Task extends Entity
+class Task extends Template
 {
     public function send()
     {
@@ -31,7 +31,7 @@ class Task extends Entity
                 {
                     continue;
                 }
-                if ($oMailer->send($this->testemail ?: $oUser->email, $this->messageBuild($oUser)))
+                if ($oMailer->send($this->testemail ?: $oUser->email, $this->messageBuild($oUser->toArray())))
                 {
                     $result[] = $oUser->id;
                 }
@@ -42,23 +42,6 @@ class Task extends Entity
             $this->userMarkAsSend($result);
         }
         return array('sendto' => $result, 'status' => $this->tryMarkAsComplete());
-    }
-
-    /**
-     * @static
-     * @param User $oUser
-     * @return \Service\Mail\Message
-     */
-    protected function messageBuild($oUser)
-    {
-        $oMsg = new \Service\Mail\Message();
-
-        $sBody = \Utils::sprintf($this->body_html, $oUser->toArray(), '%var');
-        $sBody = \str_replace('../i/', \Service\Config::get('site.url') .'/i/', $sBody);
-
-        $oMsg->body('html', $sBody);
-        $oMsg->subject(\Utils::sprintf($this->subject, $oUser->toArray(), '%var'));
-        return $oMsg;
     }
 
     protected function userMarkAsSend($who)

@@ -21,7 +21,6 @@ class TplController extends \Controller_Action
         {
             $this->_redirect('/error/tplnotfound');
         }
-
         $oCollection->remove(array($id));
         $this->_redirect('/tpl/list');
     }

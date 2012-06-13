@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<type name="SnobUser">
+<type name="User">
     <dataSource>
         <method>UserGetter</method>
     </dataSource>
+    <dataStore>
+        <method>UserSetter</method>
+    </dataStore>
 </type>

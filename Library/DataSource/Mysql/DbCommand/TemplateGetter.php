@@ -28,15 +28,19 @@ class TemplateGetter extends DbCommand
            ob_start();
 ?>
 
-   SELECT
+    SELECT
        *
-   FROM
-       `delivery_template`
-   WHERE
-       true
+    FROM
+        `delivery_template`
+    WHERE
+        true
 <? if ($params['id']): ?>
-       AND `delivery_template`.`id` IN ("<? echo join('", "', (array) $params['id']) ?>")
+        AND `delivery_template`.`id` IN ("<? echo join('", "', (array) $params['id']) ?>")
 <? endif; ?>
+
+    ORDER BY
+        `delivery_template`.`kind` DESC,
+        `delivery_template`.`id`
 
 <?
            $sql = ob_get_contents();

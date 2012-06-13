@@ -75,11 +75,24 @@ FROM
         AND `person`.`email` = `delivery_user_email_exists`.`email`
 
 
+    LEFT JOIN `<? echo $snobdb ?>`.`person_settings_dict` AS `d` ON true
+        AND `d`.`name` = 'all_from_delivery'
+    LEFT JOIN `<? echo $snobdb ?>`.`person_settings_dict_notice` AS `dn` ON true
+        AND `d`.`id` = `dn`.`person_settings_dict_id`
+    LEFT JOIN `<? echo $snobdb ?>`.`person_settings` AS `s` ON true
+        AND `d`.`id` = `s`.`person_settings_dict_id`
+        AND `s`.`person_id` = `person`.`id`
+    LEFT JOIN `<? echo $snobdb ?>`.`person_settings_notice` AS `sn` ON true
+        AND `s`.`id` = `sn`.`person_settings_id`
+
+
 WHERE
     true
 
     AND `person`.`email` IS NOT NULL
     AND `person`.`email` != ''
+
+    AND COALESCE(`sn`.`email`, `dn`.`default_email`)
 
 <? if ($params['id']): ?>
     AND `person`.`id` IN ("<? echo join('", "', (array) $params['id']) ?>")

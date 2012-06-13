@@ -15,7 +15,16 @@
 <? /* @var $oTpl Domain\Entity\Template */ ?>
 <? foreach ($oList AS $oTpl): ?>
 
-    <li><a href="/tpl/<? echo $oTpl->id ?>"><? echo $oTpl->name ?></a> <span class="delete"><a href="/tpl/rm/<? echo $oTpl->id ?>" onclick="return confirm('Нажмите OK, если вы хотите полностью удалить шаблон\n<? echo preg_replace('/[\'"]/ims', '&quot;', $oTpl->name) ?>')">Удалить</a></span></li>
+    <li>
+        <a href="/tpl/<? echo $oTpl->id ?>"><? echo $oTpl->name ?></a>
+
+    <? if ($oTpl->isDeletable()): ?>
+
+        <span class="delete"><a href="/tpl/rm/<? echo $oTpl->id ?>" onclick="return confirm('Нажмите OK, если вы хотите полностью удалить шаблон\n<? echo preg_replace('/[\'"]/ims', '&quot;', $oTpl->name) ?>')">Удалить</a></span>
+
+    <? endif; ?>
+
+    </li>
 
 <? endforeach; ?>
 
