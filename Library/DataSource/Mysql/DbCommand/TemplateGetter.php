@@ -12,6 +12,7 @@ class TemplateGetter extends DbCommand
             array
             (
                 'id' => null,
+                'kind' => null,
                 '__FETCH__' => array('class' => '\Domain\Entity\Template')
             )
         );
@@ -34,8 +35,13 @@ class TemplateGetter extends DbCommand
         `delivery_template`
     WHERE
         true
+
 <? if ($params['id']): ?>
         AND `delivery_template`.`id` IN ("<? echo join('", "', (array) $params['id']) ?>")
+<? endif; ?>
+
+<? if ($params['kind']): ?>
+        AND `delivery_template`.`kind` IN ("<? echo join('", "', (array) $params['kind']) ?>")
 <? endif; ?>
 
     ORDER BY

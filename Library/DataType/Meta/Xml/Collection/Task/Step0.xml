@@ -12,6 +12,9 @@
                     <sourceModel>
                         <name>Template</name>
                         <collection>list</collection>
+                        <options>
+                            <kind>default</kind>
+                        </options>
                     </sourceModel>
                 </options>
             </template>
